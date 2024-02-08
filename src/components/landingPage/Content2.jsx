@@ -27,7 +27,7 @@ function Content2() {
           </div>
         </div>
         <div className="flex sm:flex-row justify-center items-center sm:gap-x-10 flex-col gap-y-4 p-5">
-          <div className="sm:w-[50%] w-[100%] text-center bg-[#4a5d23] sm:p-5 py-2  border-8 border-[#f0ffac] flex items-center flex-col sm:space-y-5">
+          <div className="sm:w-[50%] w-[100%] text-center bg-[#17253a] sm:p-5 py-2  border-8 border-[#f0ffac] flex items-center flex-col sm:space-y-5">
             <p className="sm:text-2xl sm:font-bold">
               If you are new? register now
             </p>
@@ -37,11 +37,14 @@ function Content2() {
               </button>
             </Link>
           </div>
-          <div className="sm:w-[50%] w-[100%]  text-center  bg-[#4a5d23] sm:p-5 py-2 border-8 border-[#f0ffac] flex items-center flex-col sm:space-y-5">
+          <div className="sm:w-[50%] w-[100%]  text-center  bg-[#17253a] sm:p-5 py-2 border-8 border-[#f0ffac] flex items-center flex-col sm:space-y-5">
             <p className="sm:text-2xl sm:font-bold">
               Already registered ? please log in
             </p>
-           <Link to={"/worker/WorkerLogin"} > <button className="bg-[#202020] p-2 w-32 rounded">Login</button></Link>
+            <Link to={"/worker/WorkerLogin"}>
+              {" "}
+              <button className="bg-[#202020] p-2 w-32 rounded">Login</button>
+            </Link>
           </div>
         </div>
       </div>

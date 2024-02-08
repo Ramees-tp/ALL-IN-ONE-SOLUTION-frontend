@@ -14,7 +14,6 @@ import CommonRouter from "./router/CommonRouter";
 import UserRoutes from "./router/UserRoutes";
 import WorkerRoutes from "./router/WorkerRoutes";
 
-
 function App() {
   return (
     <div>

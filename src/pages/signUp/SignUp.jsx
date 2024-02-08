@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     const nameRegex = /^[a-zA-Z]+(?:[' -][a-zA-Z]+)*$/;
     const passwordRegex =
@@ -39,19 +41,26 @@ const SignUp = () => {
     }
     setError("");
 
-    // Handle signup logic here
-    axios
-      .post("http://localhost:917/user/signUp", {
+    try {
+      const response = await axios.post("http://localhost:917/user/signUp", {
         username,
         email,
         password,
-      })
-      .then((response) => {
-        console.log(response, "RES");
-      })
-      .catch((err) => {
-        console.log(err);
       });
+
+      if (response.status===200) {
+        setError(response.data.message);
+        navigate("/user/uhome");
+        console.log(response.data.message);
+      }
+    } catch (err) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        console.log("An error occured :", err);
+        setError("An error occured.please try again.");
+      }
+    }
   };
 
   return (
@@ -136,12 +145,14 @@ const SignUp = () => {
               />
             </div>
             <div>
-              {error && <div className="text-red-500 mb-4">{error}</div>}
+              {error && (
+                <div className="text-red-500 mb-4 text-center">{error}</div>
+              )}
             </div>
 
             <div className="flex justify-center items-center">
               <button
-                className="p-2 px-10 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 "
+                className="p-2 px-10 bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-800 "
                 type="submit"
                 // onClick={handleSignup}
               >
@@ -151,7 +162,11 @@ const SignUp = () => {
             <div className="text-center py-3 text-white">
               <p>
                 Alredy a user? please
-                <span className="text-blue-400">SignIn</span>
+                <Link to={"/user/login"}>
+                  <span className="text-blue-400 ml-3 hover:text-blue-700 cursor-pointer">
+                    LogIn
+                  </span>
+                </Link>
               </p>
             </div>
           </form>

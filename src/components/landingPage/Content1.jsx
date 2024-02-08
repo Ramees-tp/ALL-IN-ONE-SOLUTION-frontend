@@ -16,7 +16,7 @@ function Content1() {
               ALL IN ONE SOLUTION
             </h1>
           </div>
-          <div className="bg-[#293512] p-4 text-left text-white  space-y-1">
+          <div className="bg-[#17253a] p-4 text-left text-white  space-y-1">
             <h1 className="sm:text-center sm:text-[100%] text-[70%]">
               India's premier work contract platform and leading job provider,
               where opportunities meet ambition, and careers are crafted.

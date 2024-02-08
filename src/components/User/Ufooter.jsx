@@ -5,7 +5,7 @@ import insta from "../../assets/icons/instagram (1).png";
 
 function Ufooter() {
   return (
-    <div className=" grid grid-cols-2 bg-black text-white sm:px-28 px-4 sm:py-16 py-4">
+    <div className=" grid grid-cols-2 bg-[#17253a;] text-white sm:px-28 px-4 sm:py-16 py-4">
       <div className="flex flex-col gap-y-5">
         <p className="font-bold sm:text-2xl ">About us</p>
         <div>
