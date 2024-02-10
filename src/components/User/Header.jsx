@@ -3,7 +3,7 @@ import search from "../../assets/icons/search.png";
 import location from "../../assets/icons/location (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faLocationPin,
+  faLocationDot,
   faBars,
   faXmark,
   faSearch,
@@ -33,7 +33,7 @@ function Header() {
   return (
     <div>
       <div>
-        <nav>
+        <nav className="md:px-12">
           <ul className={`sidebar ${sidebarVisible ? "show" : ""}`}>
             <li onClick={hideSidebar}>
               <a className="flex items-end">
@@ -58,7 +58,7 @@ function Header() {
           </ul>
 
           <ul>
-            <div className="md:text-3xl sm:text-2xl text-xl text-center">
+            <div className="md:text-3xl sm:text-2xl text-lg text-center">
               <p>ALL IN ONE</p> SOLUTION
             </div>
             <div className="flex md:flex-col flex-row-reverse gap-y-2">
@@ -87,7 +87,7 @@ function Header() {
               <div className="gap-2 flex sm:flex-row flex-col justify-center items-center text-black ">
                 <div className="relative w-full">
                   <input
-                    className=" md:w-[100%] md:h-[100%] h-[23px] p-1 pl-8 rounded "
+                    className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded "
                     type="text"
                   />
                   <button>
@@ -99,14 +99,14 @@ function Header() {
                 </div>
                 <div className="relative w-full">
                   <input
-                    className=" md:w-[100%] md:h-[100%] h-[23px] p-1 pl-8 rounded"
+                    className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded"
                     type="text"
                   />
                   <button>
                     {" "}
                     <FontAwesomeIcon
                       className="sm:h-5 h-4 absolute text-[#17253a] left-1 top-1"
-                      icon={faLocationPin}
+                      icon={faLocationDot}
                     />
                   </button>
                 </div>

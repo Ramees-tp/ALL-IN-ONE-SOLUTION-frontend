@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [passhow, setPasshow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -80,16 +81,32 @@ const Login = () => {
             >
               Password
             </label>
-            <input
-              className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              name="username"
-              required
-            />
+            <div className="relative">
+              <input
+                className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                type={!passhow ? "password" : "text "}
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                name="username"
+                required
+              />
+              <div
+                onClick={() => setPasshow(!passhow)}
+                className="showPass absolute top-1.5 right-2 cursor-pointer bg-slate-300 p-1 rounded font-semibold"
+              >
+                {!passhow ? "show" : "hide"}
+              </div>
+            </div>
           </div>
+          <p className="mb-4 text-white">
+            <Link to={"/user/otp"}>
+              <span className="text-blue-400 mr-3 hover:text-blue-700 cursor-pointer">
+                Forgot
+              </span>
+            </Link>
+            password ?
+          </p>
           <div>
             {error && (
               <div className="text-red-500 mb-4 text-center">{error}</div>

@@ -1,12 +1,5 @@
 import React from "react";
-import Index from "./pages/LandingPage";
-import Login from "./pages/login/Login";
-import Signup from "./pages/signUp/SignUp";
-import Part1 from "./pages/workerRegistraion/DetailsForm";
-import Part2 from "./pages/workerRegistraion/JobForm";
-import Part3 from "./pages/workerRegistraion/PaymentForm";
-import UserHome from "./pages/UserHome/UserHome";
-import WorkerHome from "./pages/WorkerHome/WorkerHome";
+
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AdminRoutes from "./router/AdminRoutes";
@@ -24,14 +17,7 @@ function App() {
           <Route path="/worker/*" element={<WorkerRoutes />} />
         </Routes>
       </BrowserRouter>
-      {/* <Index />
-      <Login />
-      <Signup />
-      <Part1 />
-      <Part2 />
-      <Part3 />
-      <UserHome /> */}
-      {/* <WorkerHome /> */}
+     
     </div>
   );
 }

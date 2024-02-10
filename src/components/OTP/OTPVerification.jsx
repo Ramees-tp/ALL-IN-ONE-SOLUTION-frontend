@@ -1,41 +1,61 @@
-import React, { useState } from "react";
-import Axios from "axios";
+import React, { useState, useRef } from "react";
+import axios from "axios";
 
 const OTPVerification = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [otp, setOTP] = useState("");
+  const [email, setEmail] = useState("");
+  const [otpValues, setOtpValues] = useState("");
   const [verificationId, setVerificationId] = useState("");
   const [error, setError] = useState("");
   const [isVerified, setIsVerified] = useState(false);
 
+  // const inputRefs = Array.from({ length: 6 }, () => useRef(null));
+
+  // const handleInputChange = (index, value) => {
+  //   const newOtpValues = [...otpValues];
+  //   newOtpValues[index] = value;
+  //   setOtpValues(newOtpValues);
+  //   if (value.length === 1 && index < inputRefs.length - 1) {
+  //     inputRefs[index + 1].current.focus();
+  //   } else if (value.length === 0 && index > 0) {
+  //     inputRefs[index - 1].current.focus();
+  //   }
+  // };
+
   const handleSendOTP = async () => {
+    console.log(email);
     try {
-      const response = await Axios.post("http://localhost:917/sendOTP", {
-        phoneNumber: phoneNumber,
+      const response = await axios.post("http://localhost:917/user/userOTP", {
+        email:email,
       });
-      setVerificationId(response.data.verificationId);
+      console.log(response);
+      if (response.status === 200) {
+        navigate("/user/uhome");
+      }
+      // setVerificationId(response.data.verificationId);
+      console.log(response);
       setError("");
     } catch (error) {
+      console.error("Error sending OTP:", error);
       setError("Failed to send OTP. Please try again.");
     }
   };
 
-  const handleVerifyOTP = async () => {
-    try {
-      const response = await Axios.post("http://localhost:3000/verifyOTP", {
-        verificationId: verificationId,
-        otp: otp,
-      });
-      if (response.data.success) {
-        setIsVerified(true);
-        setError("");
-      } else {
-        setError("Invalid OTP. Please try again.");
-      }
-    } catch (error) {
-      setError("Failed to verify OTP. Please try again.");
-    }
-  };
+  // const handleVerifyOTP = async () => {
+  //   try {
+  //     const response = await Axios.post("http://localhost:3000/verifyOTP", {
+  //       verificationId: verificationId,
+  //       otp: otp,
+  //     });
+  //     if (response.data.success) {
+  //       setIsVerified(true);
+  //       setError("");
+  //     } else {
+  //       setError("Invalid OTP. Please try again.");
+  //     }
+  //   } catch (error) {
+  //     setError("Failed to verify OTP. Please try again.");
+  //   }
+  // };
 
   return (
     <div className="min-h-screen sm:grid sm:grid-cols-2 flex flex-col items-center justify-center bg-gray-100 px-3 ">
@@ -51,12 +71,13 @@ const OTPVerification = () => {
           <>
             <div className="flex flex-col gap-y-5">
               <div className="flex flex-col gap-y-3">
-                <label className="text-white">Enter Phone Number :</label>
+                <label className="text-white">Enter Email :</label>
                 <input
                   type="text"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="rounded-md p-2 outline-none"
+                  name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-md p-2 outline-none "
                 />
               </div>
               <button
@@ -66,17 +87,19 @@ const OTPVerification = () => {
                 Send OTP
               </button>
             </div>
-            <div className="flex flex-col justify-center text-center gap-y-3">
+            {/* <div className="flex flex-col justify-center text-center gap-y-3">
               <label className="text-white">Enter OTP:</label>
-              <div className="flex justify-center gap-x-5">
-                {[...Array(6)].map((_, index) => (
+
+              <div className="flex justify-around mb-4">
+                {inputRefs.map((inputRef, index) => (
                   <input
                     key={index}
-                    type="text"
-                    value={otp}
-                    onChange={(e) => setOTP(e.target.value)}
-                    placeholder="0"
-                    className="sm:w-8 w-6 sm:h-10 h-8 shadow-xl rounded-md text-center outline-none"
+                    type="number"
+                    className="w-9 p-1 border shadow-xl rounded text-center"
+                    maxLength="0"
+                    ref={inputRef}
+                    value={otpValues[index]}
+                    onChange={(e) => handleInputChange(index, e.target.value)}
                   />
                 ))}
               </div>
@@ -86,7 +109,7 @@ const OTPVerification = () => {
               >
                 Verify OTP
               </button>
-            </div>
+            </div> */}
             {error && <div>{error}</div>}
           </>
         ) : (

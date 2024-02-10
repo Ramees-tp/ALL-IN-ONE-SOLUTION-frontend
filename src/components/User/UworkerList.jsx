@@ -1,11 +1,17 @@
 import React from "react";
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
+import "./ToggleButton.css";
 
 function UworkerList() {
   return (
-    <div className="px-28 bg-white py-5">
-      <h1 className="text-2xl font-bold mb-5">Awailable Worker</h1>
+    <div className="px-28 bg-[#fffdcb] py-5">
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-bold mb-5">Awailable Workers :</h1>
+        <div className="flex justify-end ">
+          <input type="checkbox" className="checkbox" />
+        </div>
+      </div>
       <div className="space-y-8 max-w-2xl">
         <div className="bg-blue-300 p-4 rounded-xl">
           <div className="flex  items-center ">

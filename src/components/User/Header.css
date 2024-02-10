@@ -70,7 +70,7 @@ input {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hideFlex {
     display: none;
   }
@@ -83,8 +83,13 @@ input {
   .sidebar {
     width: 100%;
   }
+  /* input {
+    width: 100px;
+    height: 15px;
+  } */
 }
-@media (max-width: 400px) {
+
+@media (max-width: 445px) {
   input {
     width: 100px;
     height: 15px;
