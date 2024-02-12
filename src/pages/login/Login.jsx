@@ -117,7 +117,6 @@ const Login = () => {
             <button
               className="p-2 px-10 bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-800"
               type="submit"
-              // onClick={handleLogin}
             >
               Login
             </button>

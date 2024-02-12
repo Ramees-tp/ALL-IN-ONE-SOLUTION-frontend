@@ -5,6 +5,7 @@ import Login from "../pages/login/Login";
 import UserHome from "../pages/UserHome/UserHome";
 import OTPVerification from "../components/OTP/OTPVerification";
 import UserWorkerList from "../pages/UserHome/UserWorkerList";
+import ResetPass from "../pages/ChangePassword/ResetPass";
 
 function UserRoutes() {
   return (
@@ -15,6 +16,7 @@ function UserRoutes() {
         <Route path="/uhome" element={<UserHome />} />
         <Route path="/otp" element={<OTPVerification />} />
         <Route path="/workerList" element={<UserWorkerList />} />
+        <Route path="/resetPassword" element={<ResetPass />} />
       </Routes>
     </>
   );

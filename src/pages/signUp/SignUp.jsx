@@ -48,7 +48,7 @@ const SignUp = () => {
         password,
       });
 
-      if (response.status===200) {
+      if (response.status === 200) {
         setError(response.data.message);
         navigate("/user/uhome");
         console.log(response.data.message);
@@ -101,7 +101,7 @@ const SignUp = () => {
                 Email
               </label>
               <input
-                className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl "
                 type="email"
                 id="email"
                 value={email}
