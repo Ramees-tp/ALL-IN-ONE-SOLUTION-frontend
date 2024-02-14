@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import {useDispatch} from 'react-redux'
+import { setToken } from "../../redux/TokenSlice";
+import axiosInstance from "../../api/axios";
 const SignUp = () => {
   const navigate = useNavigate();
+  const [passhow, setPasshow] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch()
+
+  
+  axios.defaults.withCredentials = true;
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -42,16 +50,20 @@ const SignUp = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:917/user/signUp", {
+      const response = await axiosInstance.post("/user/signUp", {
         username,
         email,
         password,
       });
 
       if (response.status === 200) {
-        setError(response.data.message);
+        const Token = response.data.Token
+        console.log(Token)
+        localStorage.setItem('jwt',Token)
+        dispatch(setToken(Token))
         navigate("/user/uhome");
         console.log(response.data.message);
+        setError(response.data.message);
       }
     } catch (err) {
       if (err.response && err.response.data.message) {
@@ -117,15 +129,23 @@ const SignUp = () => {
               >
                 Password
               </label>
+              <div className="relative">
               <input
                 className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
-                type="password"
+                type={!passhow ? "password" : "text "}
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 name="password"
               />
+              <div
+                onClick={() => setPasshow(!passhow)}
+                className="showPass absolute top-1.5 right-2 cursor-pointer bg-slate-300 p-1 rounded font-semibold"
+              >
+                {!passhow ? "show" : "hide"}
+              </div>
+              </div>
             </div>
 
             <div className="mb-4">
