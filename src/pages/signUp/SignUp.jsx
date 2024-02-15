@@ -1,10 +1,14 @@
-import React, { useState  } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import { setToken } from "../../redux/TokenSlice";
 import axiosInstance from "../../api/axios";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 const SignUp = () => {
   const navigate = useNavigate();
   const [passhow, setPasshow] = useState(false);
@@ -14,9 +18,8 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  
   axios.defaults.withCredentials = true;
 
   const handleSignup = async (e) => {
@@ -57,10 +60,10 @@ const SignUp = () => {
       });
 
       if (response.status === 200) {
-        const Token = response.data.Token
-        console.log(Token)
-        localStorage.setItem('jwt',Token)
-        dispatch(setToken(Token))
+        const Token = response.data.Token;
+        console.log(Token);
+        localStorage.setItem("jwt", Token);
+        dispatch(setToken(Token));
         navigate("/user/uhome");
         console.log(response.data.message);
         setError(response.data.message);
@@ -77,8 +80,8 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="min-h-screen grid grid-cols-2 items-center justify-center bg-gray-100 px-3">
-        <div className="sm:text-4xl text-3xl text-black font-bold text-center p-5">
+      <div className="min-h-screen flex sm:flex-row flex-col items-center justify-center gap-5 bg-gray-100 px-3">
+        <div className="sm:text-4xl text-3xl text-black font-bold text-center sm:p-5">
           <p>ALL IN ONE </p>
           <p>SOLUTION</p>
         </div>
@@ -88,7 +91,7 @@ const SignUp = () => {
           </h2>
 
           <form onSubmit={handleSignup} className="">
-            <div className="mb-4">
+            <div className="sm:mb-4 mb-2">
               <label
                 className="block text-white text-sm font-semibold mb-2"
                 htmlFor="username"
@@ -105,7 +108,7 @@ const SignUp = () => {
                 name="username"
               />
             </div>
-            <div className="mb-4">
+            <div className="sm:mb-4 mb-2">
               <label
                 className="block text-white text-sm font-semibold mb-2"
                 htmlFor="email"
@@ -122,7 +125,7 @@ const SignUp = () => {
                 name="email"
               />
             </div>
-            <div className="mb-4">
+            <div className="sm:mb-4 mb-2">
               <label
                 className="block text-white text-sm font-semibold mb-2"
                 htmlFor="password"
@@ -130,39 +133,55 @@ const SignUp = () => {
                 Password
               </label>
               <div className="relative">
-              <input
-                className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
-                type={!passhow ? "password" : "text "}
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                name="password"
-              />
-              <div
-                onClick={() => setPasshow(!passhow)}
-                className="showPass absolute top-1.5 right-2 cursor-pointer bg-slate-300 p-1 rounded font-semibold"
-              >
-                {!passhow ? "show" : "hide"}
-              </div>
+                <input
+                  className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                  type={!passhow ? "password" : "text "}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  name="password"
+                />
+                <div
+                  onClick={() => setPasshow(!passhow)}
+                  className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
+                >
+                  {!passhow ? (
+                    <FontAwesomeIcon icon={faEye} />
+                  ) : (
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                  )}
+                </div>
               </div>
             </div>
 
-            <div className="mb-4">
+            <div className="sm:mb-4 mb-2">
               <label
                 className="block text-white text-sm font-semibold mb-2"
                 htmlFor="password"
               >
                 Confirm Password
               </label>
-              <input
-                className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
-                type="password"
-                id="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <input
+                  className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                  type="password"
+                  id="Cpassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                />
+                <div
+                  onClick={() => setPasshow(!passhow)}
+                  className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
+                >
+                  {!passhow ? (
+                    <FontAwesomeIcon icon={faEye} />
+                  ) : (
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                  )}
+                </div>
+              </div>
             </div>
             <div>
               {error && (

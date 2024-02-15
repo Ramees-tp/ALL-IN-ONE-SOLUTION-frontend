@@ -12,6 +12,7 @@ axiosInstance.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${Token}`;
     }
     config.withCredentials = true
+    console.log("coonf:",config);
     return config;
   },
   (error) => {

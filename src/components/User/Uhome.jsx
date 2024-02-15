@@ -10,16 +10,16 @@ import { Link } from "react-router-dom";
 
 function Uhome() {
   return (
-    <div className="bg-[#fffdcb] sm:px-28 px-4 sm:py-8 py-4 w-full">
-      <div className="w-full grid sm:grid-cols-3 grid-col-2 gap-20">
+    <div className="bg-[#fffdcb] lg:px-28 md:px-20 sm:px-10 px-4 sm:py-8 py-4 w-full">
+      <div className="w-full grid lg:grid-cols-3 grid-cols-2  lg:gap-20 md:gap-15 sm:gap-8 gap-5">
         <Link to={"/user/workerList"}>
-          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#22324b] text-white rounded-lg shadow-custom">
+          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#121b29] text-white rounded-lg shadow-custom">
             <img
-              className="sm:h-[220px]  w-full rounded-t-lg"
+              className="sm:h-[220px]  w-full rounded-t-lg h-[150px] "
               src={plumber}
               alt=""
             />
-            <div className="p-4 flex justify-between  rounded-b-lg">
+            <div className="p-4 flex justify-between items-center rounded-b-lg">
               <div>
                 <p className="font-semibold">Plumber</p>
                 <p className="text-[70%] text-gray-400">
@@ -31,66 +31,91 @@ function Uhome() {
           </div>
         </Link>
         <a href="">
-          <div className="bg-slate-500 text-white rounded-lg">
+          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#121b29] text-white rounded-lg shadow-custom">
             <img
-              className="sm:h-[220px] w-full rounded-t-lg"
+              className="sm:h-[220px]  w-full rounded-t-lg h-[150px]"
               src={elctrician}
               alt=""
             />
-            <div className="p-4 flex justify-between">
-              <p>Electrician</p>
+            <div className="p-4 flex justify-between items-center rounded-b-lg">
+              <div>
+                <p className="font-semibold">Electrician</p>
+                <p className="text-[70%] text-gray-400">
+                  Find the best plumbers around your locality
+                </p>
+              </div>
               <img src={fav} alt="" />
             </div>
           </div>
         </a>
         <a href="">
-          <div className="bg-slate-500 text-white rounded-lg">
+          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#121b29] text-white rounded-lg shadow-custom">
             <img
-              className="sm:h-[220px] w-full rounded-t-lg"
+              className="sm:h-[220px]  w-full rounded-t-lg h-[150px]"
               src={carpenter}
               alt=""
             />
-            <div className="p-4 flex justify-between">
-              <p>Carpenter</p>
+            <div className="p-4 flex justify-between items-center rounded-b-lg">
+              <div>
+                <p className="font-semibold">Carpenter</p>
+                <p className="text-[70%] text-gray-400">
+                  Find the best plumbers around your locality
+                </p>
+              </div>
               <img src={fav} alt="" />
             </div>
           </div>
         </a>
         <a href="">
-          <div className="bg-slate-500 text-white rounded-lg">
+          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#121b29] text-white rounded-lg shadow-custom">
             <img
-              className="sm:h-[220px] w-full rounded-t-lg"
+              className="sm:h-[220px]  w-full rounded-t-lg h-[150px]"
               src={gardener}
               alt=""
             />
-            <div className="p-4 flex justify-between">
-              <p>Gardener</p>
+            <div className="p-4 flex justify-between items-center rounded-b-lg">
+              <div>
+                <p className="font-semibold">Gardener</p>
+                <p className="text-[70%] text-gray-400">
+                  Find the best plumbers around your locality
+                </p>
+              </div>
               <img src={fav} alt="" />
             </div>
           </div>
         </a>
         <a href="">
-          <div className="bg-slate-500 text-white rounded-lg">
+          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#121b29] text-white rounded-lg shadow-custom">
             <img
-              className="sm:h-[220px] w-full rounded-t-lg"
+              className="sm:h-[220px]  w-full rounded-t-lg h-[150px]"
               src={treeclimber}
               alt=""
             />
-            <div className="p-4 flex justify-between">
-              <p>Tree climber</p>
+            <div className="p-4 flex justify-between items-center rounded-b-lg">
+              <div>
+                <p className="font-semibold">Tree Climber</p>
+                <p className="text-[70%] text-gray-400">
+                  Find the best plumbers around your locality
+                </p>
+              </div>
               <img src={fav} alt="" />
             </div>
           </div>
         </a>
         <a href="">
-          <div className="bg-slate-500 text-white rounded-lg">
+          <div className="hover:scale-[1.02] ease-out duration-200 bg-[#17253a] hover:bg-[#121b29] text-white rounded-lg shadow-custom">
             <img
-              className="sm:h-[220px] w-full rounded-t-lg"
+              className="sm:h-[220px]  w-full rounded-t-lg h-[150px]"
               src={driver}
               alt=""
             />
-            <div className="p-4 flex justify-between">
-              <p>Driver</p>
+            <div className="p-4 flex justify-between items-center rounded-b-lg">
+              <div>
+                <p className="font-semibold">Driver</p>
+                <p className="text-[70%] text-gray-400">
+                  Find the best plumbers around your locality
+                </p>
+              </div>
               <img src={fav} alt="" />
             </div>
           </div>

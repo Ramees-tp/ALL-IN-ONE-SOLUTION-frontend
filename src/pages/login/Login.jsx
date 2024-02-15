@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 const Login = () => {
   const navigate = useNavigate();
   const [passhow, setPasshow] = useState(false);
@@ -47,7 +50,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen grid grid-cols-2 items-center justify-center bg-gray-100 px-3">
+    <div className="min-h-screen w-full flex sm:flex-row flex-col items-center justify-center gap-5 bg-gray-100 px-3">
       <div className="sm:text-4xl text-3xl text-black font-bold text-center p-5">
         <p>ALL IN ONE </p>
         <p className="">SOLUTION</p>
@@ -93,9 +96,13 @@ const Login = () => {
               />
               <div
                 onClick={() => setPasshow(!passhow)}
-                className="showPass absolute top-1.5 right-2 cursor-pointer bg-slate-300 p-1 rounded font-semibold"
+                className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
               >
-                {!passhow ? "show" : "hide"}
+                {!passhow ? (
+                  <FontAwesomeIcon icon={faEye} />
+                ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} />
+                )}
               </div>
             </div>
           </div>

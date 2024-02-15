@@ -11,7 +11,7 @@ const tokenSlice = createSlice({
         }
     }
 })
-console.log(tokenSlice);
+console.log("token slice :",tokenSlice);
 
 export const {setToken} = tokenSlice.actions
 

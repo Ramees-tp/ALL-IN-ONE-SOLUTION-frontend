@@ -69,13 +69,21 @@ input {
 .menu-button {
   display: none;
 }
+.break{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
-@media (max-width: 767px) {
+@media (max-width: 840px) {
   .hideFlex {
     display: none;
   }
   .menu-button {
     display: block;
+  }
+  .break {
+    flex-direction: row-reverse;
   }
 }
 

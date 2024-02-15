@@ -61,7 +61,7 @@ function Header() {
             <div className="md:text-3xl sm:text-2xl text-lg text-center">
               <p>ALL IN ONE</p> SOLUTION
             </div>
-            <div className="flex md:flex-col flex-row-reverse gap-y-2">
+            <div className="break">
               <div className="flex flex-row items-center">
                 <li className="hideFlex">
                   <a href="">home</a>

@@ -6,6 +6,6 @@ const store = configureStore({
     pass: TokenSlice,
   },
 });
-console.log(store)
+console.log("store:", store);
 
 export default store;
