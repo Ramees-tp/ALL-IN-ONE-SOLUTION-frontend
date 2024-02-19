@@ -24,10 +24,23 @@ nav a {
   text-decoration: none;
   display: flex;
   align-items: center;
+  position: relative;
 }
-nav a:hover {
+nav a::before {
+  content: "";
+  width: 0%;
+  height: 3px;
+  background: #ff004f;
+  /* color: #ff004f; */
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  transition: 0.5s;
+}
+nav a:hover::before {
   background-color: #f0f0f0a2;
   color: black;
+  width: 100%;
 }
 nav ul :first-child {
   margin-right: auto;
@@ -69,7 +82,7 @@ input {
 .menu-button {
   display: none;
 }
-.break{
+.break {
   display: flex;
   flex-direction: column;
   gap: 2px;

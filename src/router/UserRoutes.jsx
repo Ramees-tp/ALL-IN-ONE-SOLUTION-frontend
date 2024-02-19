@@ -6,6 +6,8 @@ import UserHome from "../pages/UserHome/UserHome";
 import OTPVerification from "../components/OTP/OTPVerification";
 import UserWorkerList from "../pages/UserHome/UserWorkerList";
 import ResetPass from "../pages/ChangePassword/ResetPass";
+import UserUpdateProfile from "../components/User/UserUpdateProfile"
+import UserProfile from "../components/User/UserProfile";
 
 function UserRoutes() {
   const [giveAccess, setGiveAccess] = useState(false);
@@ -39,6 +41,8 @@ function UserRoutes() {
         <Route path="/otp" element={<OTPVerification />} />
         <Route path="/workerList" element={<UserWorkerList />} />
         <Route path="/resetPassword" element={<ResetPass />} />
+        <Route path="/updateProfile" element={<UserUpdateProfile/>}/>
+        <Route path="/userProfile" element={<UserProfile/>}/>
       </Routes>
     </>
   );

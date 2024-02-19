@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import axiosInstance from "../../api/axios";
+import { Link } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function ResetPass() {
+  const [passhow, setPasshow] = useState(false);
+  const [passhow2, setPasshow2] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isVerified, setIsVerified] = useState(false);
@@ -30,7 +36,7 @@ function ResetPass() {
         password: confirmPassword,
       });
       if (response.status === 200) {
-        setIsVerified(true)
+        setIsVerified(true);
         console.log("password updated success");
       }
     } catch (err) {
@@ -61,26 +67,51 @@ function ResetPass() {
               >
                 New Password
               </label>
-              <input
-                className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl mb-4"
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl mb-4"
+                  type={!passhow ? "password" : "text "}
+                  name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setPasshow(!passhow)}
+                  className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
+                >
+                  {!passhow ? (
+                    <FontAwesomeIcon icon={faEye} />
+                  ) : (
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                  )}
+                </div>
+              </div>
               <label
                 className="block text-white text-sm font-semibold mb-2"
                 htmlFor="Password"
               >
                 Confirm Password
               </label>
-              <input
-                className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl mb-4"
-                type="password"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl mb-4"
+                  type={!passhow2 ? "password" : "text "}
+                  name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <div
+                  onClick={() => setPasshow2(!passhow2)}
+                  className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
+                >
+                  {!passhow2 ? (
+                    <FontAwesomeIcon icon={faEye} />
+                  ) : (
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                  )}
+                </div>
+              </div>
+
               {error && <div className="text-red-500">{error}</div>}
               <div className="flex justify-center items-center">
                 <button
@@ -93,7 +124,19 @@ function ResetPass() {
             </form>
           </div>
         ) : (
-          <div>OTP updated Successfully!</div>
+          <div className="flex flex-col justify-center items-center gap-4">
+            <div className="text-green-700 font-bold text-2xl">
+              OTP updated Successfully!
+            </div>
+            <Link to={"/user/uhome"}>
+              <button
+                className="p-2 px-10 bg-[#6e2b2b] text-white rounded-md font-semibold hover:bg-[#8a3232]"
+                type="submit"
+              >
+                Back Home
+              </button>
+            </Link>
+          </div>
         )}
       </div>
     </div>

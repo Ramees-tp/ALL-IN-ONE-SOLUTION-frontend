@@ -2,10 +2,12 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../OTP/OTP.css";
+import axiosInstance from "../../api/axios";
 
 const OTPVerification = () => {
+  
   const navigate = useNavigate();
-  const [email, setEmail] = useState("rameestp001@gmail.com");
+  const [email, setEmail] = useState("");
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
   const [verificationId, setVerificationId] = useState("");
   const [error, setError] = useState("");
@@ -27,7 +29,7 @@ const OTPVerification = () => {
   const handleSendOTP = async () => {
     console.log(email);
     try {
-      const response = await axios.post("http://localhost:917/user/userOTP", {
+      const response = await axiosInstance.post("/user/userOTP", {
         email: email,
       });
       console.log(response);

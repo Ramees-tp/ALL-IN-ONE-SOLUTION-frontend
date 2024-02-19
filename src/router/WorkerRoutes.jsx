@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Route, Routes } from "react-router-dom";
 import DetailsForm from "../pages/workerRegistraion/DetailsForm";
 import JobForm from "../pages/workerRegistraion/JobForm";
@@ -19,3 +19,4 @@ function WorkerRoutes() {
 }
 
 export default WorkerRoutes;
+

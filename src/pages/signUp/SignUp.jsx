@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -12,6 +13,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const SignUp = () => {
   const navigate = useNavigate();
   const [passhow, setPasshow] = useState(false);
+  const [passhow2, setPasshow2] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -165,17 +167,17 @@ const SignUp = () => {
               <div className="relative">
                 <input
                   className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
-                  type="password"
+                  type={!passhow2 ? "password" : "text "}
                   id="Cpassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
                 />
                 <div
-                  onClick={() => setPasshow(!passhow)}
+                  onClick={() => setPasshow2(!passhow2)}
                   className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
                 >
-                  {!passhow ? (
+                  {!passhow2 ? (
                     <FontAwesomeIcon icon={faEye} />
                   ) : (
                     <FontAwesomeIcon icon={faEyeSlash} />

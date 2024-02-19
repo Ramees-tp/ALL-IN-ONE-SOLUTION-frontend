@@ -1,7 +1,12 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
-import facebook from "../../assets/icons/facebook.png";
-import twitter from "../../assets/icons/twitter.png";
-import insta from "../../assets/icons/instagram (1).png";
+import "./Ufooter.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faInstagram,
+  faXTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 function Ufooter() {
   return (
@@ -25,15 +30,15 @@ function Ufooter() {
       </div>
       <div className=" space-y-5">
         <p className="font-bold sm:text-2xl sm:py-3">Connect with us</p>
-        <div className="flex sm:gap-x-10 gap-x-5">
+        <div className="logo flex sm:gap-x-10 gap-x-5">
           <a href="">
-            <img src={facebook} alt="" />
+            <FontAwesomeIcon className="h-7" icon={faFacebook} />
           </a>
           <a href="">
-            <img src={twitter} alt="" />
+            <FontAwesomeIcon className="h-7" icon={faXTwitter} />
           </a>
           <a href="">
-            <img src={insta} alt="" />
+            <FontAwesomeIcon className="h-7" icon={faInstagram} />
           </a>
         </div>
       </div>

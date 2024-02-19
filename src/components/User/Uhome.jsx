@@ -1,12 +1,14 @@
-import React from "react";
+// import React from "react";
 import plumber from "../../assets/images/plumbing.jpg";
 import elctrician from "../../assets/images/electrician.jpg";
 import carpenter from "../../assets/images/carpenter.jpeg";
 import gardener from "../../assets/images/Gardener-1.jpg";
 import treeclimber from "../../assets/images/tree climber.webp";
 import driver from "../../assets/images/driver.jpg";
-import fav from "../../assets/icons/heart.png";
 import { Link } from "react-router-dom";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 function Uhome() {
   return (
@@ -26,7 +28,7 @@ function Uhome() {
                   Find the best plumbers around your locality
                 </p>
               </div>
-              <img src={fav} alt="" />
+              <FontAwesomeIcon className="h-6" icon={faHeart} />
             </div>
           </div>
         </Link>
@@ -44,7 +46,7 @@ function Uhome() {
                   Find the best plumbers around your locality
                 </p>
               </div>
-              <img src={fav} alt="" />
+              <FontAwesomeIcon className="h-6" icon={faHeart} />{" "}
             </div>
           </div>
         </a>
@@ -62,7 +64,7 @@ function Uhome() {
                   Find the best plumbers around your locality
                 </p>
               </div>
-              <img src={fav} alt="" />
+              <FontAwesomeIcon className="h-6" icon={faHeart} />{" "}
             </div>
           </div>
         </a>
@@ -80,7 +82,7 @@ function Uhome() {
                   Find the best plumbers around your locality
                 </p>
               </div>
-              <img src={fav} alt="" />
+              <FontAwesomeIcon className="h-6" icon={faHeart} />{" "}
             </div>
           </div>
         </a>
@@ -98,7 +100,7 @@ function Uhome() {
                   Find the best plumbers around your locality
                 </p>
               </div>
-              <img src={fav} alt="" />
+              <FontAwesomeIcon className="h-6" icon={faHeart} />{" "}
             </div>
           </div>
         </a>
@@ -116,7 +118,7 @@ function Uhome() {
                   Find the best plumbers around your locality
                 </p>
               </div>
-              <img src={fav} alt="" />
+              <FontAwesomeIcon className="h-6" icon={faHeart} />{" "}
             </div>
           </div>
         </a>

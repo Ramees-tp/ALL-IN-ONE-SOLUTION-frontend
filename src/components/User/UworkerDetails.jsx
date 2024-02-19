@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import green from "../../assets/icons/circle.png";
 import user from "../../assets/icons/account.png";

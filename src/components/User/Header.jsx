@@ -1,6 +1,5 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import search from "../../assets/icons/search.png";
-import location from "../../assets/icons/location (1).png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
@@ -41,13 +40,13 @@ function Header() {
               </a>
             </li>
             <li>
-              <a href="">home</a>
+              <a href="">Home</a>
             </li>
             <li>
               <a href="">About</a>
             </li>
             <li>
-              <a href="">contact</a>
+              <a href="">Contact</a>
             </li>
             <li>
               <a href="">Contracts</a>
@@ -61,7 +60,7 @@ function Header() {
             <div className="md:text-3xl sm:text-2xl text-lg text-center">
               <p>ALL IN ONE</p> SOLUTION
             </div>
-            <div className="break">
+            <div className="break space-y-3">
               <div className="flex flex-row items-center">
                 <li className="hideFlex">
                   <a href="">home</a>
