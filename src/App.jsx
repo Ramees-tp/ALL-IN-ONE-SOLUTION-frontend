@@ -9,16 +9,14 @@ import WorkerRoutes from "./router/WorkerRoutes";
 
 function App() {
   return (
-    <div>
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<CommonRouter />} />
           <Route path="/user/*" element={<UserRoutes />} />
           <Route path="/worker/*" element={<WorkerRoutes />} />
+          <Route path="/master/*" element={<AdminRoutes />} />
         </Routes>
       </BrowserRouter>
-     
-    </div>
   );
 }
 

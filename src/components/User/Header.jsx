@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import {
   faLocationDot,
   faBars,
@@ -40,7 +41,7 @@ function Header() {
               </a>
             </li>
             <li>
-              <a href="">Home</a>
+              <Link to={"/user/userProfile"}><a>Home</a></Link>
             </li>
             <li>
               <a href="">About</a>
@@ -62,6 +63,7 @@ function Header() {
             </div>
             <div className="break space-y-3">
               <div className="flex flex-row items-center">
+                
                 <li className="hideFlex">
                   <a href="">home</a>
                 </li>

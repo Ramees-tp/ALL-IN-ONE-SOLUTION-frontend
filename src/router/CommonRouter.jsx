@@ -5,7 +5,7 @@ function CommonRouter() {
   return (
     <>
       <Routes>
-        <Route path='/' element={<Index/>}></Route>
+        <Route path='/*' element={<Index/>}></Route>
       </Routes>
     </>
   )

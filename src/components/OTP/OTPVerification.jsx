@@ -27,13 +27,13 @@ const OTPVerification = () => {
   };
 
   const handleSendOTP = async () => {
-    console.log(email);
     try {
       const response = await axiosInstance.post("/user/userOTP", {
         email: email,
       });
       console.log(response);
       if (response.status === 200) {
+        
         setIsSended(true);
         console.log("otp sended");
       }
@@ -45,7 +45,7 @@ const OTPVerification = () => {
         setError(err.response.data.message);
       }
       console.error("Error sending OTP:", err);
-      setError(error.response.data.er);
+      setError(error.response.data.err);
     }
   };
 

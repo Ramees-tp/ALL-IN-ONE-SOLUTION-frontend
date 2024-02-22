@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import axiosInstance from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
@@ -8,13 +9,13 @@ const UserUpdateProfile = ({ updateUser }) => {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
-    firstName: "ramees",
-    lastName: "muhammad",
+    firstName: "",
+    lastName: "",
     DOB: "",
-    phoneNumber: "57576557767",
-    street: "kpr",
-    district: "uhkj",
-    pinCode: "765767",
+    phoneNumber: "",
+    street: "",
+    district: "",
+    pinCode: "",
   });
 
   const handleChange = (e) => {
@@ -29,7 +30,7 @@ const UserUpdateProfile = ({ updateUser }) => {
     e.preventDefault();
 
     try {
-      const response = await axiosInstance.patch("/user/addDetails", formData);
+      const response = await axiosInstance.put("/user/addDetails", formData);
       console.log(formData);
       if (response.status === 200) {
         navigate("/user/userProfile");
