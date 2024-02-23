@@ -1,33 +1,96 @@
-import React from 'react';
+import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faGear,
+  faIndianRupeeSign,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartBar,
+  faEnvelope,
+  faUser,
+} from "@fortawesome/free-regular-svg-icons";
+import WorkerList from "./WorkerList";
+import EntryRequest from "./EntryRequest";
+import ReportSection from "./ReportSection";
+import Payment from "./Payment";
 
 function Dashboard() {
+  const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
+  const [show3, setShow3] = useState(false);
+
+  const handleButtonClick = (buttonIndex) => {
+    setShow(false);
+    setShow1(false);
+    setShow2(false);
+    setShow3(false);
+
+    switch (buttonIndex) {
+      case 1:
+        setShow(true);
+        break;
+      case 2:
+        setShow1(true);
+        break;
+      case 3:
+        setShow2(true);
+        break;
+      case 4:
+        setShow3(true);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="flex bg-gray-100 min-h-screen">
       {/* Sidebar */}
       <aside className="hidden sm:flex sm:flex-col">
-        <a href="#" className="inline-flex items-center justify-center h-20 w-20 bg-purple-600 hover:bg-purple-500 focus:bg-purple-500">
+        <a
+          href="#"
+          className="inline-flex items-center justify-center h-20 w-full bg-purple-600 hover:bg-purple-500 focus:bg-purple-500"
+        >
           <svg fill="none" viewBox="0 0 64 64" className="h-12 w-12">
             {/* SVG path for company logo */}
           </svg>
         </a>
         <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
-          <nav className="flex flex-col mx-4 my-6 space-y-4">
-            <a href="#" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-              {/* SVG and content for Folders */}
+          <nav className="flex flex-col mx-4 my-6 space-y-4 ">
+            <a
+              onClick={() => handleButtonClick(1)}
+              href="#"
+              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
+            >
+              <FontAwesomeIcon className="h-6" icon={faUser} />
             </a>
-            <a href="#" className="inline-flex items-center justify-center py-3 text-purple-600 bg-white rounded-lg">
-              {/* SVG and content for Dashboard */}
+            <a
+              onClick={() => handleButtonClick(2)}
+              href="#"
+              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
+            >
+              <FontAwesomeIcon className="h-6" icon={faChartBar} />
             </a>
-            <a href="#" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-              {/* SVG and content for Messages */}
+            <a
+              onClick={() => handleButtonClick(3)}
+              href="#"
+              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
+            >
+              <FontAwesomeIcon className="h-6" icon={faEnvelope} />
             </a>
-            <a href="#" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-              {/* SVG and content for Documents */}
+            <a
+              onClick={() => handleButtonClick(4)}
+              href="#"
+              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
+            >
+              <FontAwesomeIcon className="h-6" icon={faIndianRupeeSign} />
             </a>
           </nav>
-          <div className="inline-flex items-center justify-center h-20 w-20 border-t border-gray-700">
-            <button className="p-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
-              {/* SVG and content for Settings */}
+          <div className="inline-flex items-center justify-center h-20 w-full border-t border-gray-700">
+            <button className="p-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg h-16 w-16">
+              <FontAwesomeIcon className="h-6" icon={faGear} />
             </button>
           </div>
         </div>
@@ -37,13 +100,23 @@ function Dashboard() {
         {/* Header */}
         <header className="flex items-center h-20 px-6 sm:px-10 bg-white">
           <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
-            {/* SVG for Menu */}
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
           <div className="relative w-full max-w-md sm:-ml-2">
-            <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor" className="absolute h-6 w-6 mt-2.5 ml-2 text-gray-400">
-              {/* SVG path for search icon */}
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="absolute h-6 w-6 mt-2.5 ml-2 text-gray-400"
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
             </svg>
-            <input type="text" role="search" placeholder="Search..." className="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg" />
+            <input
+              type="text"
+              role="search"
+              placeholder="Search..."
+              className="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-500 focus:bg-gray-100 rounded-lg"
+            />
           </div>
           <div className="flex flex-shrink-0 items-center ml-auto">
             <button className="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
@@ -51,56 +124,50 @@ function Dashboard() {
             </button>
             <div className="border-l pl-3 ml-3 space-x-1">
               <button className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
-                {/* Notification icon and content */}
+                <span className="sr-only">Notifications</span>
+                <span className="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full"></span>
+                <span className="absolute top-0 right-0 h-2 w-2 mt-1 mr-2 bg-red-500 rounded-full animate-ping"></span>
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                  />
+                </svg>
               </button>
               <button className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
-                {/* Logout icon */}
+                <span className="sr-only">Log out</span>
+                <svg
+                  aria-hidden="true"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="h-6 w-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                  />
+                </svg>
               </button>
             </div>
           </div>
         </header>
         {/* Main Content Body */}
-        <main className="p-6 sm:p-10 space-y-6">
-          {/* Dashboard Heading Section */}
-          <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
-            <div className="mr-6">
-              <h1 className="text-4xl font-semibold mb-2">Dashboard</h1>
-              <h2 className="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2>
-            </div>
-            <div className="flex flex-wrap items-start justify-end -mb-3">
-              <button className="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
-                {/* Manage dashboard button content */}
-              </button>
-              <button className="inline-flex px-5 py-3 text-white bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 rounded-md ml-6 mb-3">
-                {/* Create new dashboard button content */}
-              </button>
-            </div>
-          </div>
-          {/* Statistics Section */}
-          <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {/* Student Statistics */}
-            <div className="flex items-center p-8 bg-white shadow rounded-lg">
-              {/* Student icon and content */}
-            </div>
-            {/* Average Mark Statistics */}
-            <div className="flex items-center p-8 bg-white shadow rounded-lg">
-              {/* Average mark icon and content */}
-            </div>
-            {/* Course Progress Statistics */}
-            <div className="flex items-center p-8 bg-white shadow rounded-lg">
-              {/* Course progress icon and content */}
-            </div>
-            {/* Library Resources Statistics */}
-            <div className="flex items-center p-8 bg-white shadow rounded-lg">
-              {/* Library resources icon and content */}
-            </div>
-          </section>
-          {/* Recent Activity Section */}
-          <section className="bg-white p-8 shadow rounded-lg">
-            <h2 className="text-2xl font-semibold mb-6">Recent Activity</h2>
-            {/* Recent activity items */}
-          </section>
-        </main>
+
+        {show && <WorkerList />}
+        {show1 && <EntryRequest />}
+        {show2 && <ReportSection />}
+        {show3 && <Payment />}
       </div>
     </div>
   );
