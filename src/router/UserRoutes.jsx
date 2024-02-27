@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import SignUp from "../pages/signUp/SignUp";
 import Login from "../pages/login/Login";
@@ -39,7 +39,7 @@ function UserRoutes() {
           <Route path="/login" element={<Login />} />
         )}
         <Route path="/otp" element={<OTPVerification />} />
-        <Route path="/workerList" element={<UserWorkerList />} />
+        <Route path="/workerList/:id" element={<UserWorkerList />} />
         <Route path="/resetPassword" element={<ResetPass />} />
         <Route path="/updateProfile" element={<UserUpdateProfile/>}/>
         <Route path="/userProfile" element={<UserProfile/>}/>

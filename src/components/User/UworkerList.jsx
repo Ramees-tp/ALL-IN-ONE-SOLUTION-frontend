@@ -1,11 +1,40 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
 import "./ToggleButton.css";
+import axios from "axios";
 
 function UworkerList() {
+  const [error, setError] = useState("");
+  const [data, setData] = useState([]);
+  const {id} = useParams()
+  console.log(id);
+
+
+  useEffect(()=>{
+    const fetchData= async ()=>{
+      try{
+        const response= await axios.get(`http://localhost:917/user/awailWorker/${id}`)
+         setData(response.data.data)
+      } catch (err) {
+        if (err.response && err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("Internal server error");
+        }
+      }
+    }
+    fetchData()
+    return () => {
+      // Cleanup function
+      setData([]); 
+      setError("");
+    };
+  },[id])
+
   return (
-    <div className="px-28 bg-[#fffdcb] py-5">
+    <div className="px-28 bg-[#fffdcb] py-5 h-screen">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold mb-5">Awailable Workers :</h1>
         <div className="flex justify-end ">
@@ -13,32 +42,32 @@ function UworkerList() {
         </div>
       </div>
       <div className="space-y-8 max-w-2xl">
-        <div className="bg-blue-300 p-4 rounded-xl">
+
+        {data.map((worker)=>(
+
+          <div key={worker._id} className="bg-blue-300 p-4 rounded-xl">
           <div className="flex  items-center ">
             <div className="rounded-full bg-slate-400 p-2">
               <img src={user} alt="" />
             </div>
             <div className="bg-slate-300 p-5 rounded-xl ml-8 w-full flex justify-between">
-              <h1 className="font-semibold text-3xl">RAMEES MUHAMMAD</h1>
+              <h1 className="font-semibold text-3xl">{worker.firstName} {worker.lastName}</h1>
               <img src={favWorker} alt="" />
             </div>
           </div>
         </div>
+        ))}
 
-        <div className="bg-blue-300 p-4 rounded-xl">
-          <div className="flex  items-center ">
-            <div className="rounded-full bg-slate-400 p-2">
-              <img className="" src={user} alt="" />
+        <div>
+              {error && (
+                <div className="text-red-500 mb-4 text-center">{error}</div>
+              )}
             </div>
-            <div className="bg-slate-300 p-5 rounded-xl ml-8 w-full flex justify-between">
-              <h1 className="font-semibold text-3xl">RAMEES MUHAMMAD</h1>
-              <img src={favWorker} alt="" />
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   );
 }
 
 export default UworkerList;
+

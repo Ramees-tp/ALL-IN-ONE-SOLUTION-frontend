@@ -42,6 +42,9 @@ nav a:hover::before {
   color: black;
   width: 100%;
 }
+nav a:focus {
+  color: aqua;
+}
 nav ul :first-child {
   margin-right: auto;
 }

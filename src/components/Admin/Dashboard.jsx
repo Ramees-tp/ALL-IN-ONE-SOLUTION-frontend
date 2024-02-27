@@ -4,6 +4,7 @@ import {
   faMagnifyingGlass,
   faGear,
   faIndianRupeeSign,
+  faAdd
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faChartBar,
@@ -14,18 +15,21 @@ import WorkerList from "./WorkerList";
 import EntryRequest from "./EntryRequest";
 import ReportSection from "./ReportSection";
 import Payment from "./Payment";
+import AddWork from "./AddWork";
 
 function Dashboard() {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
+  const [show4, setShow4] = useState(false);
 
   const handleButtonClick = (buttonIndex) => {
     setShow(false);
     setShow1(false);
     setShow2(false);
     setShow3(false);
+    setShow4(false);
 
     switch (buttonIndex) {
       case 1:
@@ -39,6 +43,9 @@ function Dashboard() {
         break;
       case 4:
         setShow3(true);
+        break;
+      case 5:
+        setShow4(true);
         break;
       default:
         break;
@@ -86,6 +93,13 @@ function Dashboard() {
               className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
             >
               <FontAwesomeIcon className="h-6" icon={faIndianRupeeSign} />
+            </a>
+            <a
+              onClick={() => handleButtonClick(5)}
+              href="#"
+              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
+            >
+              <FontAwesomeIcon className="h-6" icon={faAdd} />
             </a>
           </nav>
           <div className="inline-flex items-center justify-center h-20 w-full border-t border-gray-700">
@@ -168,6 +182,7 @@ function Dashboard() {
         {show1 && <EntryRequest />}
         {show2 && <ReportSection />}
         {show3 && <Payment />}
+        {show4 && <AddWork />}
       </div>
     </div>
   );

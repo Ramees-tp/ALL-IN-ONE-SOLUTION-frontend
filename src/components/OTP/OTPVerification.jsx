@@ -41,8 +41,8 @@ const OTPVerification = () => {
       console.log(response);
       setError("");
     } catch (err) {
-      if(err.response && err.response.data.message){
-        setError(err.response.data.message);
+      if(err.response && err.response.data.error){
+        setError(err.response.data.error);
       }
       console.error("Error sending OTP:", err);
       setError(error.response.data.err);
@@ -59,11 +59,14 @@ const OTPVerification = () => {
       console.log(otpValues);
       if (response.status === 200) {
         navigate("/user/resetPassword");
-      } else {
-        setError("Invalid OTP. Please try again.");
       }
-    } catch (error) {
-      setError("Failed to verify OTP. Please try again.");
+    } catch (err) {
+      if (err.response && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        console.log("An error occured :", err);
+        setError("Failed to verify OTP. Please try again.");
+      }
     }
   };
 
@@ -99,7 +102,9 @@ const OTPVerification = () => {
               </button>
             </div>
 
-            {error && <div>{error}</div>}
+           <div> {error && (
+                <div className="text-red-500 mb-4 text-center">{error}</div>
+              )}</div>
           </>
         ) : (
           <div className="flex flex-col justify-center text-center gap-y-3">

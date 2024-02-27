@@ -13,7 +13,7 @@ const UserUpdateProfile = ({ updateUser }) => {
     lastName: "",
     DOB: "",
     phoneNumber: "",
-    street: "",
+    city: "",
     district: "",
     pinCode: "",
   });
@@ -53,7 +53,7 @@ const UserUpdateProfile = ({ updateUser }) => {
       DOB: "",
       phoneNumber: "",
       address: {
-        street: "",
+        city: "",
         district: "",
         pinCode: "",
       },
@@ -139,13 +139,13 @@ const UserUpdateProfile = ({ updateUser }) => {
           htmlFor="street"
           className="block mb-2 text-sm font-medium text-gray-600"
         >
-          Street
+          city
         </label>
         <input
           type="text"
-          id="street"
-          name="street"
-          value={formData.street}
+          id="city"
+          name="city"
+          value={formData.city}
           onChange={handleChange}
           placeholder="Street"
           required

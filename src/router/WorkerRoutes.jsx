@@ -14,7 +14,7 @@ function WorkerRoutes() {
         <Route path="/jobDetailsForm" element={<JobForm />} />
         <Route path="/paymentForm" element={<PaymentForm />} />
         <Route path="/WorkerLogin" element={<Wlogin />} />
-        <Route path="/main" element={<Registration />} />
+        <Route path="/registration" element={<Registration />} />
         <Route path="/whome" element={<WorkerHome />} />
       </Routes>
     </div>

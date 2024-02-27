@@ -31,7 +31,7 @@ function Content2() {
             <p className="sm:text-2xl sm:font-bold">
               If you are new ? register now
             </p>
-            <Link to={"/worker/registraion"}>
+            <Link to={"/worker/registration"}>
               <button className=" hover:bg-[#202020] bg-[#020202] p-2 w-32 rounded">
                 register now
               </button>
@@ -43,7 +43,9 @@ function Content2() {
             </p>
             <Link to={"/worker/WorkerLogin"}>
               {" "}
-              <button className=" hover:bg-[#202020] bg-[#020202] p-2 w-32 rounded">Login</button>
+              <button className=" hover:bg-[#202020] bg-[#020202] p-2 w-32 rounded">
+                Login
+              </button>
             </Link>
           </div>
         </div>

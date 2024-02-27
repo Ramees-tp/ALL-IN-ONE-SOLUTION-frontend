@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
@@ -10,9 +10,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import "./Header.css";
+import axios from "axios";
+import axiosInstance from "../../api/axios";
 
 function Header() {
+
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [location, setLocation] = useState([])
+  console.log( "location", location);
 
   // const toggleSidebar = (e) => {
   //   console.log("Sidebar visibility toggled");
@@ -24,11 +29,23 @@ function Header() {
     const sidebar = document.querySelector(".sidebar");
     sidebar.style.display = "flex";
   };
-
   const hideSidebar = () => {
     const sidebar = document.querySelector(".sidebar");
     sidebar.style.display = "none";
   };
+
+  const fetchData =async ()=> {
+    try{
+      const res= await axiosInstance.get("/user/userlocation")
+      setLocation(res.data.data)
+      console.log(res.data);
+    }catch(err){
+     console.log("frontend server error", err);
+    }
+  }
+  useEffect(()=>{
+    fetchData()
+  },[])
 
   return (
     <div>
@@ -102,9 +119,10 @@ function Header() {
                   <input
                     className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded"
                     type="text"
+                    // value={location}
+                    defaultValue={location}
                   />
                   <button>
-                    {" "}
                     <FontAwesomeIcon
                       className="sm:h-5 h-4 absolute text-[#17253a] left-1 top-1"
                       icon={faLocationDot}
@@ -121,3 +139,4 @@ function Header() {
 }
 
 export default Header;
+

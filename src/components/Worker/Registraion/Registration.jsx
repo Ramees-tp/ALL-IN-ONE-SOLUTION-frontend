@@ -13,17 +13,17 @@ const Registration = () => {
 
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: "ramees",
-    lastName: "muhammad",
-    email: "rameestp001@gmail.com",
-    phoneNumber: "9947745756",
-    gender: "male",
+    firstName: "",
+    lastName: "",
+    email: "@gmail.com",
+    phoneNumber: "",
+    gender: "",
     dateOfBirth: "",
-    district: "malappuram",
-    city: "karippiur",
-    pinCode: "673638",
+    district: "",
+    city: "",
+    pinCode: "",
     jobType: "",
-    workArea: "kondotty",
+    workArea: "",
     adharNumber: "56567656756",
     IFC: "766575757",
     accountNumber: "643654637825",
@@ -59,7 +59,13 @@ const Registration = () => {
         withCredentials: true
     });
     if (response.status === 200) {
+      const Token = response.data.Token;
+      console.log(Token);
+      localStorage.setItem("wjwt", Token);
+
       navigate("/worker/whome");
+
+      // setError(response.data.message);
     }
   };
 

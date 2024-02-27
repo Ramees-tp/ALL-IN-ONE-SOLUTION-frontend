@@ -1,4 +1,32 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 function WorkerList() {
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState("");
+  const [data, setData] = useState([]);
+  const [count, setCount] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:917/master/workerList"
+      );
+      setData(response.data.data);
+      setCount(response.data.totalCount);
+    } catch (err) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Internal server error");
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <div>
       <main className="p-6 sm:p-10 space-y-6">
@@ -38,7 +66,7 @@ function WorkerList() {
               </svg>
             </div>
             <div>
-              <span className="block text-2xl font-bold">62</span>
+              <span className="block text-2xl font-bold">{count}</span>
               <span className="block text-gray-500">Workers</span>
             </div>
           </div>
@@ -57,8 +85,96 @@ function WorkerList() {
         </section>
         {/* Recent Activity Section */}
         <section className="bg-white p-8 shadow rounded-lg">
-          <h2 className="text-2xl font-semibold mb-6">Recent Activity</h2>
-          {/* Recent activity items */}
+          <h2 className="text-2xl font-semibold mb-6">All Workers</h2>
+
+          <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8">
+            <div className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
+              {/* ... Search bar section (same as in your HTML) ... */}
+            </div>
+            <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
+              <table className="min-w-full">
+                <thead>
+                  <tr>
+                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                      ID
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                      FULL NAME
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                      EMAIL
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                      PHONE
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                      STATUS
+                    </th>
+                    <th className="px-6 py-3 border-b-2 border-gray-300"></th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white">
+                  {data.map((worker) => (
+                    <tr key={worker.id}>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <div className="flex items-center">
+                          <div>
+                            <div className="text-sm leading-5 text-red-800">
+                              {worker._id}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <div className="flex items-center">
+                          <div>
+                            <div className="text-sm leading-5 text-gray-800">
+                              {worker.firstName} {worker.lastName}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <div className="flex items-center">
+                          <div>
+                            <div className="text-sm leading-5 text-gray-800">
+                              {worker.email}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <div className="flex items-center">
+                          <div>
+                            <div className="text-sm leading-5 text-gray-800">
+                              {worker.phoneNumber}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                          ></span>
+                          <span className="relative text-xs">active</span>
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                        <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
+                {/* ... Pagination section (same as in your HTML) ... */}
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </div>

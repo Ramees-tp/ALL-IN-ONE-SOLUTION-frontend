@@ -1,7 +1,8 @@
 import React from "react";
 import search from "../../assets/icons/search.png";
 import menu from "../../assets/icons/menu.png";
-import location from "../../assets/icons/location (1).png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 function Wheader() {
   return (
@@ -26,18 +27,17 @@ function Wheader() {
               <img src={menu} alt="" />
             </div>
             <div className="flex sm:flex-row flex-col gap-10 sm:justify-end justify-center items-center">
-              <div className="relative px-6 md:w-60 w-56 bg-white rounded">
-                <button className="absolute left-0 top-1">
-                  <img src={location} alt="" />
-                </button>
+              <div className="relative w-full">
                 <input
+                  className=" md:w-[100%] sm:w-[180px] w-10 md:h-[100%] h-[23px] p-1 pl-8 rounded"
                   type="text"
-                  placeholder="Select Location"
-                  value=""
-                  name=""
-                  id=""
-                  className="p-1 rounded-r md:w-60 w-56 focus:outline-none"
                 />
+                <button>
+                  <FontAwesomeIcon
+                    className="sm:h-5 h-4 absolute text-[#17253a] left-1 top-1"
+                    icon={faLocationDot}
+                  />
+                </button>
               </div>
               <div className="flex gap-5">
                 <button className="bg-red-700">Full day</button>

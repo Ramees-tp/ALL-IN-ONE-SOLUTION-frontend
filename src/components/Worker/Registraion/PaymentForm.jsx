@@ -1,4 +1,5 @@
-import PropTypes from "prop-types";
+/* eslint-disable react/prop-types */
+// import PropTypes from "prop-types";
 
 const PaymentForm = ({ formData, setFormData }) => {
   // const [formData, setFormData] = useState({

@@ -4,14 +4,16 @@ import { useState, useEffect } from "react";
 const EntryRequest = () => {
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
+  const [count, setCount] = useState(null)
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
         "http://localhost:917/master/workerRequest"
-      );
+      );  
       console.log(response);
       setData(response.data.data);
+      setCount(response.data.totalCount)
     } catch (err) {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
@@ -86,8 +88,8 @@ const EntryRequest = () => {
               </svg>
             </div>
             <div>
-              <span className="block text-2xl font-bold">62</span>
-              <span className="block text-gray-500">Workers</span>
+              <span className="block text-2xl font-bold">{count}</span>
+              <span className="block text-gray-500">Total Requests</span>
             </div>
           </div>
           {/* Average Mark Statistics */}
@@ -97,7 +99,7 @@ const EntryRequest = () => {
         </section>
         {/* Recent Activity Section */}
         <section className="bg-white p-8 shadow rounded-lg">
-          <h2 className="text-2xl font-semibold mb-6">Recent Activity</h2>
+          <h2 className="text-2xl font-semibold mb-6">Pending Requests</h2>
           <div className="flex flex-col gap-y-5">
             {data.map((worker) => (
               <div
@@ -142,3 +144,4 @@ const EntryRequest = () => {
 };
 
 export default EntryRequest;
+
