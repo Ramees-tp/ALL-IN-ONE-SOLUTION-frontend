@@ -1,8 +1,57 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 const JobForm = ({ formData, setFormData }) => {
+  const [location, setLocation] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  console.log("location:", location);
+
+  const parts = location.split(',');
+  const exactLocation = parts[0].trim();
+
+
+  const handleLocationChange = (event) => {
+    const value = event.target.value;
+    setLocation(value);
+
+    // Fetch place suggestions from Nominatim API
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
+      .then(response => response.json())
+      .then(data => {
+        setSuggestions(data.map(place => place.display_name));
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setLocation(suggestion);
+    setSuggestions([]);
+
+    // Fetch latitude, longitude, and place name from Nominatim API based on the selected suggestion
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(suggestion)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          const { lat, lon } = data[0];
+          // const name = data[0].display_name;
+          // setLatitude(lat);
+          // setLongitude(lon);
+          // setPlaceName(name);
+          setFormData({
+            ...formData,
+            coordinates: [lon, lat],
+            workArea: exactLocation
+          });
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  };
+
+  
+
   return (
-    <div className="w-full mx-auto flex flex-col self-end ">
+    <div className="w-full mx-auto flex flex-col self-end">
       <div className="mb-4">
         <label
           className="block text-white text-sm font-semibold mb-2"
@@ -26,23 +75,25 @@ const JobForm = ({ formData, setFormData }) => {
         </select>
       </div>
 
-      <div className="mb-4">
-        <label
-          className="block text-white text-sm font-semibold mb-2"
-          htmlFor="workArea"
-        >
-          Work Area
-        </label>
-        <input
-          type="text"
-          id="workArea"
-          name="workArea"
-          value={formData.workArea}
-          onChange={(event) =>
-            setFormData({ ...formData, workArea: event.target.value })
-          }
-          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-        />
+      <div className="mb-4 w-full">
+      <label
+        className="block text-white text-sm font-semibold mb-2"
+         htmlFor="workArea"
+      >
+      Work Area
+      </label>
+        <div className="relative">
+          <input className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+                type="text" value={location} onChange={handleLocationChange} />
+           {suggestions.length > 0 && (
+             <div className="bg-white border rounded-md absolute w-full" style={{ top: '100%' }}>
+               {suggestions.map((suggestion, index) => (
+                 <div className="p-1 border-b-gray-500 border-b-2 text-sm" key={index} onClick={() => handleSuggestionClick(suggestion)}>{suggestion} </div>
+               ))}
+             </div>
+           )}
+          </div>
+
       </div>
 
       <div className="mb-4">
@@ -65,6 +116,11 @@ const JobForm = ({ formData, setFormData }) => {
       </div>
     </div>
   );
+};
+
+JobForm.propTypes = {
+  formData: PropTypes.object.isRequired,
+  setFormData: PropTypes.func.isRequired,
 };
 
 export default JobForm;

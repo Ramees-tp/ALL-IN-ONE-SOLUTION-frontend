@@ -179,9 +179,9 @@ const DetailsForm = ({ formData, setFormData }) => {
   );
 };
 
-// DetailsForm.propTypes = {
-//   formData: PropTypes.object.isRequired,
-//   setFormData:PropTypes.object.isRequired,
-// };
+DetailsForm.propTypes = {
+  formData: PropTypes.object.isRequired,
+  setFormData:PropTypes.object.isRequired,
+};
 
 export default DetailsForm;

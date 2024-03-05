@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
 import "./ToggleButton.css";
 import axios from "axios";
+import { useWorkerDetails } from "../../context/WorkerDetailsContext";
+
 
 function UworkerList() {
+  const navigate = useNavigate()
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
   const {id} = useParams()
   console.log(id);
+  const { setDetails } = useWorkerDetails();
+
 
 
   useEffect(()=>{
@@ -33,6 +38,25 @@ function UworkerList() {
     };
   },[id])
 
+  const handleSelect = async (workerId) =>{
+    console.log(workerId);
+    try{
+      const response= await axios.get(`http://localhost:917/user/workerDetails/${workerId}`)
+      if(response.status===200){
+        // navigate(`/user/workerDetails/${workerId}`, { state: { worker: response.data.data } });
+        navigate('/user/workerDetails')
+        setDetails(response.data.data);
+      }
+
+    } catch (err) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("front: Internal server error");
+      }
+    }
+  }
+
   return (
     <div className="px-28 bg-[#fffdcb] py-5 h-screen">
       <div className="flex justify-between">
@@ -45,7 +69,7 @@ function UworkerList() {
 
         {data.map((worker)=>(
 
-          <div key={worker._id} className="bg-blue-300 p-4 rounded-xl">
+          <div onClick={ ()=> handleSelect(worker._id)} key={worker._id} className="bg-blue-300 p-4 rounded-xl">
           <div className="flex  items-center ">
             <div className="rounded-full bg-slate-400 p-2">
               <img src={user} alt="" />

@@ -53,7 +53,7 @@ nav ul :first-child {
   top: 0;
   right: 0;
   height: 100vh;
-  width: 250px;
+  width: 300px;
   z-index: 999;
   background-color: rgba(255, 255, 255, 0.473);
   backdrop-filter: blur(10px);

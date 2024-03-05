@@ -1,23 +1,22 @@
 
 import { useState, useEffect } from "react";
-import axiosInstance from "../../api/axios";
+import axiosInstance from "../../api/worker/workerInstance";
 import { Link } from "react-router-dom";
 
-
-function UserProfile() {
+const Wprofile = () => {
   const [image, setImage] = useState(null);
-  const [userData, setUserdata] = useState([]);
+  const [workerData, setWorkerdata] = useState([]);
   const [error, setError] = useState("");
 
-  const firstname = userData[0]?.moredetails[0].firstName;
-  const lastname = userData[0]?.moredetails[0].lastName;
+  const firstname = workerData[0]?.moredetails[0].firstName;
+  const lastname = workerData[0]?.moredetails[0].lastName;
 
-  const username = userData[0]?.username;
-  const email = userData[0]?.email;
-  const phone = userData[0]?.moredetails[0].phoneNumber;
-  const pinCode = userData[0]?.moredetails[0].pinCode;
-  const district = userData[0]?.moredetails[0].district;
-  const city = userData[0]?.moredetails[0].city;
+  const username = workerData[0]?.username;
+  const email = workerData[0]?.email;
+  const phone = workerData[0]?.moredetails[0].phoneNumber;
+  const pinCode = workerData[0]?.moredetails[0].pinCode;
+  const district = workerData[0]?.moredetails[0].district;
+  const city = workerData[0]?.moredetails[0].city;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -35,8 +34,8 @@ function UserProfile() {
 
   const fetch = async () => {
     try {
-      const response = await axiosInstance.get("/user/userProfile");
-      setUserdata(response.data.fullData);
+      const response = await axiosInstance.get("/worker/workerProfile");
+      setWorkerdata(response.data.data);
     } catch (error) {
       console.error("Error fetching user data:", error);
       setError("Error fetching user data");
@@ -94,7 +93,7 @@ function UserProfile() {
                   className="block text-white text-sm font-semibold  md:w-[30%] w-[10%]"
                   htmlFor="username"
                 >
-                  Username
+                  FullName
                 </label>
                 <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl ">
                   <span className="ml-3"> {username}</span>
@@ -128,7 +127,7 @@ function UserProfile() {
                     className="block text-white text-sm font-semibold md:w-[30%] w-[10%]"
                     htmlFor="username"
                   >
-                    City name
+                    Work area
                   </label>
                   <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {city}</span></p>
                 </div>
@@ -150,7 +149,7 @@ function UserProfile() {
                     className="block text-white text-sm font-semibold md:w-[30%] w-[10%]"
                     htmlFor="username"
                   >
-                    District
+                    Work type
                   </label>
                   <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {district}</span></p>
                 </div>
@@ -159,7 +158,7 @@ function UserProfile() {
           </div>
         </div>
         <div className="flex justify-center">
-          <Link to={'/user/uhome'}>
+          <Link to={'/worker/whome'}>
           <button className="p-2 px-5 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
             Home
           </button>
@@ -170,5 +169,4 @@ function UserProfile() {
   );
 }
 
-export default UserProfile;
-
+export default Wprofile

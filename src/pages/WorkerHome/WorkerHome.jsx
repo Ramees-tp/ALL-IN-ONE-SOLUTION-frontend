@@ -2,9 +2,9 @@ import React from "react";
 import Wheader from "../../components/Worker/Wheader";
 import Whome from "../../components/Worker/Whome";
 
-function WorkerHome() {
+function WorkerHome( getsttudents) {
   return (
-    <div>
+    <div >
       <Wheader />
       <Whome />
     </div>

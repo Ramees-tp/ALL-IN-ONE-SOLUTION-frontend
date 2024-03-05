@@ -1,12 +1,33 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
+
 import green from "../../assets/icons/circle.png";
 import user from "../../assets/icons/account.png";
+import { useWorkerDetails } from "../../context/WorkerDetailsContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function UworkerDetails() {
+  const navigate = useNavigate();
+  const { workerDetails } = useWorkerDetails();
+  console.log(workerDetails);
+
+  const sendRequest = async (workerId) => {
+    try {
+      const response = await axios.post(`http://localhost:917/user/workRequest/${workerId}`);
+      if(response.status===200){
+        navigate('/user/success')
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
+
   return (
     <div className="bg-white lg:px-28 sm:px-16 px-2 lg:py-20 md:py-10 py-4">
       <div className=" flex md:flex-row flex-col justify-center gap-5">
+        
         <div className="bg-gray-400 p-3 max-w-xl space-y-5 rounded">
           <div className="bg-white p-5 space-y-5">
             <h1 className="text-center font-bold text-3xl">Available Days</h1>
@@ -18,46 +39,46 @@ function UworkerDetails() {
                 Next week
               </button>
             </div>
-            <div className="grid grid-cols-7">
+            <div className="grid grid-cols-7 gap-5">
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  Monday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  Mon
                 </p>
                 <img src={green} alt="" />
               </div>
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  Tuesday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  Tue
                 </p>
                 <img src={green} alt="" />
               </div>
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  Wednesday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  Wed
                 </p>
                 <img src={green} alt="" />
               </div>
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  Tuesday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  Thu
                 </p>
                 <img src={green} alt="" />
               </div>
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  Friday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  Fri
                 </p>
                 <img src={green} alt="" />
               </div>
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  Saturday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  Sat
                 </p>
                 <img src={green} alt="" />
               </div>
               <div className="flex flex-col justify-center items-center gap-y-5">
-                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded">
-                  sunday
+                <p className="text-[80%] font-semibold bg-gray-300 p-1 rounded w-10 text-center">
+                  sun
                 </p>
                 <img src={green} alt="" />
               </div>
@@ -95,19 +116,19 @@ function UworkerDetails() {
                 src={user}
                 alt=""
               />
-              <p className="text-2xl">Ramees Muhammad TP</p>
+              <p className="text-2xl">{workerDetails[0].firstName} {workerDetails[0].lastName}</p>
             </div>
             <div className="bg-gray-300 p-3">
-              <p className="font-semibold mb-5">Worker ID : </p>
+              <p className="font-semibold mb-5">Worker ID : {workerDetails[0]._id} </p>
               <p>experience : </p>
-              <p>Place : </p>
+              <p>Place : {workerDetails[0].city} </p>
               <p>Consistency : </p>
             </div>
           </div>
         </div>
       </div>
       <div className="flex justify-center items-center mt-10 ">
-        <button className="bg-green-700 p-3 rounded text-white">
+        <button onClick={ ()=>sendRequest(workerDetails[0]._id)} className="bg-green-700 hover:bg-green-500 p-3 rounded text-white">
           Send Request
         </button>
       </div>

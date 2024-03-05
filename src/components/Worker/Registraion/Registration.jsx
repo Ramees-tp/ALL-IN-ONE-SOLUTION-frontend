@@ -4,10 +4,10 @@ import JobForm from "./JobForm";
 import PaymentForm from "./PaymentForm";
 import axiosInstance from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 
 const Registration = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
  
 
 
@@ -24,6 +24,7 @@ const Registration = () => {
     pinCode: "",
     jobType: "",
     workArea: "",
+    coordinates: [ null, null ],
     adharNumber: "56567656756",
     IFC: "766575757",
     accountNumber: "643654637825",
@@ -45,12 +46,15 @@ const Registration = () => {
   const formTitles = ["Personal Details", "Work Details", "Payment Details"];
 
   const pageDisplay = () => {
-    if (page === 0) {
-      return <DetailsForm formData={formData} setFormData={setFormData} />;
-    } else if (page === 1) {
-      return <JobForm formData={formData} setFormData={setFormData} />;
-    } else {
-      return <PaymentForm formData={formData} setFormData={setFormData} />;
+    switch (page) {
+      case 0:
+        return <DetailsForm formData={formData} setFormData={setFormData} />;
+      case 1:
+        return <JobForm formData={formData} setFormData={setFormData} />;
+      case 2:
+        return <PaymentForm formData={formData} setFormData={setFormData} />;
+      default:
+        return null;
     }
   };
 

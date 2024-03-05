@@ -5,6 +5,7 @@ import PaymentForm from "../components/Worker/Registraion/PaymentForm";
 import Wlogin from "../components/Worker/Wlogin";
 import Registration from "../components/Worker/Registraion/Registration";
 import WorkerHome from "../pages/WorkerHome/WorkerHome";
+import Wprofile from "../components/Worker/Wprofile";
 
 function WorkerRoutes() {
   return (
@@ -16,6 +17,7 @@ function WorkerRoutes() {
         <Route path="/WorkerLogin" element={<Wlogin />} />
         <Route path="/registration" element={<Registration />} />
         <Route path="/whome" element={<WorkerHome />} />
+        <Route path="/profile" element={<Wprofile />} />
       </Routes>
     </div>
   );
