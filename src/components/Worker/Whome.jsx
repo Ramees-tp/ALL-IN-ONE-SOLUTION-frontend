@@ -1,8 +1,22 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
+import axiosInstance from "../../api/worker/workerInstance";
 
 function Whome() {
+  const [request, setRequest] = useState()
+
+  const workRequest = async () =>{
+    try{
+      const res = await axiosInstance.get('/worker/workRequest');
+      setRequest(res.data.data)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(()=>{
+    workRequest()
+  },[])
   return (
     <div>
       <div className="bg-[#DFE7B4] lg:px-28 md:px-16 sm:px-10 px-4 py-5">
@@ -10,15 +24,15 @@ function Whome() {
           <h1 className="mb-5 text-2xl font-bold">Job Requests :</h1>
 
           <div className="scroll-mx-60 overflow-y-scroll  h-72 py-5 px-2 flex flex-col gap-4">
-            
-          <div className="bg-[#678FB4] p-3 rounded-md ">
+            {request && request.map((req)=>(
+          <div key={req._id} className="bg-[#678FB4] p-3 rounded-md ">
             <div className="flex flex-col md:flex-row items-center ">
               <div className="rounded-full bg-[#C3B6B6] p-2 mb-4 md:mb-0 md:mr-4">
-                <img src={user} alt="" className="w-10 h-10" />
+               <img src={req.userId.photo || user} alt="" className="w-10 h-10" />
               </div>
               <div className="bg-[#DFE7B4] p-3 rounded-xl w-full md:w-auto flex flex-col md:flex-row gap-x-3 space-y-4 items-center">
                 <h1 className="font-semibold  lg:text-2xl sm:text-xl text-sm p-2 max-w-[18rem] md:max-w-none md:mr-4">
-                  RAMEES MUHAMMAD TP
+                 {req.userId.firstName} {req.userId.lastName}
                 </h1>
                   <div className="flex lg:flex-row flex-col gap-5 items-center justify-center">
                     <div className="flex flex-row items-center md:gap-y-2 gap-2 md:space-x-3">
@@ -41,7 +55,7 @@ function Whome() {
               </div>
             </div>
           </div>
-
+          ))}
           </div>
         </div>
 

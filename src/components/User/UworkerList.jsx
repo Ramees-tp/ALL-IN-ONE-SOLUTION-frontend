@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
 import "./ToggleButton.css";
 import axios from "axios";
 import { useWorkerDetails } from "../../context/WorkerDetailsContext";
+import axiosInstance from "../../api/axios";
+
+const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
+const { center } = locationDetail;
+const { lat, lng } = center;
 
 
 function UworkerList() {
@@ -17,45 +22,47 @@ function UworkerList() {
 
 
 
-  useEffect(()=>{
-    const fetchData= async ()=>{
-      try{
-        const response= await axios.get(`http://localhost:917/user/awailWorker/${id}`)
-         setData(response.data.data)
-      } catch (err) {
-        if (err.response && err.response.data.message) {
-          setError(err.response.data.message);
-        } else {
-          setError("Internal server error");
-        }
-      }
-    }
-    fetchData()
-    return () => {
-      // Cleanup function
-      setData([]); 
-      setError("");
-    };
-  },[id])
+  // useEffect(()=>{
+  //   const fetchData= async ()=>{
+  //     try{
+  //       const response= await axios.get(`http://localhost:917/user/awailWorker/${id}`)
+  //        setData(response.data.data)
+  //     } catch (err) {
+  //       if (err.response && err.response.data.message) {
+  //         setError(err.response.data.message);
+  //       } else {
+  //         setError("Internal server error");
+  //       }
+  //     }
+  //   }
+  //   fetchData()
+  //   return () => {
+  //     // Cleanup function
+  //     setData([]); 
+  //     setError("");
+  //   };
+  // },[id])
 
-  const handleSelect = async (workerId) =>{
-    console.log(workerId);
+
+  const fetchWorker = async () => {
     try{
-      const response= await axios.get(`http://localhost:917/user/workerDetails/${workerId}`)
+      
+      console.log("locccc:", locationDetail);
+      const response = await axiosInstance.get(`/user/fetchWorker/${id}`,{ params: {
+        latitude: lat,
+        longitude: lng
+      }})
       if(response.status===200){
-        // navigate(`/user/workerDetails/${workerId}`, { state: { worker: response.data.data } });
-        navigate('/user/workerDetails')
-        setDetails(response.data.data);
+        setData(response.data.data)
       }
-
-    } catch (err) {
-      if (err.response && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("front: Internal server error");
-      }
-    }
+    }catch(err){
+      console.log("frontend server error", err);
+     }
   }
+
+  useEffect(()=>{
+    fetchWorker()
+  },[])
 
   return (
     <div className="px-28 bg-[#fffdcb] py-5 h-screen">
@@ -69,7 +76,8 @@ function UworkerList() {
 
         {data.map((worker)=>(
 
-          <div onClick={ ()=> handleSelect(worker._id)} key={worker._id} className="bg-blue-300 p-4 rounded-xl">
+         <Link to={`/user/workerDetails/${worker._id}`} key={worker._id}>
+            <div className="bg-blue-300 p-4 rounded-xl">
           <div className="flex  items-center ">
             <div className="rounded-full bg-slate-400 p-2">
               <img src={user} alt="" />
@@ -80,6 +88,8 @@ function UworkerList() {
             </div>
           </div>
         </div>
+         </Link>
+
         ))}
 
         <div>

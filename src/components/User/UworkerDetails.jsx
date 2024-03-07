@@ -3,13 +3,18 @@ import green from "../../assets/icons/circle.png";
 import user from "../../assets/icons/account.png";
 import { useWorkerDetails } from "../../context/WorkerDetailsContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 
 function UworkerDetails() {
+  const [details, setDetails] = useState();
+  const [error, setError] = useState()
+  const{id} = useParams()
   const navigate = useNavigate();
   const { workerDetails } = useWorkerDetails();
   console.log(workerDetails);
+  console.log('det:', details);
 
   const sendRequest = async (workerId) => {
     try {
@@ -21,6 +26,26 @@ function UworkerDetails() {
       console.log(err);
     }
   }
+
+  const wDetails = async () =>{
+    console.log(id);
+    try{
+      const response= await axios.get(`http://localhost:917/user/workerDetails/${id}`)
+      if(response.status===200){
+        setDetails(response.data.data);
+      }
+
+    } catch (err) {
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("front: Internal server error");
+      }
+    }
+  }
+  useEffect(()=>{
+    wDetails()
+  },[])
 
 
 
@@ -105,6 +130,7 @@ function UworkerDetails() {
           </div>
         </div>
 
+        {details && details.length > 0 && (
         <div className="bg-gray-400 p-3 max-w-xl space-y-3 rounded">
           <h1 className="bg-white p-4 text-center font-bold text-2xl">
             Worker Details
@@ -116,19 +142,20 @@ function UworkerDetails() {
                 src={user}
                 alt=""
               />
-              <p className="text-2xl">{workerDetails[0].firstName} {workerDetails[0].lastName}</p>
+              <p className="text-2xl">{details[0].firstName} {details[0].lastName}</p>
             </div>
             <div className="bg-gray-300 p-3">
-              <p className="font-semibold mb-5">Worker ID : {workerDetails[0]._id} </p>
+              <p className="font-semibold mb-5">Worker ID : {details[0]._id} </p>
               <p>experience : </p>
-              <p>Place : {workerDetails[0].city} </p>
+              <p>Place : {details[0].city} </p>
               <p>Consistency : </p>
             </div>
           </div>
         </div>
+        )}
       </div>
       <div className="flex justify-center items-center mt-10 ">
-        <button onClick={ ()=>sendRequest(workerDetails[0]._id)} className="bg-green-700 hover:bg-green-500 p-3 rounded text-white">
+        <button onClick={ ()=>sendRequest(details[0]._id)} className="bg-green-700 hover:bg-green-500 p-3 rounded text-white">
           Send Request
         </button>
       </div>

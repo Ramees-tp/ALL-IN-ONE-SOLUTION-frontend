@@ -5,25 +5,35 @@ import PropTypes from 'prop-types';
 const DetailsForm = ({ formData, setFormData }) => {
   
   
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
 
-    if (name.includes(".")) {
-      const [parent, child] = name.split(".");
-      setFormData((prevData) => ({
-        ...prevData,
-        [parent]: {
-          ...prevData[parent],
-          [child]: value,
-        },
-      }));
-    } else {
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+  //   if (name.includes(".")) {
+  //     const [parent, child] = name.split(".");
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [parent]: {
+  //         ...prevData[parent],
+  //         [child]: value,
+  //       },
+  //     }));
+  //   } else {
+  //     setFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: value,
+  //     }));
+  //   }
+  // };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    setFormData((prevData) => ({
+      ...prevData,
+      profileImage: file,
+    }));
   };
+  
 
 
   return (
@@ -172,7 +182,20 @@ const DetailsForm = ({ formData, setFormData }) => {
           />
         </div>
         <div>
-          <UploadImage handleChange={handleChange} />
+        <label
+            className="block text-white text-sm font-semibold mb-2"
+            htmlFor="profileImage"
+          >
+            image
+          </label>
+          <input
+            type="file"
+            id="profileImage"
+            name="profileImage"
+            // value={formData.profileImage}
+            onChange={handleImageChange}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+          />
+          {/* <UploadImage handleChange={handleImageChange} /> */}
         </div>
       </div>
     </div>

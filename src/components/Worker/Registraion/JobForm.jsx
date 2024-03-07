@@ -1,6 +1,8 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
+// const cageAPI = 'd2830f7b3655486382ad0349c864e4be'
+
 const JobForm = ({ formData, setFormData }) => {
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -8,47 +10,54 @@ const JobForm = ({ formData, setFormData }) => {
   console.log("location:", location);
 
   const parts = location.split(',');
-  const exactLocation = parts[0].trim();
+const exactLocation = parts.length >= 2 ? parts[0].trim() : '';
+console.log(exactLocation);
 
 
-  const handleLocationChange = (event) => {
-    const value = event.target.value;
-    setLocation(value);
 
-    // Fetch place suggestions from Nominatim API
-    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
-      .then(response => response.json())
-      .then(data => {
-        setSuggestions(data.map(place => place.display_name));
-      })
-      .catch(error => console.error('Error:', error));
-  };
+const handleLocationChange = (event) => {
+  const value = event.target.value;
+  setLocation(value);
+
+  // Fetch place suggestions from Nominatim API
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
+    .then(response => response.json())
+    .then(data => {
+      const suggestions = data.map(item => item.display_name);
+      setSuggestions(suggestions);
+    })
+    .catch(error => console.error('Error:', error));
+};
+
 
   const handleSuggestionClick = (suggestion) => {
     setLocation(suggestion);
     setSuggestions([]);
-
-    // Fetch latitude, longitude, and place name from Nominatim API based on the selected suggestion
+  
     fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(suggestion)}`)
       .then(response => response.json())
       .then(data => {
         if (data.length > 0) {
           const { lat, lon } = data[0];
-          // const name = data[0].display_name;
-          // setLatitude(lat);
-          // setLongitude(lon);
-          // setPlaceName(name);
+          const placeName = data[0].display_name;
+          console.log(placeName);
+  
+          const part = placeName.split(',');
+          const exactLocation = part.length >= 2 ? part[0].trim() : '';
+          setLocation(placeName);
+          console.log("Nominatim:", lat, lon);
+  
           setFormData({
             ...formData,
-            coordinates: [lon, lat],
+            coordinates: [parseFloat(lon), parseFloat(lat)],
             workArea: exactLocation
           });
         }
       })
       .catch(error => console.error('Error:', error));
   };
-
   
+
 
   return (
     <div className="w-full mx-auto flex flex-col self-end">

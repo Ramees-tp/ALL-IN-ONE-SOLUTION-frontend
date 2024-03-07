@@ -7,16 +7,18 @@ const Wprofile = () => {
   const [image, setImage] = useState(null);
   const [workerData, setWorkerdata] = useState([]);
   const [error, setError] = useState("");
+  console.log(workerData);
 
-  const firstname = workerData[0]?.moredetails[0].firstName;
-  const lastname = workerData[0]?.moredetails[0].lastName;
+  const firstname = workerData.firstName;
+  const lastname = workerData.lastName;
 
-  const username = workerData[0]?.username;
-  const email = workerData[0]?.email;
-  const phone = workerData[0]?.moredetails[0].phoneNumber;
-  const pinCode = workerData[0]?.moredetails[0].pinCode;
-  const district = workerData[0]?.moredetails[0].district;
-  const city = workerData[0]?.moredetails[0].city;
+  const profileImage = workerData.profileImage;
+  const email = workerData.email;
+  const phone = workerData.phoneNumber;
+  const pinCode = workerData.pinCode;
+  const district = workerData.district;
+  const city = workerData.city;
+  const workArea = workerData.workArea;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -51,9 +53,15 @@ const Wprofile = () => {
       
           <div className="flex flex-col items-center mb-0 md:mb-4 w-[50%]">
           <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
-              {image ? (
+
+              <img
+                className="object-cover w-full h-full"
+                src={profileImage}
+                alt=""
+              />
+              {/* {image ? (
                 <img
-                  src={image}
+                  src={profileImage}
                   alt="Profile"
                   className="object-cover w-full h-full"
                 />
@@ -61,15 +69,15 @@ const Wprofile = () => {
                 <div className="relative flex items-center justify-center w-full h-full">
                   <p className="text-red-500 font-medium">Add image </p>
                 </div>
-              )}
+              )} */}
             </div>
-            <input
+            {/* <input
               type="file"
               id="image"
               accept="image/*"
               onChange={handleImageChange}
               className="absolute inset- opacity-  cursor-pointer"
-            />
+            /> */}
           </div>
           <h1 className="md:text-5xl text-3xl font-bold mb-0 md:mb-4 text-center ">
             {firstname} {lastname}
@@ -96,7 +104,7 @@ const Wprofile = () => {
                   FullName
                 </label>
                 <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl ">
-                  <span className="ml-3"> {username}</span>
+                  <span className="ml-3"> {firstname} {lastname}</span>
                 </p>
               </div>
               <div className="flex items-center md:gap-4 gap-10 mb-5">
@@ -129,7 +137,7 @@ const Wprofile = () => {
                   >
                     Work area
                   </label>
-                  <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {city}</span></p>
+                  <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {workArea}</span></p>
                 </div>
               </div>
               <div>

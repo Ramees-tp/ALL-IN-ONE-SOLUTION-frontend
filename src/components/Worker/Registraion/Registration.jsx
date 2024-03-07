@@ -22,6 +22,7 @@ const Registration = () => {
     district: "",
     city: "",
     pinCode: "",
+    profileImage: "",
     jobType: "",
     workArea: "",
     coordinates: [ null, null ],
@@ -59,17 +60,30 @@ const Registration = () => {
   };
 
   const handleSignup = async () => {
-    const response = await axiosInstance.post("/worker/registration", formData,{
-        withCredentials: true
+    const formDataToSend = new FormData();
+    Object.keys(formData).forEach((key) => {
+      formDataToSend.append(key, formData[key]);
     });
-    if (response.status === 200) {
-      const Token = response.data.Token;
-      console.log(Token);
-      localStorage.setItem("wjwt", Token);
 
-      navigate("/worker/whome");
-
-      // setError(response.data.message);
+    console.log(formDataToSend);
+    try {
+      const response = await axiosInstance.post("/worker/registration", formDataToSend, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      if (response.status === 200) {
+        const Token = response.data.Token;
+        console.log(Token);
+        localStorage.setItem("wjwt", Token);
+  
+        navigate("/worker/whome");
+      }
+    } catch (error) {
+      // Handle error
+      console.error("Error:", error);
     }
   };
 

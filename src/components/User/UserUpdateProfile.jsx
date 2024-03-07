@@ -3,7 +3,56 @@ import { useState } from "react";
 import axiosInstance from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
-const UserUpdateProfile = ({ updateUser }) => {
+// const cageAPI = 'd2830f7b3655486382ad0349c864e4be'
+
+const UserUpdateProfile = () => {
+
+  const [location, setLocation] = useState("");
+  const [coordinates, setCoordinates] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  console.log(location);
+
+  const handleSuggestionClick = (suggestion) => {
+    setLocation(suggestion);
+    setSuggestions([]);
+  
+
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(suggestion)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          const { lat, lon } = data[0];
+          const placeName = data[0].display_name;
+          console.log(placeName);
+  
+          const part = placeName.split(',');
+          const exactLocation = part.length >= 2 ? part[0].trim() : '';
+          
+          setLocation(exactLocation);
+          setCoordinates ([parseFloat(lon), parseFloat(lat)]),
+          console.log("Nominatim:", lat, lon);
+          
+        }
+      })
+      .catch(error => console.error('Error:', error));
+  };
+  
+
+const handleLocationChange = (event) => {
+  const value = event.target.value;
+  setLocation(value);
+
+  
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
+    .then(response => response.json())
+    .then(data => {
+      const suggestions = data.map(item => item.display_name);
+      setSuggestions(suggestions);
+    })
+    .catch(error => console.error('Error:', error));
+};
+
+
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
@@ -13,7 +62,6 @@ const UserUpdateProfile = ({ updateUser }) => {
     lastName: "",
     DOB: "",
     phoneNumber: "",
-    city: "",
     district: "",
     pinCode: "",
   });
@@ -30,7 +78,14 @@ const UserUpdateProfile = ({ updateUser }) => {
     e.preventDefault();
 
     try {
-      const response = await axiosInstance.put("/user/addDetails", formData);
+
+      const updatedFormData = {
+        ...formData,
+        coordinates: coordinates,
+        city: location
+      };
+
+      const response = await axiosInstance.put("/user/addDetails", updatedFormData);
       console.log(formData);
       if (response.status === 200) {
         navigate("/user/userProfile");
@@ -44,16 +99,13 @@ const UserUpdateProfile = ({ updateUser }) => {
       }
     }
 
-    // Pass formData to the updateUser function for further processing
-    updateUser(formData);
-    // Clear the form after submission
+
     setFormData({
       firstName: "",
       lastName: "",
       DOB: "",
       phoneNumber: "",
       address: {
-        city: "",
         district: "",
         pinCode: "",
       },
@@ -136,21 +188,24 @@ const UserUpdateProfile = ({ updateUser }) => {
       </div>
       <div className="mb-4">
         <label
-          htmlFor="street"
+          htmlFor="city"
           className="block mb-2 text-sm font-medium text-gray-600"
         >
           city
         </label>
-        <input
-          type="text"
-          id="city"
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-          placeholder="Street"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-        />
+
+        <div className="relative">
+          <input className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+                type="text" value={location} onChange={handleLocationChange} />
+           {suggestions.length > 0 && (
+             <div className="bg-white border rounded-md absolute w-full" style={{ top: '100%' }}>
+               {suggestions.map((suggestion, index) => (
+                 <div className="p-1 border-b-gray-500 border-b-2 text-sm" key={index} onClick={() => handleSuggestionClick(suggestion)}>{suggestion} </div>
+               ))}
+             </div>
+           )}
+          </div>
+
       </div>
       <div className="mb-4">
         <label

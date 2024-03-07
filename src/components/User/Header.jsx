@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from "react";
+
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
@@ -14,14 +14,21 @@ import axiosInstance from "../../api/axios";
 import LeafMap from "../LeafMap";
 
 function Header() {
-  
+
   const [showMap, setShowMap] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [filteredData, setFilteredData] = useState([]);
+  // const [filteredData, setFilteredData] = useState([]);
   const [location, setLocation] = useState([]);
+  const [coordinates, setCoordinates] = useState([])
   console.log( "location", location);
-  console.log( "userdata", filteredData);
+  console.log( "lat", coordinates);
+  // console.log( "userdata", filteredData);
 
+  useEffect(()=>{
+    if(location !== null){
+       localStorage.setItem('location', location)
+    }
+  },[location])
 
   // const toggleSidebar = (e) => {
   //   console.log("Sidebar visibility toggled");
@@ -46,14 +53,29 @@ function Header() {
     try{
       const res= await axiosInstance.get("/user/userlocation")
       setLocation(res.data.data)
+      setCoordinates(res.data.latlong)
       console.log(res.data);
     }catch(err){
      console.log("frontend server error", err);
     }
   }
-  useEffect(()=>{
-    fetchUserLocation()
-  },[])
+
+  
+  useEffect(() => {
+    const storedLocation = localStorage.getItem('userLocation');
+    if (storedLocation) {
+      console.log(storedLocation);
+      const parsedLocation = JSON.parse(storedLocation);
+      setLocation(parsedLocation.placeName);
+      setCoordinates(parsedLocation.center);
+      console.log("header:", parsedLocation.center);
+    } else {
+      fetchUserLocation();
+    }
+  }, []);
+  
+  
+  
 
   const handleLocationChange = async (event) => {
     const newLocation = event.target.value;
@@ -156,13 +178,14 @@ function Header() {
                       onClick={toggleComponent}
                     />
                   </button>
-                  {showMap && <LeafMap/>}
+                  
                 </div>
               </div>
             </div>
           </ul>
         </nav>
       </div>
+      {showMap && <LeafMap/>}
     </div>
   );
 }
