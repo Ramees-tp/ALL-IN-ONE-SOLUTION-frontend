@@ -20,7 +20,7 @@ function UworkerDetails() {
     try {
       const response = await axios.post(`http://localhost:917/user/workRequest/${workerId}`);
       if(response.status===200){
-        navigate('/user/success')
+        navigate('/user/mycontracts ')
       }
     } catch (err) {
       console.log(err);
@@ -136,10 +136,10 @@ function UworkerDetails() {
             Worker Details
           </h1>
           <div className="bg-white p-3 space-y-5">
-            <div className=" flex justify-center items-center gap-x-5">
+            <div className="flex items-center gap-5">
               <img
-                className="bg-amber-900 rounded-full p-2"
-                src={user}
+                className=" rounded-full p-2 object-cover w-32 h-32"
+                src={details ? details[0].profileImage : user}
                 alt=""
               />
               <p className="text-2xl">{details[0].firstName} {details[0].lastName}</p>

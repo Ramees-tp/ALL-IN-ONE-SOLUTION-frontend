@@ -28,13 +28,15 @@ const UserUpdateProfile = () => {
           const part = placeName.split(',');
           const exactLocation = part.length >= 2 ? part[0].trim() : '';
           
-          setLocation(exactLocation);
+          setLocation(exactLocation || '');
           setCoordinates ([parseFloat(lon), parseFloat(lat)]),
+          // setCoordinates ([parseFloat(lon), parseFloat(lat)].map(Number)),
           console.log("Nominatim:", lat, lon);
           
         }
       })
       .catch(error => console.error('Error:', error));
+      setSuggestions([]);
   };
   
 
@@ -74,6 +76,15 @@ const handleLocationChange = (event) => {
     }));
   };
 
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   console.log(file);
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     userImage: file,
+  //   }));
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -84,9 +95,14 @@ const handleLocationChange = (event) => {
         coordinates: coordinates,
         city: location
       };
+      console.log(updatedFormData);
+
+    // const formDataToSend = new FormData();
+    //   Object.keys(updatedFormData).forEach((key) => {
+    //   formDataToSend.append(key, updatedFormData[key]);
+    // });
 
       const response = await axiosInstance.put("/user/addDetails", updatedFormData);
-      console.log(formData);
       if (response.status === 200) {
         navigate("/user/userProfile");
       }
@@ -243,6 +259,22 @@ const handleLocationChange = (event) => {
           className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
+      {/* <div>
+        <label
+            className="block text-white text-sm font-semibold mb-2"
+            htmlFor="profileImage"
+          >
+            image
+          </label>
+          <input
+            type="file"
+            id="userImage"
+            name="userImage"
+            // value={formData.profileImage}
+            onChange={handleImageChange}           
+            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+          />
+        </div> */}
       <div>
         {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
       </div>

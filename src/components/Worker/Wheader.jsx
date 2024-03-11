@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
@@ -6,13 +6,22 @@ import {
   faBars,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-
-import './Wheader.jsx'
-
+import './Wheader.jsx';
+import CommonLeafMap from '../CommonLeafMap.jsx';
+import axiosInstance from "../../api/worker/workerInstance.js";
 
 function Wheader() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  
+  const [showMap, setShowMap] = useState(false);
+
+  const [center, setCenter] = useState({lat: 11.24802, 
+    lng: 75.7804, });
+  const [place, setPlaceName] = useState('')
+  console.log(center, place);
+
+  const toggleComponent = () => {
+    setShowMap(!showMap);
+  };
 
   const showBars = () => {
     const sidebar = document.querySelector(".sidebar");
@@ -22,6 +31,31 @@ function Wheader() {
     const sidebar = document.querySelector(".sidebar");
     sidebar.style.display = "none";
   };
+
+  const fetchWorkerData = async () => {
+    try {
+        const res = await axiosInstance.get('/worker/workerProfile');
+
+        setCenter({lat: res.data.data.coordinates[1], lng: res.data.data.coordinates[0]})
+        setPlaceName(res.data.data.workArea)
+        // localStorage.setItem("workerLocation", JSON.stringify({ center, placeName }));
+    } catch (error) {
+        console.error('Error fetching worker data:', error);
+    }
+};
+
+
+  useEffect(() => {
+    const workerLocation = localStorage.getItem('workerLocation');
+    if(workerLocation){
+      const { center, placeName } = JSON.parse(workerLocation);
+      console.log( center, placeName);
+      setCenter(center);
+      setPlaceName(placeName);
+    }else{
+      fetchWorkerData();
+    }
+  }, []);
 
 
   return (
@@ -90,15 +124,15 @@ function Wheader() {
                 <input
                   className=" md:w-[100%] sm:w-[180px] w-[100%] md:h-[100%] h-[23px] p-1 pl-8 rounded"
                   type="text"
-                  // value={location}
-                  // defaultValue={location}
+                  // value={place}
+                  defaultValue={place}
                   // onChange={handleLocationChange}
                 />
                 <button>
                   <FontAwesomeIcon
                     className="sm:h-5 h-4 absolute text-[#17253a] left-1 top-1"
                     icon={faLocationDot}
-                    
+                    onClick={toggleComponent}
                   />
                   
                 </button>
@@ -116,6 +150,7 @@ function Wheader() {
         </ul>
       </nav>
     </div>
+    { showMap && <CommonLeafMap  initialCenter={center} userType="worker"  initialPlaceName={place}/>}
   </div>
   );
 }
