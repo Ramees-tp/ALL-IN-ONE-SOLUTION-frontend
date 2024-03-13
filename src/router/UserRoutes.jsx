@@ -13,6 +13,8 @@ import ResetPass from "../pages/ChangePassword/ResetPass";
 import UserUpdateProfile from "../components/User/UserUpdateProfile"
 import UserProfile from "../components/User/UserProfile";
 import UworkerDetails from '../components/User/UworkerDetails'
+import MainContracts from "../components/User/Contracts/MainContract";
+
 
 
 function UserRoutes() {
@@ -52,6 +54,9 @@ function UserRoutes() {
         <Route path="/updateProfile" element={<UserUpdateProfile/>}/>
         <Route path="/userProfile" element={<UserProfile/>}/>
         <Route path="/workerDetails/:id" element={<UworkerDetails/>}/>
+        <Route path="/userContracts" element={<MainContracts/>}/>
+
+
       </Routes>
       </WorkerDetailsProvider>
 

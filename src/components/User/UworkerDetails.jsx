@@ -1,26 +1,42 @@
-
 import green from "../../assets/icons/circle.png";
 import user from "../../assets/icons/account.png";
-import { useWorkerDetails } from "../../context/WorkerDetailsContext";
+// import { useWorkerDetails } from "../../context/WorkerDetailsContext";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axiosInstance from "../../api/axios";
 
 
 function UworkerDetails() {
+  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  console.log('day:', selectedDay);
+  console.log('date', selectedDate);
+
   const [details, setDetails] = useState();
   const [error, setError] = useState()
   const{id} = useParams()
   const navigate = useNavigate();
-  const { workerDetails } = useWorkerDetails();
-  console.log(workerDetails);
+  // const { workerDetails } = useWorkerDetails();
+  // console.log(workerDetails);
   console.log('det:', details);
+
+  const handleDayChange = (event) => {
+    setSelectedDay(event.target.value);
+    const currentDate = new Date();
+    const selectedDate = new Date(currentDate);
+    const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"].indexOf(event.target.value);
+    const diff = selectedDate.getDay() - dayOfWeek;
+    
+    selectedDate.setDate(currentDate.getDate() - diff);
+    setSelectedDate(selectedDate.toISOString().split('T')[0]);
+  }
 
   const sendRequest = async (workerId) => {
     try {
-      const response = await axios.post(`http://localhost:917/user/workRequest/${workerId}`);
-      if(response.status===200){
-        navigate('/user/mycontracts ')
+      const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay });
+      if(response.status===201){
+        navigate('/user/userContracts')
       }
     } catch (err) {
       console.log(err);
@@ -57,10 +73,10 @@ function UworkerDetails() {
           <div className="bg-white p-5 space-y-5">
             <h1 className="text-center font-bold text-3xl">Available Days</h1>
             <div className="space-x-5">
-              <button className="bg-purple-300 p-1 px-2 rounded-md">
+              <button className="bg-purple-100 focus:bg-purple-300  p-1 px-2 rounded-md">
                 This Week
               </button>
-              <button className="bg-purple-100 p-1 px-2 rounded-md">
+              <button className="bg-purple-100 focus:bg-purple-300  p-1 px-2 rounded-md">
                 Next week
               </button>
             </div>
@@ -111,22 +127,27 @@ function UworkerDetails() {
           </div>
 
           <div>
-            <h1 className="font-bold mb-5 text-2xl">Select Day</h1>
+           
+           <div>
+             <h1 className="font-bold mb-5 text-2xl">Select Day</h1>
             <select
-              id="selectDay"
-              name="selectDay"
-              value=""
-              onChange=""
-              className="w-[50%] p-2 border rounded-md focus:outline-none focus:border-blue-500"
+               id="selectDay"
+               name="selectDay"
+               value={selectedDay}
+               defaultValue={selectedDay}
+               onChange={handleDayChange}
+               className="w-[50%] p-2 border rounded-md focus:outline-none focus:border-blue-500"
             >
-              <option value="Monday">Monday</option>
-              <option value="Tuesday">Tuesday</option>
-              <option value="Wednesday">Wednesday</option>
-              <option value="Tuesday">Tuesday</option>
-              <option value="Friday">Friday</option>
-              <option value="Satarday">Satarday</option>
-              <option value="Sunsday">Sunday</option>
+               <option value="">Select a day</option>
+               <option value="Monday">Monday</option>
+               <option value="Tuesday">Tuesday</option>
+               <option value="Wednesday">Wednesday</option>
+               <option value="Thursday">Thursday</option>
+               <option value="Friday">Friday</option>
+               <option value="Saturday">Saturday</option>
+               <option value="Sunday">Sunday</option>
             </select>
+          </div>
           </div>
         </div>
 

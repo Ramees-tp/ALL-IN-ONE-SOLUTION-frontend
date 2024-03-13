@@ -12,6 +12,7 @@ import {
 import "./Header.css";
 import axiosInstance from "../../api/axios";
 import LeafMap from "../LeafMap";
+import CommonLeafMap from "../CommonLeafMap";
 
 function Header() {
 
@@ -20,8 +21,8 @@ function Header() {
   // const [filteredData, setFilteredData] = useState([]);
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([])
-  console.log( "location", location);
-  console.log( "lat", coordinates);
+  console.log( "userlocation", location);
+  console.log( "userlat", coordinates);
   // console.log( "userdata", filteredData);
 
   useEffect(()=>{
@@ -53,7 +54,7 @@ function Header() {
     try{
       const res= await axiosInstance.get("/user/userlocation")
       setLocation(res.data.data)
-      setCoordinates(res.data.latlong)
+      setCoordinates({lat:res.data.latlong.lat, lng: res.data.latlong.lng})
       console.log(res.data);
     }catch(err){
      console.log("frontend server error", err);
@@ -64,7 +65,6 @@ function Header() {
   useEffect(() => {
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
-      console.log(storedLocation);
       const parsedLocation = JSON.parse(storedLocation);
       setLocation(parsedLocation.placeName);
       setCoordinates(parsedLocation.center);
@@ -74,22 +74,6 @@ function Header() {
     }
   }, []);
   
-  
-  
-
-  const handleLocationChange = async (event) => {
-    const newLocation = event.target.value;
-    setLocation(newLocation);
-
-    try {
-      const response = await axiosInstance.get(`/user/newlocation?location=${encodeURIComponent(newLocation)}`);
-      // const filteredData = await response.json();
-      setFilteredData(response.data);  
-
-    } catch (error) {
-      console.error('Error filtering data:', error);
-    }
-  };
 
   return (
     <div>
@@ -111,7 +95,9 @@ function Header() {
               <a href="">Contact</a>
             </li>
             <li>
-              <a href="">Contracts</a>
+              <Link to={'/user/userContracts'}>
+              Contracts
+              </Link>
             </li>
             <li>
               <Link to={'/user/userProfile'}>
@@ -137,7 +123,9 @@ function Header() {
                   <a href="">contact</a>
                 </li>
                 <li className="hideFlex">
-                  <a href="">Contracts</a>
+                <Link to={'/user/userContracts'}>
+                  Contracts
+                </Link>
                 </li>
                 <li className="hideFlex">
                    <Link to={'/user/userProfile'}>
@@ -169,7 +157,7 @@ function Header() {
                     type="text"
                     // value={location}
                     defaultValue={location}
-                    onChange={handleLocationChange}
+                    // onChange={handleLocationChange}
                   />
                   <button>
                     <FontAwesomeIcon
@@ -185,7 +173,8 @@ function Header() {
           </ul>
         </nav>
       </div>
-      {showMap && <LeafMap/>}
+      {/* {showMap && <LeafMap/>} */}
+      { showMap && <CommonLeafMap  initialCenter={coordinates} userType="user"  initialPlaceName={location}/>}
     </div>
   );
 }

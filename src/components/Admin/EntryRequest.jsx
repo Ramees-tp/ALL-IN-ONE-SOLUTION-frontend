@@ -15,11 +15,11 @@ const EntryRequest = () => {
       setData(response.data.data);
       setCount(response.data.totalCount)
     } catch (err) {
-      if (err.response && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("Internal server error");
-      }
+        if (err.response && err.response.data.message) {
+          setError(err.response.data.message);
+        } else {
+          setError("Internal server error");
+        }
     }
   };
 
