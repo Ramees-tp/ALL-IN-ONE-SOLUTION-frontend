@@ -28,6 +28,13 @@ const ContractRequests = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRequests((prevRequests) => prevRequests.filter((request) => request.status !== 'declined'));
+    }, 30 * 60 * 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const cancel = async (requestId)=>{
     try{
       const response = await axiosInstance.delete(`/user/cancelRequest/${requestId}`)
@@ -35,6 +42,17 @@ const ContractRequests = () => {
       if(response.status===200){
         fetchData();
       }
+    }catch(err){
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Internal server error");
+      }
+    }
+  }
+  const payment = async () =>{
+    try{
+      const res = await axiosInstance.post('/user/payment')
     }catch(err){
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
@@ -74,11 +92,13 @@ const ContractRequests = () => {
                   </div>
                   <div className="ml-auto flex justify-center items-center">
                   <div 
-                    className={`inline-flex px-5 py-2 ${request.status === 'pending' ? 'text-red-500 border-red-500' : request.status === 'accepted' ? 'text-white bg-green-500' : 'text-white bg-red-700' } rounded-md ml-3 border`}
+                    className={`inline-flex px-5 py-2 ${request.status === 'pending' ? 'text-red-500 border-red-500' : request.status === 'accepted' ? 'text-white bg-green-600 hover:bg-green-700 cursor-pointer' : 'text-white bg-red-700' } rounded-md ml-3 border`}
                     >
-                      <span className="block">
-                        {request.status}
-                      </span>
+                      {request.status === 'accepted' ? (
+                        <span className='block' onClick={()=> payment()}>payment</span>
+                      ) : (
+                        <span className="block">{request.status}</span>
+                      )}
                   </div>
                   <button
                       onClick={() => cancel(request._id)}
