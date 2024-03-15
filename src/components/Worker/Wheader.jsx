@@ -10,10 +10,10 @@ import './Wheader.jsx';
 import CommonLeafMap from '../CommonLeafMap.jsx';
 import axiosInstance from "../../api/worker/workerInstance.js";
 
-function Wheader() {
+function Wheader({handleNavigation }) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [showMap, setShowMap] = useState(false);
-
+  const [isHalfDay, setIsHalfDay] = useState(false)
   const [center, setCenter] = useState({lat: 11.24802, 
     lng: 75.7804, });
   const [place, setPlaceName] = useState('')
@@ -56,6 +56,17 @@ function Wheader() {
       fetchWorkerData();
     }
   }, []);
+  const handleHalfDayClick = async () =>{
+     try{
+      const newIsHalfDay = !isHalfDay;
+      const res = await axiosInstance.put('/worker/updateIsHalfDay', { isHalfDay: newIsHalfDay });
+      if (res.status === 200) {
+        setIsHalfDay(newIsHalfDay);
+      }
+     } catch (error) {
+      console.error('Error updating isHalfDay:', error);
+    }
+  }
 
 
   return (
@@ -69,7 +80,7 @@ function Wheader() {
             </a>
           </li>
           <li>
-            <Link to={"/worker/whome"}>Home</Link>
+            <Link to="" onClick={() => handleNavigation("WHome")} >Home</Link>
           </li>
           <li>
             <a href="">About</a>
@@ -78,10 +89,12 @@ function Wheader() {
             <a href="">Contact</a>
           </li>
           <li>
-            <a href="">My Contracts</a>
+          <Link to="" onClick={() => handleNavigation("WContracts")} >
+                  My Contracts
+                 </Link>
           </li>
           <li>
-          <Link to={'/worker/profile'}>
+          <Link to="" onClick={() => handleNavigation("WProfile")} >
                   Profile
                  </Link>
           </li>
@@ -96,7 +109,7 @@ function Wheader() {
             <div className="flex flex-row items-center">
               
               <li className="hideFlex">
-              <Link to={"/worker/whome"}>Home</Link>
+              <Link to="" onClick={() => handleNavigation("WHome")} >Home</Link>
               </li>
               <li className="hideFlex">
                 <a href="">About</a>
@@ -105,12 +118,14 @@ function Wheader() {
                 <a href="">contact</a>
               </li>
               <li className="hideFlex">
-                <a href="">My Contracts</a>
+              <Link to="" onClick={() => handleNavigation("WContracts")} >
+                  My Contracts
+                 </Link>
               </li>
               <li className="hideFlex">
-                 <Link to={'/worker/profile'}>
-                  Profile
-                 </Link>
+              <Link to="" onClick={() => handleNavigation("WProfile")}> 
+                    Profile
+              </Link>
               </li>
               <li className="menu-button" onClick={showBars}>
                 <a href="#">
@@ -138,8 +153,8 @@ function Wheader() {
                 </button>
               </div>
               <div className="flex space-x-2">
-                <button className="sm:px-5 px-2 bg-red-600 rounded">
-                  fullDay
+                <button className={`sm:px-5 px-2 ${isHalfDay ? 'bg-green-600' : 'bg-red-600'} rounded`} onClick={handleHalfDayClick}>
+                    {isHalfDay ? 'Half Day' : 'Full Day'}
                 </button>
                 <button className="sm:px-5 px-2 bg-green-600 rounded">
                   Online

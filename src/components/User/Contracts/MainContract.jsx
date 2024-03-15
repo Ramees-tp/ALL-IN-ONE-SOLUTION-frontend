@@ -23,8 +23,8 @@ const MainContracts = () => {
     }
   }
   return (
-    <div>
-    <main className="p-6 sm:p-10 space-y-6 h-screen">
+    <div className='bg-[#fffdcb]'>
+    <main className="p-2 sm:p-10 space-y-6 ">
       {/* Dashboard Heading Section */}
       <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
         <div className="mr-6">
@@ -41,7 +41,7 @@ const MainContracts = () => {
         </div>
       </div>
       {/* Statistics Section */}
-      <section className="bg-white p-8 shadow rounded-lg h-full">
+      <section className="bg-white md:p-8 p-2 shadow rounded-lg h-full">
        {show1 && <UserContracts/>}
        {show2 && <ContractRequests/>}
       </section>    

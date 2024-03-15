@@ -12,7 +12,7 @@
   transition: 0.5s;
 }
 .checkbox::before {
-  content: "Full";
+  content: "Half";
   color: white;
   height: 30px;
   width: 30px;
@@ -33,7 +33,7 @@
     inset 0 2px 8px rgba(0, 0, 0, 0.1), inset 0 -4px 4px rgba(0, 0, 0, 0.1);
 }
 .checkbox:checked::before {
-  content: "Half";
+  content: "Full";
   color: black;
   left: 30px;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1),

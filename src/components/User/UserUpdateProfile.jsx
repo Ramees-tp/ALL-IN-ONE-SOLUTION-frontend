@@ -3,7 +3,6 @@ import { useState } from "react";
 import axiosInstance from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
-// const cageAPI = 'd2830f7b3655486382ad0349c864e4be'
 
 const UserUpdateProfile = () => {
 
@@ -76,14 +75,14 @@ const handleLocationChange = (event) => {
     }));
   };
 
-  // const handleImageChange = (e) => {
-  //   const file = e.target.files[0];
-  //   console.log(file);
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     userImage: file,
-  //   }));
-  // };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    setFormData((prevData) => ({
+      ...prevData,
+      userImage: file,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,12 +96,12 @@ const handleLocationChange = (event) => {
       };
       console.log(updatedFormData);
 
-    // const formDataToSend = new FormData();
-    //   Object.keys(updatedFormData).forEach((key) => {
-    //   formDataToSend.append(key, updatedFormData[key]);
-    // });
+    const formDataToSend = new FormData();
+      Object.keys(updatedFormData).forEach((key) => {
+      formDataToSend.append(key, updatedFormData[key]);
+    });
 
-      const response = await axiosInstance.put("/user/addDetails", updatedFormData);
+      const response = await axiosInstance.put("/user/addDetails", formDataToSend);
       if (response.status === 200) {
         navigate("/user/userProfile");
       }
@@ -259,7 +258,7 @@ const handleLocationChange = (event) => {
           className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
-      {/* <div>
+      <div>
         <label
             className="block text-white text-sm font-semibold mb-2"
             htmlFor="profileImage"
@@ -274,7 +273,7 @@ const handleLocationChange = (event) => {
             onChange={handleImageChange}           
             className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
           />
-        </div> */}
+        </div>
       <div>
         {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
       </div>

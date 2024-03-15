@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
 import "./ToggleButton.css";
-import axios from "axios";
-import { useWorkerDetails } from "../../context/WorkerDetailsContext";
+// import { useWorkerDetails } from "../../context/WorkerDetailsContext";
 import axiosInstance from "../../api/axios";
 
 const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
@@ -13,35 +12,13 @@ const { lat, lng } = center;
 
 
 function UworkerList() {
-  const navigate = useNavigate()
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
+  const [showHalfDayWorkers, setShowHalfDayWorkers] = useState(false);
+
   const {id} = useParams()
   console.log(id);
-  const { setDetails } = useWorkerDetails();
-
-
-
-  // useEffect(()=>{
-  //   const fetchData= async ()=>{
-  //     try{
-  //       const response= await axios.get(`http://localhost:917/user/awailWorker/${id}`)
-  //        setData(response.data.data)
-  //     } catch (err) {
-  //       if (err.response && err.response.data.message) {
-  //         setError(err.response.data.message);
-  //       } else {
-  //         setError("Internal server error");
-  //       }
-  //     }
-  //   }
-  //   fetchData()
-  //   return () => {
-  //     // Cleanup function
-  //     setData([]); 
-  //     setError("");
-  //   };
-  // },[id])
+  // const { setDetails } = useWorkerDetails();
 
 
   const fetchWorker = async () => {
@@ -64,17 +41,24 @@ function UworkerList() {
     fetchWorker()
   },[])
 
+  const handleCheckboxChange = () => {
+    setShowHalfDayWorkers(!showHalfDayWorkers);
+  };
+
   return (
     <div className="px-28 bg-[#fffdcb] py-5 h-screen">
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold mb-5">Awailable Workers :</h1>
         <div className="flex justify-end ">
-          <input type="checkbox" className="checkbox" />
+          <input type="checkbox" className="checkbox"
+           checked={showHalfDayWorkers} 
+           onChange={handleCheckboxChange}
+          />
         </div>
       </div>
       <div className="space-y-8 max-w-2xl">
 
-        {data.map((worker)=>(
+        {data.filter(worker => (showHalfDayWorkers ? worker.isHalfDay : !worker.isHalfDay)).map((worker)=>(
 
          <Link to={`/user/workerDetails/${worker._id}`} key={worker._id}>
             <div className="bg-blue-300 p-4 rounded-xl">

@@ -17,19 +17,19 @@ const Wprofile = () => {
   const phone = workerData.phoneNumber;
   const pinCode = workerData.pinCode;
   const district = workerData.district;
-  const city = workerData.city;
   const workArea = workerData.workArea;
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -46,7 +46,7 @@ const Wprofile = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#fffdcb]">
+    <div className="min-h-screen flex justify-center items-center bg-[#DFE7B4]">
       <div className="bg-[#17253a] flex flex-col justify-center md:rounded-lg md:p-10 p-5 w-full md:w-[80%] lg:w-[70%]">
        <p className="text-3xl font-bold text-center mb-5 text-white">PROFILE</p>
        <div className="flex flex-col md:flex-row bg-white items-center md:gap-8 gap-4 p-8 rounded-xl shadow-lg">
@@ -86,13 +86,7 @@ const Wprofile = () => {
         <div className="flex flex-col mt-10 w-full">
          <div className="flex items-center">
          <h1 className="text-2xl font-bold md:text-left text-center text-white"> DETAILS</h1>
-          <div className="ml-auto">
-          <Link to={'/user/updateProfile'}>
-          <button className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
-            Edit Profile
-          </button>
-          </Link>
-        </div>
+         
          </div>
           <div className="mt-5 flex md:flex-row flex-col md:items-center md:mx-7 mx-2 gap-x-5">
             <div className="md:w-[50%] w-full font-semibold">
@@ -166,11 +160,13 @@ const Wprofile = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <Link to={'/worker/whome'}>
-          <button className="p-2 px-5 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
-            Home
+        <div>
+          <Link to={'/user/updateProfile'}>
+          <button className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
+            Edit Profile
           </button>
           </Link>
+        </div>
         </div>
       </div>
     </div>

@@ -1,11 +1,18 @@
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../api/axios';
+import useRazorpay from "react-razorpay";
+
+
 
 const ContractRequests = () => {
   const [requests, setRequests] = useState([])
   const [error, setError] = useState("");
+  // const [order, setOrder] = useState('')
 
+  // console.log("order", order);
   console.log(requests);
+  const [Razorpay] = useRazorpay();
+
   
 
   const fetchData = async () =>{
@@ -50,9 +57,24 @@ const ContractRequests = () => {
       }
     }
   }
-  const payment = async () =>{
+  
+  const payment = async (orderId) =>{
+    
+    const amount = 500;
+    const currency = 'INR'
+    const receipt = 'tyty'
+    let order = null
     try{
-      const res = await axiosInstance.post('/user/payment')
+      const response = await axiosInstance.post('/user/payment', { amount, currency, receipt }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      order = response.data.data;
+      console.log("order2", order);
+      // const { amount, receipt } = res.data;
+      // await createOrder(amount, receipt);
     }catch(err){
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
@@ -60,6 +82,54 @@ const ContractRequests = () => {
         setError("Internal server error");
       }
     }
+    const options = {
+      "key": "rzp_test_cPE3LPX2nR9LE2", 
+      amount, 
+      currency,
+      "name": "ALL IN ONE SOLUTION",
+      "description": "Test Transaction",
+      // "image": "https://example.com/your_logo",
+      "order_id": order.id,
+      "handler": async function (response){
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature)
+          const body ={
+            ...response,
+            orderId: orderId
+          };
+          const validateRes = await axiosInstance.post('/user/validatePayment', body, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          const res = validateRes.data
+          console.log('payment res', res);
+      },
+      "prefill": { 
+          "name": "Ramees tp",
+          "email": "ramees@example.com", 
+          "contact": "9000090000"
+      },
+      "notes": {
+          "address": "Razorpay Corporate Office"
+      },
+      "theme": {
+          "color": "#fffdcb"
+      }
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.on('payment.failed', function (response){
+          alert(response.error.code);
+          alert(response.error.description);
+          alert(response.error.source);
+          alert(response.error.step);
+          alert(response.error.reason);
+          alert(response.error.metadata.order_id);
+          alert(response.error.metadata.payment_id);
+  });
+    rzp1.open();
+    e.preventDefault();
   }
 
   return (
@@ -67,7 +137,7 @@ const ContractRequests = () => {
       <div>
       <h2 className="text-2xl font-semibold mb-6">Your Requests </h2>
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8 ">
-        { requests.length > 0 && requests.map((request) => (
+        { requests.length > 0 && requests.filter(request => !request.payment).map((request) => (
           <div key={request._id} className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg px-12">
           <div
                 
@@ -95,7 +165,7 @@ const ContractRequests = () => {
                     className={`inline-flex px-5 py-2 ${request.status === 'pending' ? 'text-red-500 border-red-500' : request.status === 'accepted' ? 'text-white bg-green-600 hover:bg-green-700 cursor-pointer' : 'text-white bg-red-700' } rounded-md ml-3 border`}
                     >
                       {request.status === 'accepted' ? (
-                        <span className='block' onClick={()=> payment()}>payment</span>
+                        <span className='block' onClick={()=> payment(request._id)}>payment</span>
                       ) : (
                         <span className="block">{request.status}</span>
                       )}

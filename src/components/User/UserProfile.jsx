@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 
 function UserProfile() {
-  const [image, setImage] = useState(null);
+  // const [image, setImage] = useState(null);
   const [userData, setUserdata] = useState([]);
   const [error, setError] = useState("");
 
   const firstname = userData[0]?.moredetails[0].firstName;
   const lastname = userData[0]?.moredetails[0].lastName;
-
+  const image = userData[0]?.moredetails[0].userImage;
   const username = userData[0]?.username;
   const email = userData[0]?.email;
   const phone = userData[0]?.moredetails[0].phoneNumber;
@@ -19,16 +19,17 @@ function UserProfile() {
   const district = userData[0]?.moredetails[0].district;
   const city = userData[0]?.moredetails[0].city;
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
   useEffect(() => {
     fetch();
   }, []);
@@ -45,7 +46,7 @@ function UserProfile() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#fffdcb]">
+    <div className="min-h-screen flex justify-center items-center bg-[#fffdcb] p-5">
       <div className="bg-[#17253a] flex flex-col justify-center md:rounded-lg md:p-10 p-5 w-full md:w-[80%] lg:w-[70%]">
        <p className="text-3xl font-bold text-center mb-5 text-white">PROFILE</p>
        <div className="flex flex-col md:flex-row bg-white items-center md:gap-8 gap-4 p-8 rounded-xl shadow-lg">
@@ -64,13 +65,13 @@ function UserProfile() {
                 </div>
               )}
             </div>
-            <input
+            {/* <input
               type="file"
               id="image"
               accept="image/*"
               onChange={handleImageChange}
               className="absolute inset- opacity-  cursor-pointer"
-            />
+            /> */}
           </div>
           <h1 className="md:text-5xl text-3xl font-bold mb-0 md:mb-4 text-center ">
             {firstname} {lastname}

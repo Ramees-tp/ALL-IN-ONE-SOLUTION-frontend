@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -11,10 +10,9 @@ import {
 
 import "./Header.css";
 import axiosInstance from "../../api/axios";
-import LeafMap from "../LeafMap";
 import CommonLeafMap from "../CommonLeafMap";
 
-function Header() {
+function Header({handleNavigation }) {
 
   const [showMap, setShowMap] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -23,7 +21,7 @@ function Header() {
   const [coordinates, setCoordinates] = useState([])
   console.log( "userlocation", location);
   console.log( "userlat", coordinates);
-  // console.log( "userdata", filteredData);
+
 
   useEffect(()=>{
     if(location !== null){
@@ -86,7 +84,7 @@ function Header() {
               </a>
             </li>
             <li>
-              <Link to={"/user/uhome"}>Home</Link>
+              <Link to=""  onClick={() => handleNavigation("Home")}>Home</Link>
             </li>
             <li>
               <a href="">About</a>
@@ -95,13 +93,13 @@ function Header() {
               <a href="">Contact</a>
             </li>
             <li>
-              <Link to={'/user/userContracts'}>
-              Contracts
+               <Link to="" onClick={() => handleNavigation("Contracts")}>
+                  Contracts
               </Link>
             </li>
             <li>
-              <Link to={'/user/userProfile'}>
-              Profile
+              <Link to="" onClick={() => handleNavigation("Profile")}> 
+                    Profile
               </Link>
             </li>
           </ul>
@@ -114,7 +112,7 @@ function Header() {
               <div className="flex flex-row items-center">
                 
                 <li className="hideFlex">
-                <Link to={"/user/uhome"}>Home</Link>
+                <Link to=""  onClick={() => handleNavigation("Home")}>Home</Link>
                 </li>
                 <li className="hideFlex">
                   <a href="">About</a>
@@ -123,12 +121,12 @@ function Header() {
                   <a href="">contact</a>
                 </li>
                 <li className="hideFlex">
-                <Link to={'/user/userContracts'}>
+                <Link to="" onClick={() => handleNavigation("Contracts")}>
                   Contracts
                 </Link>
                 </li>
                 <li className="hideFlex">
-                   <Link to={'/user/userProfile'}>
+                   <Link to="" onClick={() => handleNavigation("Profile")}> 
                     Profile
                    </Link>
                 </li>
@@ -173,8 +171,9 @@ function Header() {
           </ul>
         </nav>
       </div>
-      {/* {showMap && <LeafMap/>} */}
+      <div className="absolute h-full">
       { showMap && <CommonLeafMap  initialCenter={coordinates} userType="user"  initialPlaceName={location}/>}
+      </div>
     </div>
   );
 }

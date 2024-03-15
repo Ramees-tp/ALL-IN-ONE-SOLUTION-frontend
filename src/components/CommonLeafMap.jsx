@@ -6,13 +6,13 @@ import { faArrowsAlt, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import getPlaceName from '../utils/placeName';
 
 
-const CommonLeafMap = ({ initialCenter, initialPlaceName, userType , onLocationChange }) => {
+const CommonLeafMap = ({ initialCenter, initialPlaceName, userType }) => {
     const [center, setCenter] = useState(initialCenter);
     const [placeName, setPlaceName] = useState(initialPlaceName);
 
     const mapContainerStyle = {
         width: '100vw',
-        height: '500px',
+        height: '550px',
     };
 
     const mapRef = useRef();
@@ -71,10 +71,12 @@ const CommonLeafMap = ({ initialCenter, initialPlaceName, userType , onLocationC
     };
 
     return (
-        <div>
-            <FontAwesomeIcon className='h-8 p-3 text-blue-600' onClick={handleCurrentLocationClick} icon={faMapMarkerAlt} />
-            <FontAwesomeIcon className='h-8 p-3 text-red-600' onClick={flyToCenter} icon={faArrowsAlt} />
-            <MapContainer center={center} zoom={12} ref={mapRef} style={mapContainerStyle}>
+        <div className='relative'>
+           <div className='bg-white'>
+           <FontAwesomeIcon className='h-8 p-3 text-blue-600 ' onClick={handleCurrentLocationClick} icon={faMapMarkerAlt} />
+            <FontAwesomeIcon className='h-8 p-3 text-red-600 ' onClick={flyToCenter} icon={faArrowsAlt} />
+           </div>
+             <MapContainer center={center} zoom={12} ref={mapRef} style={mapContainerStyle}>
                 <TileLayer 
                     url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" 
                     attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
@@ -83,6 +85,7 @@ const CommonLeafMap = ({ initialCenter, initialPlaceName, userType , onLocationC
                 {/* <useMapEvents click={handleMapClick} /> */}
                 <HandleClick />
             </MapContainer>
+           
         </div>
     );
 }
