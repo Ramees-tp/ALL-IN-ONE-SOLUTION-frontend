@@ -29,7 +29,8 @@
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.0",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "request-promise": "^4.2.6",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

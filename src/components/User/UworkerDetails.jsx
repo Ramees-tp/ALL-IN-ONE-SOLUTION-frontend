@@ -8,6 +8,9 @@ import axiosInstance from "../../api/axios";
 
 
 function UworkerDetails() {
+  const [location, setLocation] = useState([]);
+  const [coordinates, setCoordinates] = useState([]);
+
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   console.log('day:', selectedDay);
@@ -32,9 +35,19 @@ function UworkerDetails() {
     setSelectedDate(selectedDate.toISOString().split('T')[0]);
   }
 
+  useEffect(() => {
+    const storedLocation = localStorage.getItem('userLocation');
+    if (storedLocation) {
+      const parsedLocation = JSON.parse(storedLocation);
+      setLocation(parsedLocation.placeName);
+      setCoordinates(parsedLocation.center);
+      console.log("header:", parsedLocation.center);
+    }
+  }, []);
+
   const sendRequest = async (workerId) => {
     try {
-      const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay });
+      const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay, coordinates, location });
       if(response.status===201){
         navigate('/user/userContracts')
       }

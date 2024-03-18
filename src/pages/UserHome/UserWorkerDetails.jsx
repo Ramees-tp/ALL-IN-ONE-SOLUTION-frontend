@@ -1,4 +1,3 @@
-import React from 'react'
 import UworkerDetails from '../../components/User/UworkerDetails'
 import Header from '../../components/User/Header'
 import Ufooter from '../../components/User/Ufooter'

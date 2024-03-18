@@ -13,15 +13,15 @@ const Registration = () => {
 
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "@gmail.com",
-    phoneNumber: "",
+    firstName: "Hadhi",
+    lastName: "Rahman",
+    email: "hadhirahmanmt@gmail.com",
+    phoneNumber: "9526490604",
     gender: "",
     dateOfBirth: "",
-    district: "",
-    city: "",
-    pinCode: "",
+    district: "malappuram",
+    city: "kondotty",
+    pinCode: "673638",
     profileImage: "",
     jobType: "",
     workArea: "",

@@ -153,10 +153,10 @@ function Wheader({handleNavigation }) {
                 </button>
               </div>
               <div className="flex space-x-2">
-                <button className={`sm:px-5 px-2 ${isHalfDay ? 'bg-green-600' : 'bg-red-600'} rounded`} onClick={handleHalfDayClick}>
+                <button className={`sm:w-20 h-8  ${isHalfDay ? 'bg-green-600' : 'bg-red-600'} rounded `} onClick={handleHalfDayClick}>
                     {isHalfDay ? 'Half Day' : 'Full Day'}
                 </button>
-                <button className="sm:px-5 px-2 bg-green-600 rounded">
+                <button className="sm:w-20 h-8 px-2 bg-green-600 rounded">
                   Online
                 </button>
               </div>
