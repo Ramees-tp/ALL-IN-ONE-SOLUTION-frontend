@@ -164,7 +164,7 @@ function Wheader({handleNavigation }) {
           </div>
         </ul>
       </nav>
-    </div>
+    </div >
     { showMap && <CommonLeafMap  initialCenter={center} userType="worker"  initialPlaceName={place}/>}
   </div>
   );

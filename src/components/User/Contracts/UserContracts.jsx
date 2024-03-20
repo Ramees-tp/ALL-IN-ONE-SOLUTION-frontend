@@ -4,7 +4,8 @@ import SocketChat from '../SocketChat';
 
 const UserContracts = () => {
   const [requests, setRequests] = useState([])
-  const [showChat, setShowChat] = useState({})
+  const [showChat, setShowChat] = useState(false)
+  const [selectedContract, setSelectedContract] = useState(null);
   const [error, setError] = useState("");
 
   const fetchData = async () =>{
@@ -28,12 +29,9 @@ const UserContracts = () => {
     fetchData();
   }, []);
 
-  const showChatBox = (workerId) => {
-      setShowChat(prevState => ({
-        ...prevState,
-        [workerId]: !prevState[workerId],
-      }));
-    
+  const showChatBox = (requestId) => {
+      setSelectedContract(requestId);
+      setShowChat((prevShowChat) => !prevShowChat);
   };
 
   const cancel = async (requestId)=>{
@@ -98,16 +96,18 @@ const UserContracts = () => {
               >Cancel
              </button>
              <button
-                onClick={()=>showChatBox(request.workerId._id)}
+                onClick={()=>showChatBox(request._id)}
                 className=" inline-flex px-5 py-2 text-green-600 hover:text-green-700 focus:text-green-700 hover:bg-green-100 focus:bg-green-100 border border-green-600 rounded-md ml-3"
-              >Live Chat
+              >{showChat && selectedContract._id === request._id ? 'Close Chat' : 'Live Chat'}
              </button>
              </div>
             </div>
           </section>
         </div>
         <div className='w-[30%]'>
-        {showChat[request.workerId._id] && <SocketChat workerId={request.workerId._id} userId={request.userId} />}
+        {showChat && selectedContract === request._id && (
+          <SocketChat workerId={request.workerId._id} userId={request.userId} requestId={request._id}/>
+        )}
         </div>
         </div>
         ))}

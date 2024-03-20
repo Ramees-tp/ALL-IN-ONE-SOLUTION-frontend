@@ -11,8 +11,8 @@ const CommonLeafMap = ({ initialCenter, initialPlaceName, userType }) => {
     const [placeName, setPlaceName] = useState(initialPlaceName);
 
     const mapContainerStyle = {
-        width: '100vw',
-        height: '550px',
+        width: '100%',
+        height: '100vh',
     };
 
     const mapRef = useRef();

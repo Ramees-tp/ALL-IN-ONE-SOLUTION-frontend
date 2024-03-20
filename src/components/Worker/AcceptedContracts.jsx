@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../api/worker/workerInstance';
 import SocketChatWorker from './SocketChatWorker';
+import CommonLeafMap from '../CommonLeafMap'
+import OtpEnter from './OtpEnter';
 
 const AcceptedContracts = () => {
     const [requests, setRequest] = useState([])
     const [showChat, setShowChat] = useState(false);
+    const [showMap, setShowMap] = useState(false);
+    const [showOtp, setShowOtp] = useState();
     const [selectedContract, setSelectedContract] = useState(null);
 
     const workRequest = async () =>{
@@ -21,21 +25,20 @@ const AcceptedContracts = () => {
         workRequest()
       },[])
 
-      const verifyOTP = async (orderId) =>{
-        try {
-          const res = await axiosInstance.get('/worker/verifyOTP',{orderId});
-          if(res.status===200){
-            console.log('otp verification success');
-          }
-        } catch (error) {
-          console.log(error);
-        }
+      const toggleOtp = async (requestId) =>{
+        setSelectedContract(requestId);
+        setShowOtp((prevShowChat) => !prevShowChat);
       }
 
-    const toggleChat = (contract) => {
-        setShowChat(!showChat);
-        setSelectedContract(contract);
+    const toggleChat = (requestId) => {
+      setSelectedContract(requestId);
+      setShowChat((prevShowChat) => !prevShowChat);
     };
+
+    const showMapLeaf = (requestId)=>{
+      setSelectedContract(requestId);
+      setShowMap((prevShowChat) => !prevShowChat);
+    }
 
   return (
     <div>
@@ -53,7 +56,6 @@ const AcceptedContracts = () => {
                 <p className='sm:col-span-4'>{request._id}</p>
                 <p className='flex items-center'>{request.userData.jobType}</p>
                 <p className='sm:col-span-4 flex items-center text-xl text-green-900'>{new Date(request.date).toLocaleDateString()} - {request.day}</p>
-                <p className='flex items-center'>{request.userData.workArea}</p>
               </div>
                <div className='md:w-[30%]'>
              <div  className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
@@ -76,22 +78,24 @@ const AcceptedContracts = () => {
               <p>{request.userData.email||'Not awailable'}</p>
               <p className='font-bold'>Worker ID</p>
               <p>{request.userData.userId}</p>
+              <p className='font-bold'>Place</p>
+              <p>{request.userData.city}</p>
              </div>
              
              <div className='md:ml-auto flex justify-center mt-5'>
               <button
-              //  onClick={() => cancel(request._id)}
+               onClick={() => showMapLeaf(request._id)}
                 className=" inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md ml-3"
               >Map Location
              </button>
              <button
-                onClick={() => toggleChat(request)}
+                onClick={() => toggleChat(request._id)}
                 className=" inline-flex px-5 py-2 text-red-600 hover:text-red-700 focus:text-red-700 hover:bg-red-100 focus:bg-red-100 border border-red-600 rounded-md ml-3"
               >
                 {showChat && selectedContract._id === request._id ? 'Close Chat' : 'Live Chat'}
              </button>
              <button
-             onClick={()=> verifyOTP(request._id)}
+             onClick={()=> toggleOtp(request._id)}
                 className=" inline-flex px-5 py-2 text-green-600 hover:text-green-700 focus:text-green-700 hover:bg-green-100 focus:bg-green-100 border border-green-600 rounded-md ml-3"
               >Enter OTP
              </button>
@@ -99,12 +103,24 @@ const AcceptedContracts = () => {
             </div>
           </section>
         </div>
-        <div className='w-[30%]'>
-        {showChat && selectedContract && (
-        <SocketChatWorker workerId={request.workerId} userId={request.userId} />
-      )}
+        <div className='w-[30%] h-[100%]'>
+          {showChat && selectedContract  === request._id  && (
+           <div className=' h-[100%]'>
+          <SocketChatWorker workerId={request.workerId} userId={request.userId} requestId={request._id}/>
+           </div>
+          )}
+          {showMap && selectedContract  === request._id  && (
+           <div className=' h-[100%]'>
+            <CommonLeafMap initialCenter={{lat: request.coordinates[1], lng: request.coordinates[0]}} userType="worker" />
+           </div> 
+          )}
+          {showOtp && selectedContract  === request._id  && (
+           <div className=' h-[100%]'>
+            <OtpEnter workerId={request.workerId} userId={request.userId} requestId={request._id}/>
+            </div>
+          )}
         </div>
-          </div>
+        </div>
         ))}
     </div>
     </div>
