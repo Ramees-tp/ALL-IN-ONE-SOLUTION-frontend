@@ -4,7 +4,8 @@ import {
   faMagnifyingGlass,
   faGear,
   faIndianRupeeSign,
-  faAdd
+  faAdd,
+  faHelmetSafety
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faChartBar,
@@ -16,6 +17,7 @@ import EntryRequest from "./EntryRequest";
 import ReportSection from "./ReportSection";
 import Payment from "./Payment";
 import AddWork from "./AddWork";
+import WorkDetails from "./WorkDetails";
 
 function Dashboard() {
   const [show, setShow] = useState(false);
@@ -23,6 +25,7 @@ function Dashboard() {
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
   const [show4, setShow4] = useState(false);
+  const [show5, setShow5] = useState(false);
 
   const handleButtonClick = (buttonIndex) => {
     setShow(false);
@@ -30,6 +33,8 @@ function Dashboard() {
     setShow2(false);
     setShow3(false);
     setShow4(false);
+    setShow5(false);
+
 
     switch (buttonIndex) {
       case 1:
@@ -46,6 +51,9 @@ function Dashboard() {
         break;
       case 5:
         setShow4(true);
+        break;
+      case 6:
+        setShow5(true);
         break;
       default:
         break;
@@ -85,7 +93,7 @@ function Dashboard() {
               href="#"
               className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
             >
-              <FontAwesomeIcon className="h-6" icon={faEnvelope} />
+              <FontAwesomeIcon className="h-6" icon={faHelmetSafety} />
             </a>
             <a
               onClick={() => handleButtonClick(4)}
@@ -180,9 +188,10 @@ function Dashboard() {
 
         {show && <WorkerList />}
         {show1 && <EntryRequest />}
-        {show2 && <ReportSection />}
+        {show2 && <WorkDetails />}
         {show3 && <Payment />}
         {show4 && <AddWork />}
+        {show5 && <ReportSection />}
       </div>
     </div>
   );

@@ -38,6 +38,8 @@ function Wlogin() {
         password,
       });
       if (response.status === 200) {
+        const Token = response.data.Token;
+        localStorage.setItem("wjwt", Token);
         navigate("/worker/whome");
       }
     } catch (err) {

@@ -56,7 +56,12 @@ const UserContracts = () => {
         { requests.length > 0 && requests.filter(request => request.payment).map((request) => (
         <div key={request._id} className='flex gap-4 mb-5' >
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 md:pr-10 lg:px-8 lg:w-[70%]">
-          <section className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-slate-100 shadow-xl sm:px-12">
+          <section className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-slate-100 shadow-xl sm:px-12 relative">
+          {request.completed && (
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 text-white rounded-t-lg sm:px-12">
+                  <p className='text-4xl font-bold text-green-500 p-36'></p>
+                </div>
+              )}
             <div className='flex md:flex-row sm:items-start items-center flex-col w-full'>
              <div className='md:w-[30%]'>
              <div  className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
@@ -77,7 +82,12 @@ const UserContracts = () => {
               </div>
             </div>
           </section>
-          <section className="align-middle inline-block min-w-full shadow overflow-hidden bg-slate-100 shadow-dashboard md:px-8 px-2 md:pt-3 rounded-bl-lg rounded-br-lg">
+          <section className="align-middle inline-block min-w-full shadow overflow-hidden bg-slate-100 shadow-dashboard md:px-8 px-2 md:pt-3 rounded-bl-lg rounded-br-lg relative">
+          {request.completed && (
+                <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 text-white rounded-b-lg sm:px-12">
+                  <p className='text-4xl font-bold text-green-500 p-36 '>Work Completed</p>
+                </div>
+              )}
            <p className='text-lg text-gray-700 font-bold'>Contact</p>
             <div className=" flex flex-col justify-center mt-4 work-sans bg-white shadow-xl rounded sm:p-6 p-2 mb-5">
              <div className='grid sm:grid-cols-2 sm:grid-rows-3 md:w-[30%]'>
@@ -87,6 +97,8 @@ const UserContracts = () => {
               <p className='sm:text-base text-[75%] '>{request.workerId.email}</p>
               <p className='sm:text-base text-[75%] font-bold'>Worker ID</p>
               <p className='sm:text-base text-[75%] '>{request.workerId._id}</p>
+              <p className='sm:text-base text-[75%] font-bold'>Secret Code</p>
+              <p className='sm:text-base text-[75%] '>{request.otp}</p>
              </div>
              
              <div className='md:ml-auto flex justify-center mt-5'>

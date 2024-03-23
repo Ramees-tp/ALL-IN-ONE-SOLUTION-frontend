@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../../api/axios";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function UserProfile() {
+  const navigate = useNavigate()
   // const [image, setImage] = useState(null);
   const [userData, setUserdata] = useState([]);
   const [error, setError] = useState("");
@@ -44,6 +45,20 @@ function UserProfile() {
       // setLoading(false);
     }
   };
+   const logOut = async () => {
+   try {
+    const res = await axiosInstance.post('/user/logOut');
+    if(res.status===200){
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('userLocation');
+      localStorage.removeItem('location');
+      navigate('/user/login')
+    }
+   } catch (error) {
+    console.error("Error fetching user data:", error);
+    setError("Error fetching user data");
+  }
+  }
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-[#fffdcb] p-5">
@@ -160,11 +175,11 @@ function UserProfile() {
           </div>
         </div>
         <div className="flex justify-center">
-          <Link to={'/user/uhome'}>
-          <button className="p-2 px-5 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
-            Home
+
+          <button onClick={logOut} className="p-2 px-5 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
+            logOut
           </button>
-          </Link>
+
         </div>
       </div>
     </div>

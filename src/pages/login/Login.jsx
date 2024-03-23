@@ -1,12 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../redux/TokenSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
   const [passhow, setPasshow] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +41,9 @@ const Login = () => {
         password,
       });
       if (response.status === 200) {
+        const Token = response.data.Token;
+        localStorage.setItem("jwt", Token);
+        dispatch(setToken(Token));
         navigate("/user/uhome");
       }
     } catch (err) {

@@ -73,6 +73,7 @@ function SocketChatWorker({workerId, userId, requestId}) {
     socket.off("sendMessage", handleReceivedMessage);
   };
  },[])
+
   return (
     <div className='h-full bg-slate-200 rounded-md'>
      <div className="flex flex-col h-full">

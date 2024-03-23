@@ -2,13 +2,16 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import user from "../../assets/icons/account.png";
 import favWorker from "../../assets/icons/heart.png";
-import "./ToggleButton.css";
-// import { useWorkerDetails } from "../../context/WorkerDetailsContext";
 import axiosInstance from "../../api/axios";
+import "./ToggleButton.css";
 
+const radiusSelected =JSON.parse(localStorage.getItem('radius'))
+const { radius } = radiusSelected
+console.log('rrrrra', radius);
 const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
-const { center } = locationDetail;
-const { lat, lng } = center;
+const { center } = locationDetail || {};
+const { lat, lng } = center || {};
+console.log(lat, lng);
 
 
 function UworkerList() {
@@ -18,8 +21,6 @@ function UworkerList() {
 
   const {id} = useParams()
   console.log(id);
-  // const { setDetails } = useWorkerDetails();
-
 
   const fetchWorker = async () => {
     try{
@@ -27,10 +28,12 @@ function UworkerList() {
       console.log("locccc:", locationDetail);
       const response = await axiosInstance.get(`/user/fetchWorker/${id}`,{ params: {
         latitude: lat,
-        longitude: lng
+        longitude: lng,
+        radius
       }})
       if(response.status===200){
         setData(response.data.data)
+        setError(response.data.error)
       }
     }catch(err){
       console.log("frontend server error", err);
@@ -58,7 +61,9 @@ function UworkerList() {
       </div>
       <div className="space-y-8 max-w-2xl">
 
-        {data.filter(worker => (showHalfDayWorkers ? worker.isHalfDay : !worker.isHalfDay)).map((worker)=>(
+        {data.filter(worker => (showHalfDayWorkers ? worker.isHalfDay : !worker.isHalfDay))
+             .filter(worker => worker.isOnline)
+             .map((worker)=>(
 
          <Link to={`/user/workerDetails/${worker._id}`} key={worker._id}>
             <div className="bg-blue-300 p-4 rounded-xl">

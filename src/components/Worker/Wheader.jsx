@@ -6,14 +6,16 @@ import {
   faBars,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import './Wheader.jsx';
 import CommonLeafMap from '../CommonLeafMap.jsx';
 import axiosInstance from "../../api/worker/workerInstance.js";
+import PropTypes from "prop-types";
+import './Wheader.jsx';
 
-function Wheader({handleNavigation }) {
+function Wheader({handleNavigation}) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [showMap, setShowMap] = useState(false);
   const [isHalfDay, setIsHalfDay] = useState(false)
+  const [isOnline, setIsOnline] = useState(false)
   const [center, setCenter] = useState({lat: 11.24802, 
     lng: 75.7804, });
   const [place, setPlaceName] = useState('')
@@ -56,6 +58,7 @@ function Wheader({handleNavigation }) {
       fetchWorkerData();
     }
   }, []);
+
   const handleHalfDayClick = async () =>{
      try{
       const newIsHalfDay = !isHalfDay;
@@ -67,6 +70,18 @@ function Wheader({handleNavigation }) {
       console.error('Error updating isHalfDay:', error);
     }
   }
+
+  const handleOnlineOffline = async () =>{
+    try{
+     const newIsOnline = !isOnline;
+     const res = await axiosInstance.put('/worker/updateOnline', { isOnline: newIsOnline });
+     if (res.status === 200) {
+      setIsOnline(newIsOnline);
+     }
+    } catch (error) {
+     console.error('Error updating isHalfDay:', error);
+   }
+ }
 
 
   return (
@@ -153,11 +168,11 @@ function Wheader({handleNavigation }) {
                 </button>
               </div>
               <div className="flex space-x-2">
-                <button className={`sm:w-20 h-8  ${isHalfDay ? 'bg-green-600' : 'bg-red-600'} rounded `} onClick={handleHalfDayClick}>
-                    {isHalfDay ? 'Half Day' : 'Full Day'}
+                <button className={`sm:w-20 h-8 font-semibold ${isHalfDay ? 'bg-gray-500 text-white' : 'bg-blue-300'} rounded `} onClick={handleHalfDayClick}>
+                  {isHalfDay ? 'Half Day' : 'Full Day'}
                 </button>
-                <button className="sm:w-20 h-8 px-2 bg-green-600 rounded">
-                  Online
+                <button className={`sm:w-20 h-8 font-semibold ${isOnline ? 'bg-green-500 text-white' : 'bg-red-500 text-white'} rounded `} onClick={handleOnlineOffline}>
+                  {isOnline ? 'Online' : 'Offline'}
                 </button>
               </div>
             </div>
@@ -165,9 +180,15 @@ function Wheader({handleNavigation }) {
         </ul>
       </nav>
     </div >
+    
     { showMap && <CommonLeafMap  initialCenter={center} userType="worker"  initialPlaceName={place}/>}
+    
   </div>
   );
 }
+
+Wheader.propTypes = {
+  handleNavigation: PropTypes.object.isRequired
+};
 
 export default Wheader;

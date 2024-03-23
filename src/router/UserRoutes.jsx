@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
 import { WorkerDetailsProvider } from "../context/WorkerDetailsContext";
 
 
@@ -15,26 +14,28 @@ import UserProfile from "../components/User/UserProfile";
 import UworkerDetails from '../components/User/UworkerDetails'
 import MainContracts from "../components/User/Contracts/MainContract";
 
+import UserAuth from "../authGauard/UserAuth";
+
 
 
 function UserRoutes() {
-  const [giveAccess, setGiveAccess] = useState(false);
+  // const [giveAccess, setGiveAccess] = useState(false);
 
-  useEffect(() => {
-    const tokenCheck = async () => {
-      try {
-        const existToken = await localStorage.getItem("jwt");
-        if (!existToken) {
-          console.log("No token found ");
-        } else {
-          setGiveAccess(true);
-        }
-      } catch (err) {
-        console.log("Error while checking token :", err);
-      }
-    };
-    tokenCheck();
-  }, []);
+  // useEffect(() => {
+  //   const tokenCheck = async () => {
+  //     try {
+  //       const existToken = await localStorage.getItem("jwt");
+  //       if (!existToken) {
+  //         console.log("No token found ");
+  //       } else {
+  //         setGiveAccess(true);
+  //       }
+  //     } catch (err) {
+  //       console.log("Error while checking token :", err);
+  //     }
+  //   };
+  //   tokenCheck();
+  // }, []);
 
   return (
     <>
@@ -43,11 +44,8 @@ function UserRoutes() {
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        {/* {giveAccess ? ( */}
-          <Route path="/uhome" element={<UserHome />} />
-        {/* ) : ( */}
-          <Route path="/login" element={<Login />} />
-        {/* )} */}
+      <Route path="/" element={<UserAuth/>}>
+        <Route path="/uhome" element={<UserHome />} />
         <Route path="/otp" element={<OTPVerification />} />
         <Route path="/workerList/:id" element={<UserWorkerList />} />
         <Route path="/resetPassword" element={<ResetPass />} />
@@ -55,7 +53,7 @@ function UserRoutes() {
         <Route path="/userProfile" element={<UserProfile/>}/>
         <Route path="/workerDetails/:id" element={<UworkerDetails/>}/>
         <Route path="/userContracts" element={<MainContracts/>}/>
-
+      </Route>
 
       </Routes>
       </WorkerDetailsProvider>

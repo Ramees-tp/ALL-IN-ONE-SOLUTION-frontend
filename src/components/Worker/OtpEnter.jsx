@@ -30,7 +30,7 @@ const OtpEnter = ({requestId}) => {
           });
           console.log(otpValues);
           if (response.status === 200) {
-            navigate("/user/resetPassword");
+            // navigate("/user/resetPassword");
           }
         } catch (err) {
           if (err.response && err.response.data.error) {

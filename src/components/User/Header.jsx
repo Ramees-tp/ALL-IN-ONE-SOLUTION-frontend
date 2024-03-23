@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import axiosInstance from "../../api/axios";
+import CommonLeafMap from "../CommonLeafMap";
+import PropTypes from "prop-types";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
@@ -7,27 +11,28 @@ import {
   faXmark,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-
 import "./Header.css";
-import axiosInstance from "../../api/axios";
-import CommonLeafMap from "../CommonLeafMap";
 
-function Header({handleNavigation }) {
+function Header({handleNavigation}) {
 
   const [showMap, setShowMap] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
-  // const [filteredData, setFilteredData] = useState([]);
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([])
+  const [radius, setRadius] = useState(8)
   console.log( "userlocation", location);
   console.log( "userlat", coordinates);
 
-
   useEffect(()=>{
-    if(location !== null){
-       localStorage.setItem('location', location)
-    }
-  },[location])
+    localStorage.setItem('radius', JSON.stringify({radius: radius}));
+  },[radius])
+
+
+  // useEffect(()=>{
+  //   if(location !== null){
+  //      localStorage.setItem('location', location)
+  //   }
+  // },[location])
 
   // const toggleSidebar = (e) => {
   //   console.log("Sidebar visibility toggled");
@@ -52,7 +57,8 @@ function Header({handleNavigation }) {
     try{
       const res= await axiosInstance.get("/user/userlocation")
       setLocation(res.data.data)
-      setCoordinates({lat:res.data.latlong.lat, lng: res.data.latlong.lng})
+      setCoordinates({lat:res.data.latlong[1], lng: res.data.latlong[0]})
+      localStorage.setItem("userLocation", JSON.stringify({ center:{lat: res.data.latlong[1], lng: res.data.latlong[0]}, location: res.data.data }));
       console.log(res.data);
     }catch(err){
      console.log("frontend server error", err);
@@ -64,7 +70,7 @@ function Header({handleNavigation }) {
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
       const parsedLocation = JSON.parse(storedLocation);
-      setLocation(parsedLocation.placeName);
+      setLocation(parsedLocation.location);
       setCoordinates(parsedLocation.center);
       console.log("header:", parsedLocation.center);
     } else {
@@ -149,7 +155,7 @@ function Header({handleNavigation }) {
                     />
                   </button>
                 </div>
-                <div className="relative w-full">
+                <div className="relative w-full flex gap-1">
                   <input
                     className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded"
                     type="text"
@@ -164,19 +170,32 @@ function Header({handleNavigation }) {
                       onClick={toggleComponent}
                     />
                   </button>
-                  
+                  <select 
+                    className="w-10 rounded"
+                    onChange={(e)=>setRadius(parseInt(e.target.value ))}
+                  >
+                    <option value='8'>8</option>
+                    <option value='10'>10</option>
+                    <option value='12'>12</option>
+                    <option value='15'>15</option>
+                  </select>
                 </div>
+
               </div>
             </div>
           </ul>
         </nav>
       </div>
-      <div className="absolute h-full">
+      
       { showMap && <CommonLeafMap  initialCenter={coordinates} userType="user"  initialPlaceName={location}/>}
-      </div>
+      
     </div>
   );
 }
+
+Header.propTypes = {
+  handleNavigation: PropTypes.object.isRequired,
+};
 
 export default Header;
 

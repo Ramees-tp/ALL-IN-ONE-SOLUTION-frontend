@@ -33,7 +33,7 @@ const CommonLeafMap = ({ initialCenter, initialPlaceName, userType }) => {
             }
         };
         fetchData();
-    }, [center]);
+    }, [center]);   
 
     const handleCurrentLocationClick = async () => {
         if ("geolocation" in navigator) {

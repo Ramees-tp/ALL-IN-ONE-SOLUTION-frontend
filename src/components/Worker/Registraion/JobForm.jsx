@@ -1,8 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-// const cageAPI = 'd2830f7b3655486382ad0349c864e4be'
-
 const JobForm = ({ formData, setFormData }) => {
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState([]);
