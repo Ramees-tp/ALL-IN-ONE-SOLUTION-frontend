@@ -23,7 +23,7 @@ const Wcontracts = () => {
 
   return (
     <div className='bg-[#DFE7B4]'>
-    <main className="p-6 sm:p-10 space-y-6 min-h-screen">
+    <main className="p-2 sm:p-10 space-y-6 min-h-screen">
       {/* Dashboard Heading Section */}
       <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
         <div className="mr-6">
@@ -40,7 +40,7 @@ const Wcontracts = () => {
         </div>
       </div>
       {/* Statistics Section */}
-      <section className="bg-white p-8 shadow rounded-lg h-full">
+      <section className="bg-white sm:p-8 p-2 shadow rounded-lg h-full">
         {show1 && <AcceptedContracts/>}
         {show2 && <PendingContracts/>}
       </section>    

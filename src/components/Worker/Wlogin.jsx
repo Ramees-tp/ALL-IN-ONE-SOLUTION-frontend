@@ -120,9 +120,9 @@ function Wlogin() {
             <div className="text-center py-3 text-white">
             <p>
               Dont have an account ? please
-              <Link to={"/user/signUp"}>
+              <Link to={"/worker/registration"}>
                 <span className="text-blue-400 ml-3 hover:text-blue-700 cursor-pointer">
-                  SignIn
+                  Register
                 </span>
               </Link>
             </p>

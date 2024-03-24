@@ -5,44 +5,78 @@ import favWorker from "../../assets/icons/heart.png";
 import axiosInstance from "../../api/axios";
 import "./ToggleButton.css";
 
-const radiusSelected =JSON.parse(localStorage.getItem('radius'))
-const { radius } = radiusSelected
-console.log('rrrrra', radius);
-const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
-const { center } = locationDetail || {};
-const { lat, lng } = center || {};
-console.log(lat, lng);
+// import { useWorkerDetails } from "../../context/WorkerDetailsContext";
+
+// const radiusSelected =JSON.parse(localStorage.getItem('radius'))
+// const { radius } = radiusSelected
+// console.log('rrrrra', radius);
+// const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
+// const { center } = locationDetail || {};
+// const { lat, lng } = center || {};
+// console.log(lat, lng);
 
 
 function UworkerList() {
   const [error, setError] = useState("");
   const [data, setData] = useState([]);
   const [showHalfDayWorkers, setShowHalfDayWorkers] = useState(false);
+  const [lati, setLat] = useState(null);
+  const [lngi, setLng] = useState(null);
+  const [radius, setRadius] = useState(null);
+  console.log(lati, lngi);
+
+  // const {setDetails} = useWorkerDetails()
 
   const {id} = useParams()
-  console.log(id);
+  // useEffect(() => {
+  //   setDetails(id);
+  // }, [id, setDetails]);
 
-  const fetchWorker = async () => {
-    try{
-      
-      console.log("locccc:", locationDetail);
-      const response = await axiosInstance.get(`/user/fetchWorker/${id}`,{ params: {
-        latitude: lat,
-        longitude: lng,
-        radius
-      }})
-      if(response.status===200){
-        setData(response.data.data)
-        setError(response.data.error)
+  useEffect(() => {
+    const fetchLocalStorageData = () => {
+      const radiusSelected = JSON.parse(localStorage.getItem('radius'));
+      setRadius(radiusSelected?.radius || null);
+
+      const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
+      if (locationDetail) {
+        const { center } = locationDetail;
+        const { lat, lng } = center || {};
+        setLat(lat);
+        setLng(lng);
+      } else {
+        setError("Location details not found in localStorage.");
       }
-    }catch(err){
-      console.log("frontend server error", err);
-     }
-  }
+    };
 
+    fetchLocalStorageData();
+  }, [lati, lngi, radius]);
+
+  
   useEffect(()=>{
+    const fetchWorker = async () => {
+      try{
+        if (!lati || !lngi || !radius) {
+          setError("Latitude, longitude, or radius is missing.");
+          return;
+        }
+        console.log("innnnnnn", lati, lngi, radius);
+        const response = await axiosInstance.get(`/user/fetchWorker/${id}`,{ params: {
+          latitude: lati,
+          longitude: lngi,
+          radius
+        }})
+        if(response.status===200){
+          setData(response.data.data)
+          setError('')
+        }
+      }catch(err){
+        console.log("frontend server error", err);
+        setError("Error fetching worker details.");
+       }
+    }
+  
     fetchWorker()
-  },[])
+  },[lati, lngi, radius, id])
 
   const handleCheckboxChange = () => {
     setShowHalfDayWorkers(!showHalfDayWorkers);
@@ -65,7 +99,7 @@ function UworkerList() {
              .filter(worker => worker.isOnline)
              .map((worker)=>(
 
-         <Link to={`/user/workerDetails/${worker._id}`} key={worker._id}>
+         <Link to={`/user/workerDetails/${worker._id}/${id}`} key={worker._id}>
             <div className="bg-blue-300 p-4 rounded-xl">
           <div className="flex  items-center ">
             <div className="rounded-full bg-slate-400 p-2">

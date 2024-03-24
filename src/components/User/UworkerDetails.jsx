@@ -18,7 +18,8 @@ function UworkerDetails() {
 
   const [details, setDetails] = useState();
   const [error, setError] = useState()
-  const{id} = useParams()
+  const{id, id1} = useParams()
+  console.log(id, id1);
   const navigate = useNavigate();
   // const { workerDetails } = useWorkerDetails();
   // console.log(workerDetails);
@@ -47,7 +48,7 @@ function UworkerDetails() {
 
   const sendRequest = async (workerId) => {
     try {
-      const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay, coordinates, location });
+      const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay, coordinates, location, id1 });
       if(response.status===201){
         navigate('/user/userContracts')
       }

@@ -4,6 +4,7 @@ import axios from 'axios'
 const PendingWork = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState("");
+  console.log(error);
 
   const fetchData = async () => {
     try {
@@ -30,7 +31,7 @@ const PendingWork = () => {
             {data.filter(request=>request.payment && !request.completed).map((worker) => (
               <div
                 key={worker._id}
-                className="flex items-center p-8 bg-[#dae3ee] shadow rounded-lg"
+                className="flex items-center p-8 bg-[#9fc3f0] shadow rounded-lg"
               >
                 <div className="w-full flex sm:flex-row flex-col justify-center">
                   <div className="grid grid-cols-2 grid-row-5 gap-3">

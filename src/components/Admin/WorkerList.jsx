@@ -153,12 +153,12 @@ function WorkerList() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span className={`relative inline-block px-3 py-1 font-semibold ${worker.isOnline?'text-green-900':'text-red-900'}  leading-tight`}>
                           <span
                             aria-hidden
-                            className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                            className={`absolute inset-0 ${worker.isOnline?'bg-green-200 opacity-50': 'bg-red-200 opacity-50'}  rounded-full`}
                           ></span>
-                          <span className="relative text-xs">active</span>
+                          <span className="relative text-xs">{worker.isOnline?'active':'offline'}</span>
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-500">

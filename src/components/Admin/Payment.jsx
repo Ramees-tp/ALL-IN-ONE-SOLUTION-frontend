@@ -1,13 +1,43 @@
+import { useState } from 'react'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCreditCard,
+  faSquareCheck
+} from "@fortawesome/free-solid-svg-icons";
+import {} from "@fortawesome/free-regular-svg-icons";
 
-function Payment() {
+import PaymentsToDo from './PaymentsToDo';
+import PaymentsDone from './PaymentsDone';
+
+const Payment = () => {
+  const [show, setShow] = useState(true);
+  const [show1, setShow1] = useState(false);
+
+  const handleButtonClick = (buttonIndex) => {
+    setShow(false);
+    setShow1(false);
+
+    switch (buttonIndex) {
+      case 1:
+        setShow(true);
+        break;
+      case 2:
+        setShow1(true);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div>
+       <div>
        <main className="p-6 sm:p-10 space-y-6">
         {/* Dashboard Heading Section */}
         <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
           <div className="mr-6">
-            <h1 className="text-4xl font-semibold mb-2">Payment Section</h1>
+            <h1 className="text-4xl font-semibold mb-2">Reports from users</h1>
             <h2 className="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2>
           </div>
           <div className="flex flex-wrap items-start justify-end -mb-3">
@@ -20,49 +50,34 @@ function Payment() {
           </div>
         </div>
         {/* Statistics Section */}
-        <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <section className="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
           {/* Student Statistics */}
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
+          <div className="flex items-center p-8 bg-white shadow rounded-lg cursor-pointer" onClick={() => handleButtonClick(1)}>
             <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
-              <svg
-                aria-hidden="true"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
+            <FontAwesomeIcon className="h-6" icon={faCreditCard} />
             </div>
             <div>
-              <span className="block text-2xl font-bold">62</span>
-              <span className="block text-gray-500">Workers</span>
+              <span className="block text-2xl font-bold">Payments To DO</span>
             </div>
           </div>
-          {/* Average Mark Statistics */}
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
-            {/* Average mark icon and content */}
+
+          <div onClick={() => handleButtonClick(2)} className="flex items-center p-8 bg-white shadow rounded-lg cursor-pointer">
+            <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+             <FontAwesomeIcon className="h-6" icon={faSquareCheck} />
+            </div>
+            <div>
+              <span className="block text-2xl font-bold">Completed Payments</span>
+            </div>
           </div>
-          {/* Course Progress Statistics */}
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
-            {/* Course progress icon and content */}
-          </div>
-          {/* Library Resources Statistics */}
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
-            {/* Library resources icon and content */}
-          </div>
+          
         </section>
-        {/* Recent Activity Section */}
+
         <section className="bg-white p-8 shadow rounded-lg">
-          <h2 className="text-2xl font-semibold mb-6">Recent Activity</h2>
-          {/* Recent activity items */}
+          {show && <PaymentsToDo/>}
+          {show1 && <PaymentsDone/>}
         </section>
       </main>
+    </div>
     </div>
   )
 }

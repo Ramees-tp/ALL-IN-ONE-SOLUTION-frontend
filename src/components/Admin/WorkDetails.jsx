@@ -10,7 +10,7 @@ import PendingWork from './PendingWork';
 import CompletedWork from './CompletedWork';
 
 const WorkDetails = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [show1, setShow1] = useState(false);
 
   const handleButtonClick = (buttonIndex) => {

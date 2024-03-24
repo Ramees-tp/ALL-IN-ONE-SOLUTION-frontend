@@ -13,10 +13,10 @@ const Registration = () => {
 
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: "messi",
+    firstName: "Hadhi",
     lastName: "Rahman",
-    email: "messi@gmail.com",
-    phoneNumber: "9588490604",
+    email: "hadhirahmanmt@gmail.com",
+    phoneNumber: "9526490604",
     gender: "",
     dateOfBirth: "",
     district: "malappuram",

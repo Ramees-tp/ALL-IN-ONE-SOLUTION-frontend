@@ -91,10 +91,10 @@ function SocketChatWorker({workerId, userId, requestId}) {
           ))}
         </div>
       </div>
-      <div className="flex items-center p-4 border-t-2 border-gray-300">
+      <div className="flex items-center lg:p-4 border-t-2 border-gray-300">
         <input
           type="text"
-          className="flex-grow mr-2 p-2 border border-gray-300 rounded"
+          className="flex-grow h-full mr-2 p-2 border border-gray-300 rounded"
           placeholder="Type your message..."
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}

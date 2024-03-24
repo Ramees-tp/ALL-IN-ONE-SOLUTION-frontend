@@ -58,9 +58,9 @@ const ContractRequests = () => {
     }
   }
   
-  const payment = async (orderId, e) =>{
-    
-    const amount = 500;
+  const payment = async (orderId, wage, e) =>{
+    console.log(wage);
+    const amount = wage*100;
     const currency = 'INR'
     const receipt = 'tyty'
     let order = null
@@ -158,6 +158,9 @@ const ContractRequests = () => {
                     <span className="block text-gray-500">
                       {request.workerId.workArea}
                     </span>
+                    <span className="block text-green-500">
+                      <p>Amount : {request.wage}</p>
+                    </span>
                    
                   </div>
                   <div className="md:ml-auto flex justify-center items-center">
@@ -165,7 +168,7 @@ const ContractRequests = () => {
                     className={`inline-flex px-5 py-2 ${request.status === 'pending' ? 'text-red-500 border-red-500' : request.status === 'accepted' ? 'text-white bg-green-600 hover:bg-green-700 cursor-pointer' : 'text-white bg-red-700' } rounded-md ml-3 border`}
                     >
                       {request.status === 'accepted' ? (
-                        <span className='block' onClick={()=> payment(request._id)}>payment</span>
+                        <span className='block' onClick={()=> payment(request._id, request.wage)}>payment</span>
                       ) : (
                         <span className="block">{request.status}</span>
                       )}

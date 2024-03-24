@@ -8,6 +8,7 @@ function JobForm() {
   const [jobData, setJobData] = useState({
     jobName: "",
     jobDescription: "",
+    wage: '',
     jobImage: "",
   });
 
@@ -26,6 +27,7 @@ function JobForm() {
     const formData = new FormData();
     formData.append("jobName", jobData.jobName);
     formData.append("jobDescription", jobData.jobDescription);
+    formData.append("wage", jobData.wage);
     formData.append("jobImage", jobData.jobImage);
 
     console.log("Form submitted:", jobData);
@@ -92,6 +94,23 @@ function JobForm() {
               className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
               required
             ></textarea>
+          </div>
+          <div className="mb-4">
+            <label 
+              htmlFor="wage"
+              className="block text-sm font-medium text-gray-600"
+            >
+              Wage
+            </label>
+            <input
+              type="number"
+              id="wage"
+              name="wage"
+              value={jobData.wage}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+              required
+            />
           </div>
           <div className="mb-4">
             <label

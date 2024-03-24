@@ -25,12 +25,12 @@ const CompletedWork = () => {
   }, []);
   return (
     <div>
-       <h2 className="text-2xl font-semibold mb-6">Pending Works</h2>
+       <h2 className="text-2xl font-semibold mb-6">Works Completed</h2>
           <div className="flex flex-col gap-y-5">
             {data.filter(request=>request.payment && request.completed).map((worker) => (
               <div
                 key={worker._id}
-                className="flex items-center p-8 bg-[#dae3ee] shadow rounded-lg"
+                className="flex items-center p-8 bg-[#e2f581] shadow rounded-lg"
               >
                 <div className="w-full flex sm:flex-row flex-col justify-center">
                   <div className="grid grid-cols-2 grid-row-5 gap-3">

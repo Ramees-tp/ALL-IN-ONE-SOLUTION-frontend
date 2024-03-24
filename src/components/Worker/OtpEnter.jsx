@@ -52,7 +52,7 @@ const OtpEnter = ({requestId}) => {
                 key={index}
                 type="number"
                 name="otpValues"
-                className="w-9 p-1 border-2 focus:border-sky-900 shadow-xl rounded text-center"
+                className="w-9 h-9 p-1 border-2 focus:border-sky-900 shadow-xl rounded text-center"
                 maxLength="1"
                 ref={inputRef}
                 value={otpValues[index]}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { WorkerDetailsProvider } from "../context/WorkerDetailsContext";
+// import { WorkerDetailsProvider } from "../context/WorkerDetailsContext";
 
 
 import SignUp from "../pages/signUp/SignUp";
@@ -39,7 +39,7 @@ function UserRoutes() {
 
   return (
     <>
-      <WorkerDetailsProvider>
+      {/* <WorkerDetailsProvider> */}
 
       <Routes>
         <Route path="/signup" element={<SignUp />} />
@@ -51,12 +51,12 @@ function UserRoutes() {
         <Route path="/resetPassword" element={<ResetPass />} />
         <Route path="/updateProfile" element={<UserUpdateProfile/>}/>
         <Route path="/userProfile" element={<UserProfile/>}/>
-        <Route path="/workerDetails/:id" element={<UworkerDetails/>}/>
+        <Route path="/workerDetails/:id/:id1" element={<UworkerDetails/>}/>
         <Route path="/userContracts" element={<MainContracts/>}/>
       </Route>
 
       </Routes>
-      </WorkerDetailsProvider>
+      {/* </WorkerDetailsProvider> */}
 
     </>
   );

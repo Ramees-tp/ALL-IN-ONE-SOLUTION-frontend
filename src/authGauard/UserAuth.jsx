@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { selectToken, setToken } from "../redux/TokenSlice";
-import { Route } from 'react-router-dom';
 
 const UserAuth = () => {
   const navigate = useNavigate();

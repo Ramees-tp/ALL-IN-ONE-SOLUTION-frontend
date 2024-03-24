@@ -19,10 +19,18 @@ function Header({handleNavigation}) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([])
-  const [radius, setRadius] = useState(8)
+  const [radius, setRadius] = useState(null)
   console.log( "userlocation", location);
   console.log( "userlat", coordinates);
 
+  useEffect(() => {
+    const storedRadius = JSON.parse(localStorage.getItem("radius"));
+    console.log("Stored radius:", storedRadius);
+    if (storedRadius && storedRadius.radius) {
+      setRadius(storedRadius.radius);
+    }
+  }, []);
+  
   useEffect(()=>{
     localStorage.setItem('radius', JSON.stringify({radius: radius}));
   },[radius])
@@ -70,7 +78,7 @@ function Header({handleNavigation}) {
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
       const parsedLocation = JSON.parse(storedLocation);
-      setLocation(parsedLocation.location);
+      setLocation(parsedLocation.placeName);
       setCoordinates(parsedLocation.center);
       console.log("header:", parsedLocation.center);
     } else {
@@ -171,13 +179,14 @@ function Header({handleNavigation}) {
                     />
                   </button>
                   <select 
-                    className="w-10 rounded"
+                    className="w-14 rounded text-[80%]"
                     onChange={(e)=>setRadius(parseInt(e.target.value ))}
+                    value={radius}
                   >
-                    <option value='8'>8</option>
-                    <option value='10'>10</option>
-                    <option value='12'>12</option>
-                    <option value='15'>15</option>
+                    <option value='8'>08 km</option>
+                    <option value='10'>10 km</option>
+                    <option value='12'>12 km</option>
+                    <option value='15'>15 km</option>
                   </select>
                 </div>
 
