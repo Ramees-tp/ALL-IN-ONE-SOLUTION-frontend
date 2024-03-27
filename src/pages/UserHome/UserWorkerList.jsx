@@ -11,7 +11,7 @@ function UserWorkerList() {
         <Ufooter />
       </div>
     </div>
-  );
+  )
 }
 
 export default UserWorkerList;

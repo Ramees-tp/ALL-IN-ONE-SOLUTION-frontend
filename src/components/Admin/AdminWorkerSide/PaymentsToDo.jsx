@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import RazorPayPayment from '../../RazorpayPayment'
 
 
 const PaymentsToDo = () => {
@@ -41,7 +42,9 @@ const PaymentsToDo = () => {
                     <span className="block text-2xl font-bold">
                       {worker.workerId.firstName} {worker.workerId.lastName}
                     </span>
-
+                    <span className="block text-gray-500">
+                      date: {new Date(worker.date).toLocaleDateString()} <span className="font-bold text-pink-700">{worker.day}</span>
+                    </span>
                     <span className="block text-gray-500">
                       Email: {worker.workerId.email}
                     </span>
@@ -52,16 +55,15 @@ const PaymentsToDo = () => {
                       Work Type: {worker.workerId.jobType}
                     </span>
                     <span className="block text-gray-500">
-                      Amount: {worker.workerId.phoneNumber}
+                      Amount: {worker.wage}
                     </span>
                   </div>
                   <div className="ml-auto flex justify-center items-center">
-                    <button
-                      onClick={() => Payment(worker._id)}
+                    <div
                       className="inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md "
                     >
-                      Payment
-                    </button>
+                      <RazorPayPayment orderId={worker._id} wage={worker.wage} type={'admin'}/>
+                    </div>
                     
                   </div>
                 </div>

@@ -29,8 +29,8 @@ function Uhome(){
 
 
   return (
-    <div className="bg-[#fffdcb] lg:px-28 md:px-20 sm:px-10 px-4 sm:py-8 py-4 w-full">
-      <div className="w-full grid lg:grid-cols-3 grid-cols-2  lg:gap-20 md:gap-15 sm:gap-8 gap-5">
+    <div className="bg-[#fffdcb] lg:px-28 md:px-20 sm:px-10 px-1 sm:py-8 py-4 w-full">
+      <div className="w-full grid lg:grid-cols-3 rm:grid-cols-2 grid-cols-1  lg:gap-20 md:gap-15 sm:gap-8 gap-5">
 
       {jobData.map((work) => (
           <Link key={work._id} to={`/user/workerList/${work._id}`}>
@@ -55,7 +55,7 @@ function Uhome(){
 
       </div>
     </div>
-  );
+  )
 }
 
 export default Uhome;

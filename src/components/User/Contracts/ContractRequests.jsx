@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../api/axios';
-import useRazorpay from "react-razorpay";
+import RazorpayPayment from '../../RazorpayPayment'
+
+// import useRazorpay from "react-razorpay";
 
 
 
 const ContractRequests = () => {
   const [requests, setRequests] = useState([])
+  const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [error, setError] = useState("");
   // const [order, setOrder] = useState('')
 
   // console.log("order", order);
   console.log(requests);
-  const [Razorpay] = useRazorpay();
+  // const [Razorpay] = useRazorpay();
 
   
 
@@ -33,11 +36,13 @@ const ContractRequests = () => {
 
   useEffect(() => {
     fetchData();
+    const interval = setInterval(fetchData, 15000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setRequests((prevRequests) => prevRequests.filter((request) => request.status !== 'declined'));
+      setRequests((prevRequests) => prevRequests.filter((request) => request.status !== 'pending'));
     }, 30 * 60 * 1000);
     return () => clearInterval(timer);
   }, []);
@@ -57,80 +62,11 @@ const ContractRequests = () => {
       }
     }
   }
-  
-  const payment = async (orderId, wage, e) =>{
-    console.log(wage);
-    const amount = wage*100;
-    const currency = 'INR'
-    const receipt = 'tyty'
-    let order = null
-    try{
-      const response = await axiosInstance.post('/user/payment', { amount, currency, receipt }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      order = response.data.data;
-      console.log("order2", order);
-      // const { amount, receipt } = res.data;
-      // await createOrder(amount, receipt);
-    }catch(err){
-      if (err.response && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("Internal server error");
-      }
-    }
-    const options = {
-      "key": "rzp_test_cPE3LPX2nR9LE2", 
-      amount, 
-      currency,
-      "name": "ALL IN ONE SOLUTION",
-      "description": "Test Transaction",
-      // "image": "https://example.com/your_logo",
-      "order_id": order.id,
-      "handler": async function (response){
-          // alert(response.razorpay_payment_id);
-          // alert(response.razorpay_order_id);
-          // alert(response.razorpay_signature)
-          const body ={
-            ...response,
-            orderId: orderId
-          };
-          const validateRes = await axiosInstance.post('/user/validatePayment', body, {
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          });
-          const res = validateRes.data
-          console.log('payment res', res);
-      },
-      "prefill": { 
-          "name": "Ramees tp",
-          "email": "ramees@example.com", 
-          "contact": "9000090000"
-      },
-      "notes": {
-          "address": "Razorpay Corporate Office"
-      },
-      "theme": {
-          "color": "#fffdcb"
-      }
+
+  const handlePaymentCompleted = () => {
+    setPaymentCompleted(true);
   };
-  var rzp1 = new Razorpay(options);
-  rzp1.on('payment.failed', function (response){
-          alert(response.error.code);
-          alert(response.error.description);
-          alert(response.error.source);
-          alert(response.error.step);
-          alert(response.error.reason);
-          alert(response.error.metadata.order_id);
-          alert(response.error.metadata.payment_id);
-  });
-    rzp1.open();
-    e.preventDefault();
-  }
+  
 
   return (
     <div>
@@ -139,9 +75,9 @@ const ContractRequests = () => {
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 md:pr-10 lg:px-8 ">
         { requests.length > 0 && requests.filter(request => !request.payment).map((request) => (
           <div key={request._id} className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg md:px-12 px-4">
-          <div
-                
-                className="flex items-center md:p-8 p-2 bg-[#dae3ee] shadow rounded-lg"
+            <div>
+          <div   
+                className="flex items-center md:p-8 p-2 bg-[#d5e6eb] shadow rounded-lg"
               >
                 <div className="w-full flex sm:flex-row flex-col justify-center gap-y-3">
                   <div className='space-y-2'>
@@ -168,9 +104,9 @@ const ContractRequests = () => {
                     className={`inline-flex px-5 py-2 ${request.status === 'pending' ? 'text-red-500 border-red-500' : request.status === 'accepted' ? 'text-white bg-green-600 hover:bg-green-700 cursor-pointer' : 'text-white bg-red-700' } rounded-md ml-3 border`}
                     >
                       {request.status === 'accepted' ? (
-                        <span className='block' onClick={()=> payment(request._id, request.wage)}>payment</span>
-                      ) : (
-                        <span className="block">{request.status}</span>
+                        <RazorpayPayment orderId={request._id} wage={request.wage} type={'user'} onPaymentCompleted={handlePaymentCompleted} />
+                        ) : (
+                          <span className="block">{request.status}</span>
                       )}
                   </div>
                   <button
@@ -179,9 +115,10 @@ const ContractRequests = () => {
                     >
                       Cancel
                   </button>
-                   
                   </div>
                 </div>
+              </div>
+              {paymentCompleted && <div className="font-bold text-green-500 mt-4">Payment completed successfully!</div>}
               </div>
           </div>
          ))}

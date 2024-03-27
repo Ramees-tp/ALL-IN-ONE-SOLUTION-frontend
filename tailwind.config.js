@@ -6,6 +6,9 @@ export default {
       boxShadow: {
         custom: "2px 2px 12px rgba(0, 0, 0, 0.6)",
       },
+      screens: {
+        rm: '380px',
+      }
     },
   },
   plugins: [],

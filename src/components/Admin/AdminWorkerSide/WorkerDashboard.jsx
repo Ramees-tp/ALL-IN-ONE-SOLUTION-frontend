@@ -5,11 +5,12 @@ import {
   faGear,
   faIndianRupeeSign,
   faAdd,
-  faHelmetSafety
+  faHelmetSafety,
+  faBars
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faChartBar,
-  faEnvelope,
+  // faEnvelope,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
 import WorkerList from "./WorkerList";
@@ -20,14 +21,21 @@ import AddWork from "./AddWork";
 import WorkDetails from "./WorkDetails";
 
 function Dashboard() {
-  const [show, setShow] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const [show, setShow] = useState(true);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
   const [show4, setShow4] = useState(false);
   const [show5, setShow5] = useState(false);
 
+  const navBar=() =>{
+    setShowSidebar(!showSidebar);
+  }
+
   const handleButtonClick = (buttonIndex) => {
+    setShowSidebar(false);
     setShow(false);
     setShow1(false);
     setShow2(false);
@@ -63,10 +71,10 @@ function Dashboard() {
   return (
     <div className="flex bg-gray-100 min-h-screen">
       {/* Sidebar */}
-      <aside className="hidden sm:flex sm:flex-col">
+      <aside className={`sm:flex sm:flex-col ${showSidebar ? 'flex' : 'hidden'}`}>
         <a
           href="#"
-          className="inline-flex items-center justify-center h-20 w-full bg-purple-600 hover:bg-purple-500 focus:bg-purple-500"
+          className="sm:inline-flex hidden items-center justify-center h-20 w-full bg-purple-600 hover:bg-purple-500 focus:bg-purple-500"
         >
           <svg fill="none" viewBox="0 0 64 64" className="h-12 w-12">
             {/* SVG path for company logo */}
@@ -121,8 +129,8 @@ function Dashboard() {
       <div className="flex-grow text-gray-800">
         {/* Header */}
         <header className="flex items-center h-20 px-6 sm:px-10 bg-white">
-          <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <button onClick={() => navBar()} className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
+            <FontAwesomeIcon icon={faBars} />
           </button>
           <div className="relative w-full max-w-md sm:-ml-2">
             <svg

@@ -46,11 +46,11 @@ function UworkerDetails() {
     }
   }, []);
 
-  const sendRequest = async (workerId) => {
+  const   sendRequest = async (workerId) => {
     try {
       const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay, coordinates, location, id1 });
       if(response.status===201){
-        navigate('/user/userContracts')
+        navigate('/user/userContract')
       }
     } catch (err) {
       console.log(err);

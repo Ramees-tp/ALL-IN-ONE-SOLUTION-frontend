@@ -90,7 +90,7 @@ function Header({handleNavigation}) {
   return (
     <div>
       <div>
-        <nav className="md:px-12">
+        <nav className="md:px-10">
           <ul className={`sidebar ${sidebarVisible ? "show" : ""}`}>
             <li onClick={hideSidebar}>
               <a className="flex items-end">
@@ -98,7 +98,8 @@ function Header({handleNavigation}) {
               </a>
             </li>
             <li>
-              <Link to=""  onClick={() => handleNavigation("Home")}>Home</Link>
+              {/* <Link to=""  onClick={() => handleNavigation("Home")} >Home</Link> */}
+              <Link to={'/user/uhome'} > Home</Link>
             </li>
             <li>
               <a href="">About</a>
@@ -107,26 +108,29 @@ function Header({handleNavigation}) {
               <a href="">Contact</a>
             </li>
             <li>
-               <Link to="" onClick={() => handleNavigation("Contracts")}>
+               {/* <Link to="" onClick={() => handleNavigation("Contracts")}>
                   Contracts
-              </Link>
+              </Link> */}
+              <Link to={'/user/userContract'} > Contracts</Link>
             </li>
             <li>
-              <Link to="" onClick={() => handleNavigation("Profile")}> 
+              {/* <Link to="" onClick={() => handleNavigation("Profile")}> 
                     Profile
-              </Link>
+              </Link> */}
+              <Link to={'/user/userProfiles'} > Profile</Link>
             </li>
           </ul>
 
           <ul>
-            <div className="md:text-3xl sm:text-2xl text-lg text-center">
-              <p>ALL IN ONE</p> SOLUTION
+            <div className="name md:text-3xl sm:text-2xl text-lg text-center">
+              <p>ALL IN ONE SOLUTION </p>
             </div>
             <div className="break space-y-3">
               <div className="flex flex-row items-center">
                 
                 <li className="hideFlex">
-                <Link to=""  onClick={() => handleNavigation("Home")}>Home</Link>
+                {/* <Link to=""  onClick={() => handleNavigation("Home")}>Home</Link> */}
+                <Link to={'/user/uhome'} > Home</Link>
                 </li>
                 <li className="hideFlex">
                   <a href="">About</a>
@@ -135,14 +139,16 @@ function Header({handleNavigation}) {
                   <a href="">contact</a>
                 </li>
                 <li className="hideFlex">
-                <Link to="" onClick={() => handleNavigation("Contracts")}>
+                {/* <Link to="" onClick={() => handleNavigation("Contracts")}>
                   Contracts
-                </Link>
+                </Link> */}
+                <Link to={'/user/userContract'} > Contracts</Link>
                 </li>
                 <li className="hideFlex">
-                   <Link to="" onClick={() => handleNavigation("Profile")}> 
+                   {/* <Link to="" onClick={() => handleNavigation("Profile")}> 
                     Profile
-                   </Link>
+                   </Link> */}
+                   <Link to={'/user/userProfiles'} > Profile</Link>
                 </li>
                 <li className="menu-button" onClick={showBars}>
                   <a href="#">
@@ -167,7 +173,6 @@ function Header({handleNavigation}) {
                   <input
                     className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded"
                     type="text"
-                    // value={location}
                     defaultValue={location}
                     // onChange={handleLocationChange}
                   />
@@ -179,7 +184,7 @@ function Header({handleNavigation}) {
                     />
                   </button>
                   <select 
-                    className="w-14 rounded text-[80%]"
+                    className="md:w-14 w-9 rounded text-[80%]"
                     onChange={(e)=>setRadius(parseInt(e.target.value ))}
                     value={radius}
                   >
@@ -195,9 +200,7 @@ function Header({handleNavigation}) {
           </ul>
         </nav>
       </div>
-      
       { showMap && <CommonLeafMap  initialCenter={coordinates} userType="user"  initialPlaceName={location}/>}
-      
     </div>
   );
 }

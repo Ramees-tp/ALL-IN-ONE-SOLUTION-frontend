@@ -103,7 +103,7 @@ const handleLocationChange = (event) => {
 
       const response = await axiosInstance.put("/user/addDetails", formDataToSend);
       if (response.status === 200) {
-        navigate("/user/userProfile");
+        navigate("/user/userProfiles");
       }
     } catch (err) {
       if (err.response && err.response.data.message) {
@@ -128,7 +128,7 @@ const handleLocationChange = (event) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8">
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-3">
       <div className="mb-4">
         <label
           htmlFor="firstName"

@@ -5,13 +5,11 @@ import Ufooter from '../../components/User/Ufooter'
 function UserWorkerDetails() {
   return (
     <div>
-      <div>
       <div className="p-2 bg-black">
         <Header/>
         <UworkerDetails />
         <Ufooter/>
       </div>
-    </div>
     </div>
   )
 }

@@ -8,6 +8,7 @@ const Wprofile = () => {
 
   // const [image, setImage] = useState(null);
   const [workerData, setWorkerdata] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState("");
   console.log(workerData);
 
@@ -62,7 +63,7 @@ const Wprofile = () => {
    }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#DFE7B4]">
+    <div className="min-h-screen flex justify-center items-center bg-[#DFE7B4] p-2">
       <div className="bg-[#17253a] flex flex-col justify-center md:rounded-lg md:p-10 p-5 w-full md:w-[80%] lg:w-[70%]">
        <p className="text-3xl font-bold text-center mb-5 text-white">PROFILE</p>
        <div className="flex flex-col md:flex-row bg-white items-center md:gap-8 gap-4 p-8 rounded-xl shadow-lg">
@@ -102,8 +103,15 @@ const Wprofile = () => {
         <div className="flex flex-col mt-10 w-full">
          <div className="flex items-center">
          <h1 className="text-2xl font-bold md:text-left text-center text-white"> DETAILS</h1>
-         
+         <div className="ml-auto">
+          <Link to={'/worker/updateProfile'}>
+          <button className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white md:text-base text-xs">
+            Edit Profile
+          </button>
+          </Link>
+        </div>
          </div>
+
           <div className="mt-5 flex md:flex-row flex-col md:items-center md:mx-7 mx-2 gap-x-5">
             <div className="md:w-[50%] w-full font-semibold">
               <div className="flex items-center md:gap-4 gap-10 mb-5">
@@ -111,7 +119,7 @@ const Wprofile = () => {
                   className="block text-white text-sm font-semibold  md:w-[30%] w-[10%]"
                   htmlFor="username"
                 >
-                  FullName
+                  Full Name
                 </label>
                 <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl ">
                   <span className="ml-3"> {firstname} {lastname}</span>
@@ -124,7 +132,7 @@ const Wprofile = () => {
                 >
                   Email
                 </label>
-                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl ">
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl t truncate overflow-auto">
                 <span className="ml-3"> {email}</span>
                 </p>
               </div>
@@ -174,15 +182,11 @@ const Wprofile = () => {
               </div>
             </div>
           </div>
+
+
         </div>
         <div className="flex justify-center">
-        <div>
-          <Link to={'/user/updateProfile'}>
-          <button className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
-            Edit Profile
-          </button>
-          </Link>
-        </div>
+        
         <div>
           <button onClick={logOut} className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
             logOut

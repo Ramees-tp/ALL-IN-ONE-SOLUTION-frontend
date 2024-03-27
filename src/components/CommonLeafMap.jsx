@@ -6,7 +6,7 @@ import { faArrowsAlt, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import getPlaceName from '../utils/placeName';
 
 
-const CommonLeafMap = ({ initialCenter, initialPlaceName, userType }) => {
+const CommonLeafMap = ({ initialCenter, initialPlaceName, userType, initialStart }) => {
     const [center, setCenter] = useState(initialCenter);
     const [placeName, setPlaceName] = useState(initialPlaceName);
 

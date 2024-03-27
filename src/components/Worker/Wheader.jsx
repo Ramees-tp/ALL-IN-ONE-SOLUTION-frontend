@@ -14,8 +14,9 @@ import './Wheader.jsx';
 function Wheader({handleNavigation}) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [showMap, setShowMap] = useState(false);
-  const [isHalfDay, setIsHalfDay] = useState(false)
-  const [isOnline, setIsOnline] = useState(false)
+  const [isHalfDay, setIsHalfDay] = useState(false);
+  const [isOnline, setIsOnline] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [center, setCenter] = useState({lat: 11.24802, 
     lng: 75.7804, });
   const [place, setPlaceName] = useState('')
@@ -34,12 +35,27 @@ function Wheader({handleNavigation}) {
     sidebar.style.display = "none";
   };
 
+
+  useEffect(()=>{
+    const onlineHalfday = async () =>{
+      try {
+        const res = await axiosInstance.get('/worker/workerProfile');
+        setIsHalfDay(res.data.data.isHalfDay);
+        setIsOnline(res.data.data.isOnline);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching worker data:', error);
+     }
+    }
+    onlineHalfday()
+  },[])
+
   const fetchWorkerData = async () => {
     try {
         const res = await axiosInstance.get('/worker/workerProfile');
-
         setCenter({lat: res.data.data.coordinates[1], lng: res.data.data.coordinates[0]})
-        setPlaceName(res.data.data.workArea)
+        setPlaceName(res.data.data.workArea);
+        
         // localStorage.setItem("workerLocation", JSON.stringify({ center, placeName }));
     } catch (error) {
         console.error('Error fetching worker data:', error);
@@ -116,9 +132,9 @@ function Wheader({handleNavigation}) {
         </ul>
 
         <ul>
-          <div className="md:text-3xl sm:text-2xl text-lg text-center w-[25%]">
-            <h1>ALL IN ONE SOLUTION</h1> 
-            <p className="text-[35%] text-red-600 sm:block hidden">welcome to the epitome of employment excellence!</p>
+          <div className="md:text-3xl sm:text-2xl text-xl md:w-[30%] w-full">
+            <h1 className="lg:text-left text-center w-full">ALL IN ONE SOLUTION</h1> 
+            <p className="text-[35%] text-red-600 md:block hidden sm:mr-20 leading-4 text-center">welcome to the epitome of employment excellence!</p>
           </div>
           <div className="break space-y-3">
             <div className="flex flex-row items-center">
@@ -134,7 +150,7 @@ function Wheader({handleNavigation}) {
               </li>
               <li className="hideFlex">
               <Link to="" onClick={() => handleNavigation("WContracts")} >
-                  My Contracts
+                  Contracts
                  </Link>
               </li>
               <li className="hideFlex">
@@ -148,11 +164,11 @@ function Wheader({handleNavigation}) {
                 </a>
               </li>
             </div>
-            <div className="sm:gap-x-10 gap-2 flex sm:flex-row flex-col justify-center items-center text-black ">
+            <div className="sm:gap-x-10 gap-2 flex sm:flex-row flex-col justify-center items-center text-black sm:ml-0 ml-8">
               
               <div className="relative w-full">
                 <input
-                  className=" md:w-[100%] sm:w-[180px] w-[100%] md:h-[100%] h-[23px] p-1 pl-8 rounded"
+                  className=" md:w-[100%] sm:w-[180px]  w-[100%] md:h-[100%] h-[23px] p-1 pl-8 rounded"
                   type="text"
                   // value={place}
                   defaultValue={place}
@@ -168,10 +184,10 @@ function Wheader({handleNavigation}) {
                 </button>
               </div>
               <div className="flex space-x-2">
-                <button className={`sm:w-20 h-8 font-semibold ${isHalfDay ? 'bg-gray-500 text-white' : 'bg-blue-300'} rounded `} onClick={handleHalfDayClick}>
+                <button className={`sm:w-20 w-16 sm:text-base text-[80%] sm:h-8 h-6 font-semibold ${isHalfDay ? 'bg-gray-500 text-white' : 'bg-blue-300'} rounded `} onClick={handleHalfDayClick} disabled={loading}>
                   {isHalfDay ? 'Half Day' : 'Full Day'}
                 </button>
-                <button className={`sm:w-20 h-8 font-semibold ${isOnline ? 'bg-green-500 text-white' : 'bg-red-500 text-white'} rounded `} onClick={handleOnlineOffline}>
+                <button className={`sm:w-20 w-16 sm:text-base text-[80%] sm:h-8 h-6 font-semibold ${isOnline ? 'bg-green-500 text-white' : 'bg-red-500 text-white'} rounded `} onClick={handleOnlineOffline} disabled={loading}>
                   {isOnline ? 'Online' : 'Offline'}
                 </button>
               </div>

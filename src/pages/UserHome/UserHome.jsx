@@ -15,13 +15,14 @@ function UserHome() {
     <div>
       <div className="p-1">
         <Header handleNavigation={handleNavigation} />
-        {currentPage === "Home" && <Uhome />}
+        <Uhome/>
+        {/* {currentPage === "Home" && <Uhome />}
         {currentPage === "Profile" && <UserProfile />}
-        {currentPage === "Contracts" && <MainContract />}
+        {currentPage === "Contracts" && <MainContract />} */}
         <Ufooter />
       </div>
     </div>
   );
 }
 
-export default UserHome;
+export default UserHome

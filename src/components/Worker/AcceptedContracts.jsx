@@ -1,7 +1,6 @@
   import { useEffect, useState } from 'react'
   import axiosInstance from '../../api/worker/workerInstance';
   import SocketChatWorker from './SocketChatWorker';
-  import Map from '../CommonLeafMap'
   import OtpEnter from './OtpEnter';
   import CommonLeafMap from '../CommonLeafMap';
 
@@ -12,6 +11,9 @@
       const [showMap, setShowMap] = useState(false);
       const [showOtp, setShowOtp] = useState(false);
       const [selectedContract, setSelectedContract] = useState(null);
+      const [center, setCenter] = useState({lat: 11.24802, 
+        lng: 75.7804, });
+        console.log('center', center);
     
 
       const workRequest = async () =>{
@@ -49,6 +51,16 @@
         setShowOtp(false);
       }
 
+      useEffect(() => {
+        const workerLocation = localStorage.getItem('workerLocation');
+        if(workerLocation){
+          const { center, placeName } = JSON.parse(workerLocation);
+          console.log( center, placeName);
+          setCenter(center);
+          // setPlaceName(placeName);
+        }
+      }, []);
+
     return (
       <div>
       <div className=''>
@@ -57,18 +69,18 @@
           <div key={request._id} className='flex sm:flex-row flex-col gap-4 mb-5'>
             <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 md:pr-10 lg:px-8 lg:w-[70%] ">
               
-              <section className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-slate-100 shadow-xl sm:px-12 relative">
+              <section className="align-middle   rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-slate-100 shadow-xl md:px-12 px-4 relative">
               {request.completed && (
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 text-white rounded-t-lg sm:px-12">
                   <p className='text-4xl font-bold text-green-500 p-36'></p>
                 </div>
               )}
-                <div className='flex md:flex-row sm:items-start items-center  flex-col-reverse w-full gap-y-4'>
-                  <div className='grid sm:grid-cols-6 grid-cols-1 sm:grid-rows-2 grid-rows-4 md:gap-5 md:w-[70%] text-gray-800'>
+                <div className='flex md:flex-row sm:items-start items-center flex-col-reverse w-full gap-y-4'>
+                  <div className='grid md:grid-cols-6 grid-cols-1 sm:grid-rows-3 grid-rows-4 md:gap-5 md:w-[70%] text-gray-800'>
                     <p className='sm:col-span-6 flex items-center text-2xl font-bold'> {request.userData.firstName} {request.userData.lastName}</p>
-                    <p className='sm:col-span-2 font-semibold'>OrderID</p>
-                    <p className='sm:col-span-4'>{request._id}</p>
-                    <p className='sm:col-span-4 flex items-center text-xl text-green-900'>{new Date(request.date).toLocaleDateString()} - {request.day}</p>
+                    <p className='lg:col-span-1 col-span-3 font-semibold'>OrderID</p>
+                    <p className='sm:col-span-4 col-span-3'>{request._id}</p>
+                    <p className='sm:col-span-6 flex items-center text-xl text-green-900'>{new Date(request.date).toLocaleDateString()} - {request.day}</p>
                   </div>
                   <div className='md:w-[30%]'>
                     <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
@@ -128,7 +140,7 @@
                   )}
                   {showMap && selectedContract === request._id && (
                     <div className=' h-[100%]'>
-                      <CommonLeafMap initialCenter={{lat: request.coordinates[1], lng: request.coordinates[0]}} userType="worker" />
+                      <CommonLeafMap initialCenter={{lat: request.coordinates[1], lng: request.coordinates[0]}} initialStart={center} userType="worker" />
                     </div> 
                   )}
                   {showOtp && selectedContract === request._id && (

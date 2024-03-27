@@ -72,7 +72,7 @@ const UserContracts = () => {
                 />
               </div>
              </div>
-              <div className='grid sm:grid-cols-6 grid-cols-1 sm:grid-rows-2 grid-rows-5 lg:gap-5 gap-3 lg:w-[70%] text-gray-800'>
+              <div className='grid sm:grid-cols-6 grid-cols-1 sm:grid-rows-2 grid-rows-5 lg:gap-5 lg:w-[70%] text-gray-800'>
                 <p className='sm:col-span-2 font-semibold'>OrderID</p>
                 <p className='sm:col-span-4'>{request._id}</p>
                 <p className='sm:col-span-4 flex items-center text-2xl font-bold'>{request.workerId.firstName} {request.workerId.lastName}</p>
@@ -85,12 +85,12 @@ const UserContracts = () => {
           <section className="align-middle inline-block min-w-full shadow overflow-hidden bg-slate-100 shadow-dashboard lg:px-8 px-2 md:pt-3 rounded-bl-lg rounded-br-lg relative">
           {request.completed && (
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 text-white rounded-b-lg sm:px-12">
-                  <p className='text-4xl font-bold text-green-500 p-36 '>Work Completed</p>
+                  <p className='text-center text-4xl font-bold text-green-500 p-36'>Work Completed</p>
                 </div>
               )}
            <p className='text-lg text-gray-700 font-bold'>Contact</p>
             <div className=" flex flex-col justify-center mt-4 work-sans bg-white shadow-xl rounded lg:p-6 p-2 mb-5">
-             <div className='grid md:grid-cols-2 md:grid-rows-3 items-center   md:w-[30%] md:gap-x-20'>
+             <div className='grid md:grid-cols-2 md:grid-rows-3 items-center text-gray-800  md:w-[30%] md:gap-x-20'>
               <p className='md:text-base sm:text-[85%] text-base font-bold'>Call</p>
               <p className='md:text-base sm:text-[85%] text-base '>{request.workerId.phoneNumber}</p>
               <p className='md:text-base sm:text-[85%] text-base font-bold'>EMAIL</p>
@@ -98,7 +98,9 @@ const UserContracts = () => {
               <p className='md:text-base sm:text-[85%] text-base font-bold'>Worker ID</p>
               <p className='md:text-base sm:text-[85%] text-base '>{request.workerId._id}</p>
               <p className='md:text-base sm:text-[85%] text-base font-bold'>Secret Code</p>
-              <p className='md:text-base sm:text-[85%] text-base '>{request.secretcode}</p>
+              <p 
+                className='md:text-base sm:text-[85%] text-base font-bold text-blue-700 border-2 border-blue-900 rounded px-2 w-24 text-center'
+              >{request.secretcode}</p>
              </div>
              
              <div className='md:ml-auto flex justify-center mt-5'>

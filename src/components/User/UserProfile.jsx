@@ -10,6 +10,11 @@ function UserProfile() {
   const [userData, setUserdata] = useState([]);
   const [error, setError] = useState("");
 
+  if (!userData || userData.length === 0) {
+    navigate("/user/updateProfile");
+    return null; 
+  }
+
   const firstname = userData[0]?.moredetails[0].firstName;
   const lastname = userData[0]?.moredetails[0].lastName;
   const image = userData[0]?.moredetails[0].userImage;
@@ -34,6 +39,8 @@ function UserProfile() {
   useEffect(() => {
     fetch();
   }, []);
+
+  
 
   const fetch = async () => {
     try {
@@ -61,7 +68,7 @@ function UserProfile() {
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#fffdcb] p-5">
+    <div className="min-h-screen flex justify-center items-center bg-[#fffdcb] md:p-5">
       <div className="bg-[#17253a] flex flex-col justify-center md:rounded-lg md:p-10 p-5 w-full md:w-[80%] lg:w-[70%]">
        <p className="text-3xl font-bold text-center mb-5 text-white">PROFILE</p>
        <div className="flex flex-col md:flex-row bg-white items-center md:gap-8 gap-4 p-8 rounded-xl shadow-lg">
@@ -103,78 +110,52 @@ function UserProfile() {
           </Link>
         </div>
          </div>
-          <div className="mt-5 flex md:flex-row flex-col md:items-center md:mx-7 mx-2 gap-x-5">
-            <div className="md:w-[50%] w-full font-semibold">
-              <div className="flex items-center md:gap-4 gap-10 mb-5">
-                <label
-                  className="block text-white text-sm font-semibold  md:w-[30%] w-[10%]"
-                  htmlFor="username"
-                >
+
+         <div className="mt-5 flex flex-col md:flex-row md:items-center md:mx-7 mx-2 gap-y-5 md:gap-y-0 md:gap-x-5">
+            <div className="w-full md:w-1/2 font-semibold flex flex-col gap-4">
+              <div className="flex flex-col md:flex-row items-center md:gap-4 gap-y-5 md:gap-y-0">
+                <label className="block text-white text-sm font-semibold md:w-1/3" htmlFor="username">
                   Username
                 </label>
-                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl ">
-                  <span className="ml-3"> {username}</span>
-                </p>
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl md:flex-1"><span className="ml-3"> {username}</span></p>
               </div>
-              <div className="flex items-center md:gap-4 gap-10 mb-5">
-                <label
-                  className="block text-white text-sm font-semibold  md:w-[30%] w-[10%]"
-                  htmlFor="username"
-                >
+              <div className="flex flex-col md:flex-row items-center md:gap-4 gap-y-5 md:gap-y-0">
+                <label className="block text-white text-sm font-semibold md:w-1/3" htmlFor="email">
                   Email
                 </label>
-                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl ">
-                <span className="ml-3"> {email}</span>
-                </p>
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl md:flex-1 truncate overflow-auto"><span className="ml-3"> {email}</span></p>
               </div>
-              <div className="flex items-center md:gap-4 gap-10 mb-5">
-                <label
-                  className="block text-white text-sm font-semibold  md:w-[30%] w-[10%]"
-                  htmlFor="username"
-                >
+              <div className="flex flex-col md:flex-row items-center md:gap-4 gap-y-5 md:gap-y-0">
+                <label className="block text-white text-sm font-semibold md:w-1/3" htmlFor="phone">
                   Phone
                 </label>
-                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {phone}</span></p>
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl md:flex-1"><span className="ml-3"> {phone}</span></p>
               </div>
             </div>
-            <div className="md:w-[50%] w-full font-semibold">
-              <div>
-                <div className="flex items-center md:gap-4 gap-10 mb-5">
-                  <label
-                    className="block text-white text-sm font-semibold md:w-[30%] w-[10%]"
-                    htmlFor="username"
-                  >
-                    City name
-                  </label>
-                  <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {city}</span></p>
-                </div>
+            <div className="w-full md:w-1/2 font-semibold flex flex-col gap-4">
+              <div className="flex flex-col md:flex-row items-center md:gap-4 gap-y-5 md:gap-y-0">
+                <label className="block text-white text-sm font-semibold md:w-1/3" htmlFor="city">
+                  City name
+                </label>
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl md:flex-1"><span className="ml-3"> {city}</span></p>
               </div>
-              <div>
-                <div className="flex items-center md:gap-4 gap-10 mb-5">
-                  <label
-                    className="block text-white text-sm font-semibold md:w-[30%] w-[10%]"
-                    htmlFor="username"
-                  >
-                    PIN code
-                  </label>
-                  <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {pinCode}</span></p>
-                </div>
+              <div className="flex flex-col md:flex-row items-center md:gap-4 gap-y-5 md:gap-y-0">
+                <label className="block text-white text-sm font-semibold md:w-1/3" htmlFor="pinCode">
+                  PIN code
+                </label>
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl md:flex-1"><span className="ml-3"> {pinCode}</span></p>
               </div>
-              <div>
-                <div className="flex items-center md:gap-4 gap-10 mb-5">
-                  <label
-                    className="block text-white text-sm font-semibold md:w-[30%] w-[10%]"
-                    htmlFor="username"
-                  >
-                    District
-                  </label>
-                  <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl "><span className="ml-3"> {district}</span></p>
-                </div>
+              <div className="flex flex-col md:flex-row items-center md:gap-4 gap-y-5 md:gap-y-0">
+                <label className="block text-white text-sm font-semibold md:w-1/3" htmlFor="district">
+                  District
+                </label>
+                <p className="w-full h-8 border rounded-md focus:outline-none bg-[#fff] shadow-xl md:flex-1"><span className="ml-3"> {district}</span></p>
               </div>
             </div>
           </div>
+          
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-5">
 
           <button onClick={logOut} className="p-2 px-5 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
             logOut
