@@ -63,13 +63,13 @@ const Wprofile = () => {
    }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-[#DFE7B4] p-2">
+    <div className="min-h-screen flex justify-center items-center bg-[#DFE7B4] md:p-5 p-1">
       <div className="bg-[#17253a] flex flex-col justify-center md:rounded-lg md:p-10 p-5 w-full md:w-[80%] lg:w-[70%]">
-       <p className="text-3xl font-bold text-center mb-5 text-white">PROFILE</p>
-       <div className="flex flex-col md:flex-row bg-white items-center md:gap-8 gap-4 p-8 rounded-xl shadow-lg">
+       <p className="tm:text-3xl text-2xl font-bold text-center mb-5 text-white">PROFILE</p>
+       <div className="flex flex-col md:flex-row bg-white items-center md:gap-8 gap-4 tm:p-8 p-3 rounded-xl shadow-lg">
       
           <div className="flex flex-col items-center mb-0 md:mb-4 w-[50%]">
-          <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
+          <div className="tm:w-32 w-24 tm:h-32 h-24 rounded-full overflow-hidden bg-gray-200">
 
               <img
                 className="object-cover w-full h-full"
@@ -96,13 +96,13 @@ const Wprofile = () => {
               className="absolute inset- opacity-  cursor-pointer"
             /> */}
           </div>
-          <h1 className="md:text-5xl text-3xl font-bold mb-0 md:mb-4 text-center ">
+          <h1 className="md:text-5xl tm:text-3xl text-xl font-bold mb-0 md:mb-4 text-center ">
             {firstname} {lastname}
           </h1>
         </div>
         <div className="flex flex-col mt-10 w-full">
          <div className="flex items-center">
-         <h1 className="text-2xl font-bold md:text-left text-center text-white"> DETAILS</h1>
+         <h1 className="tm:text-2xl text-xl  font-bold md:text-left text-center text-white"> DETAILS</h1>
          <div className="ml-auto">
           <Link to={'/worker/updateProfile'}>
           <button className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white md:text-base text-xs">
@@ -188,7 +188,7 @@ const Wprofile = () => {
         <div className="flex justify-center">
         
         <div>
-          <button onClick={logOut} className="p-2 bg-slate-500 hover:bg-slate-700 rounded-md text-white">
+          <button onClick={logOut} className="tm:p-2 p-1  bg-slate-500 hover:bg-slate-700 rounded-md text-white">
             logOut
           </button>
         </div>

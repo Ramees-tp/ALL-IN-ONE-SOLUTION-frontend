@@ -14,7 +14,7 @@ function WorkerHome() {
   };
 
   return (
-    <div className="p-1">
+    <div className="tm:p-1">
       <Wheader handleNavigation={handleNavigation} />
       {currentPage === "WHome" && <Whome />}
       {currentPage === "WProfile" && <Wprofile/>}

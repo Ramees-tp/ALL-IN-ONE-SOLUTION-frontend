@@ -19,13 +19,27 @@ const WorkerAuth = () => {
         navigate("/worker/WorkerLogin");
         // toast.error("Please Login 🤗");
         // alert("please login");
+      } else if (workerToken) {
+        const decodedToken = decodeToken(workerToken);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          localStorage.removeItem('wjwt');
+          localStorage.removeItem('workerLocation');
+        navigate("/worker/WorkerLogin");
+      }
       }
 
   }, [workerToken, dispatch, navigate]);
 
+  const decodeToken = (token) => {
+    const payload = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payload));
+    return decodedPayload;
+  };
+
   return (
    <>
-   <div>{workerToken && <Outlet />}</div>;
+   <div>{workerToken && <Outlet />}</div>
    </>
   );
 }

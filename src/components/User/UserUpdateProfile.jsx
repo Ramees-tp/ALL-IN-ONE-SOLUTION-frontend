@@ -9,7 +9,7 @@ const UserUpdateProfile = () => {
   const [location, setLocation] = useState("");
   const [coordinates, setCoordinates] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
-  console.log(location);
+  const [timeoutId, setTimeoutId] = useState(null)
 
   const handleSuggestionClick = (suggestion) => {
     setLocation(suggestion);
@@ -42,16 +42,25 @@ const UserUpdateProfile = () => {
 const handleLocationChange = (event) => {
   const value = event.target.value;
   setLocation(value);
+  clearTimeout(timeoutId);
+  let timeOutId = setTimeout(() => {
+    fetchSuggestions(value);
+    console.log(value,'here is the location')
+  }, 2000);
 
-  
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
+  setTimeoutId(timeOutId)
+
+};
+
+  const fetchSuggestions = (value) => {
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
     .then(response => response.json())
     .then(data => {
       const suggestions = data.map(item => item.display_name);
       setSuggestions(suggestions);
     })
     .catch(error => console.error('Error:', error));
-};
+  }
 
 
   const navigate = useNavigate();
@@ -128,11 +137,13 @@ const handleLocationChange = (event) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-3">
+    <form onSubmit={handleSubmit} className="max-w-md tm:mx-auto mx-2  my-3 p-3 bg-gradient-to-b from-[#252e53] to-[#4d1438] shadow-xl shadow-slate-800 rounded">
+    <div className="flex md:flex-row flex-col gap-x-10">
+    <div className="md:w-[50%]">
       <div className="mb-4">
         <label
           htmlFor="firstName"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           First Name
         </label>
@@ -143,14 +154,14 @@ const handleLocationChange = (event) => {
           value={formData.firstName}
           onChange={handleChange}
           placeholder="First Name"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="lastName"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           Last Name
         </label>
@@ -161,14 +172,14 @@ const handleLocationChange = (event) => {
           value={formData.lastName}
           onChange={handleChange}
           placeholder="Last Name"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="phoneNumber"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           Phone Number
         </label>
@@ -179,14 +190,14 @@ const handleLocationChange = (event) => {
           value={formData.phoneNumber}
           onChange={handleChange}
           placeholder="Phone Number"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="DOB"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           Date of Birth
         </label>
@@ -197,20 +208,24 @@ const handleLocationChange = (event) => {
           value={formData.DOB}
           onChange={handleChange}
           placeholder="Date of Birth"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
+    </div>
+
+    <div className="md:w-[50%]">
       <div className="mb-4">
         <label
           htmlFor="city"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           city
         </label>
 
         <div className="relative">
-          <input className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+          <input className="w-full tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+                placeholder="Enter City"
                 type="text" value={location} onChange={handleLocationChange} />
            {suggestions.length > 0 && (
              <div className="bg-white border rounded-md absolute w-full" style={{ top: '100%' }}>
@@ -225,7 +240,7 @@ const handleLocationChange = (event) => {
       <div className="mb-4">
         <label
           htmlFor="district"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           District
         </label>
@@ -236,14 +251,14 @@ const handleLocationChange = (event) => {
           value={formData.district}
           onChange={handleChange}
           placeholder="District"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
         <label
           htmlFor="pinCode"
-          className="block mb-2 text-sm font-medium text-gray-600"
+          className="block mb-2 text-sm font-medium text-gray-100"
         >
           PIN Code
         </label>
@@ -254,8 +269,8 @@ const handleLocationChange = (event) => {
           value={formData.pinCode}
           onChange={handleChange}
           placeholder="PIN Code"
-          required
-          className="block w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div>
@@ -271,15 +286,18 @@ const handleLocationChange = (event) => {
             name="userImage"
             // value={formData.profileImage}
             onChange={handleImageChange}           
-            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
+      </div>
+    </div>
+
       <div>
         {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
       </div>
       <button
         type="submit"
-        className="block w-full px-4 py-2 mt-4 text-white bg-blue-500 border border-blue-500 rounded-md hover:bg-blue-600"
+        className="block mx-auto justify-center tm:w-full tm:px-4 px-2 tm:py-2 py-1 mt-4 text-white bg-blue-500 border border-blue-500 rounded-md hover:bg-blue-600"
       >
         Update Details
       </button>

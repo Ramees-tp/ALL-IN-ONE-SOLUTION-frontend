@@ -8,6 +8,7 @@ export default {
       },
       screens: {
         rm: '380px',
+        tm: '480px',
       }
     },
   },

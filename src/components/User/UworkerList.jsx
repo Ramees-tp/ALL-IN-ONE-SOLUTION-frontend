@@ -100,9 +100,9 @@ function UworkerList() {
              .map((worker)=>(
 
          <Link to={`/user/workerDetails/${worker._id}/${id}`} key={worker._id}>
-        <div className="bg-blue-300 rm:p-4 p-1 rounded-xl">
+        <div className="bg-[#373349] rm:p-4 p-1 rounded-xl">
           <div className="flex  items-center ">
-            <div className="rounded-full bg-slate-400 sm:p-2 ml-5">
+            <div className="rounded-full bg-slate-400 sm:p-2 ml-5 ">
               <img src={user} alt="" />
             </div>
             <div className="bg-slate-300 sm:p-5 p-3 rounded-xl sm:ml-8 ml-4 w-full flex justify-between">

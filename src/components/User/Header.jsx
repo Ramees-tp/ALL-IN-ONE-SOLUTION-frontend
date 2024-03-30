@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import CommonLeafMap from "../CommonLeafMap";
-import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -19,7 +18,7 @@ function Header({handleNavigation}) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([])
-  const [radius, setRadius] = useState(null)
+  const [radius, setRadius] = useState('')
   console.log( "userlocation", location);
   console.log( "userlat", coordinates);
 
@@ -59,6 +58,8 @@ function Header({handleNavigation}) {
   const hideSidebar = () => {
     const sidebar = document.querySelector(".sidebar");
     sidebar.style.display = "none";
+        // setSidebarVisible(false);
+
   };
 
   const fetchUserLocation =async ()=> {
@@ -98,8 +99,7 @@ function Header({handleNavigation}) {
               </a>
             </li>
             <li>
-              {/* <Link to=""  onClick={() => handleNavigation("Home")} >Home</Link> */}
-              <Link to={'/user/uhome'} > Home</Link>
+              <Link to={'/user/uhome'} onClick={hideSidebar} > Home</Link>
             </li>
             <li>
               <a href="">About</a>
@@ -108,16 +108,10 @@ function Header({handleNavigation}) {
               <a href="">Contact</a>
             </li>
             <li>
-               {/* <Link to="" onClick={() => handleNavigation("Contracts")}>
-                  Contracts
-              </Link> */}
-              <Link to={'/user/userContract'} > Contracts</Link>
+              <Link to={'/user/userContract'} onClick={hideSidebar} > Contracts</Link>
             </li>
             <li>
-              {/* <Link to="" onClick={() => handleNavigation("Profile")}> 
-                    Profile
-              </Link> */}
-              <Link to={'/user/userProfiles'} > Profile</Link>
+              <Link to={'/user/userProfiles'} onClick={hideSidebar} > Profile</Link>
             </li>
           </ul>
 
@@ -129,7 +123,6 @@ function Header({handleNavigation}) {
               <div className="flex flex-row items-center">
                 
                 <li className="hideFlex">
-                {/* <Link to=""  onClick={() => handleNavigation("Home")}>Home</Link> */}
                 <Link to={'/user/uhome'} > Home</Link>
                 </li>
                 <li className="hideFlex">
@@ -139,15 +132,11 @@ function Header({handleNavigation}) {
                   <a href="">contact</a>
                 </li>
                 <li className="hideFlex">
-                {/* <Link to="" onClick={() => handleNavigation("Contracts")}>
-                  Contracts
-                </Link> */}
+                
                 <Link to={'/user/userContract'} > Contracts</Link>
                 </li>
                 <li className="hideFlex">
-                   {/* <Link to="" onClick={() => handleNavigation("Profile")}> 
-                    Profile
-                   </Link> */}
+                  
                    <Link to={'/user/userProfiles'} > Profile</Link>
                 </li>
                 <li className="menu-button" onClick={showBars}>
@@ -204,10 +193,6 @@ function Header({handleNavigation}) {
     </div>
   );
 }
-
-Header.propTypes = {
-  handleNavigation: PropTypes.object.isRequired,
-};
 
 export default Header;
 

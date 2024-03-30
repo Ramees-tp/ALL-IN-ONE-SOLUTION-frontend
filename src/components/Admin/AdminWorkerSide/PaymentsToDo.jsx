@@ -35,9 +35,9 @@ const PaymentsToDo = () => {
             {data.map((worker) => (
               <div
                 key={worker._id}
-                className="flex items-center p-8 bg-[#dae3ee] shadow rounded-lg"
+                className="flex items-center tm:p-8 p-2 bg-[#dae3ee] shadow rounded-lg"
               >
-                <div className="w-full flex sm:flex-row flex-col justify-center">
+                <div className="w-full flex sm:flex-row flex-col justify-center gap-y-2">
                   <div className="">
                     <span className="block text-2xl font-bold">
                       {worker.workerId.firstName} {worker.workerId.lastName}
@@ -54,13 +54,13 @@ const PaymentsToDo = () => {
                     <span className="block text-gray-500">
                       Work Type: {worker.workerId.jobType}
                     </span>
-                    <span className="block text-gray-500">
+                    <span className="block text-green-600">
                       Amount: {worker.wage}
                     </span>
                   </div>
-                  <div className="ml-auto flex justify-center items-center">
+                  <div className="tm:ml-auto flex sm:flex-col flex-row justify-center items-center">
                     <div
-                      className="inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md "
+                      className="inline-flex tm:px-5 px-3 tm:py-2 py-1 tm:text-base text-[90%] text-green-600 hover:text-green-700 focus:text-green-700 hover:bg-green-100 focus:bg-purple-100 border border-green-600 rounded-md "
                     >
                       <RazorPayPayment orderId={worker._id} wage={worker.wage} type={'admin'}/>
                     </div>

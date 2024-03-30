@@ -30,11 +30,11 @@ const CompletedWork = () => {
             {data.filter(request=>request.payment && request.completed).map((worker) => (
               <div
                 key={worker._id}
-                className="flex items-center p-8 bg-[#e2f581] shadow rounded-lg"
+                className="flex items-center tm:p-8 p-2 bg-[#e2f581] shadow rounded-lg"
               >
-                <div className="w-full flex sm:flex-row flex-col justify-center">
-                  <div className="grid grid-cols-2 grid-row-5 gap-3">
-                    <span className="col col-span-2 block text-2xl font-bold">
+                <div className="w-full flex sm:flex-row flex-col justify-center gap-y-2">
+                  <div className="grid grid-cols-2 grid-row-5 tm:gap-3 gap-1 tm:text-base text-[90%]">
+                    <span className="col col-span-2 block tm:text-2xl text-xl font-bold">
                       {worker.workerId.firstName} {worker.workerId.lastName}
                     </span>
                     <span className="col-span-2 block text-gray-500">
@@ -50,14 +50,14 @@ const CompletedWork = () => {
                       
                     </span>
                   </div>
-                  <div className="ml-auto flex flex-col justify-between items-center">
+                  <div className="tm:ml-auto flex sm:flex-col flex-row justify-between items-center">
                     <div
-                      className="inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md "
+                      className="inline-flex tm:px-5 px-3 tm:py-2 py-1 tm:text-base text-[90%] text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md "
                     >
                       <span>Date:</span> {new Date(worker.date).toLocaleDateString()}
                     </div>
                     <div
-                      className="inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md ml-3"
+                      className="inline-flex tm:px-5 px-3 tm:py-2 py-1 tm:text-base text-[90%] text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md ml-3"
                     >
                       {worker.day}
                     </div>

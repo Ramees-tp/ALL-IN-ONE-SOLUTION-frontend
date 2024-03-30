@@ -6,6 +6,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 
+import { io } from "socket.io-client";
+const socket = io("http://localhost:918");
+
 
 function UworkerDetails() {
   const [location, setLocation] = useState([]);
@@ -36,6 +39,10 @@ function UworkerDetails() {
     setSelectedDate(selectedDate.toISOString().split('T')[0]);
   }
 
+  // useEffect(()=>{
+  //   socket.emit("userConnection", { sender: id1 });
+  // },[]) 
+
   useEffect(() => {
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
@@ -51,6 +58,7 @@ function UworkerDetails() {
       const response = await axiosInstance.post(`/user/workRequest/${workerId}`, { selectedDate, selectedDay, coordinates, location, id1 });
       if(response.status===201){
         navigate('/user/userContract')
+        socket.emit('updateRequest', { workerId });
       }
     } catch (err) {
       console.log(err);
@@ -74,8 +82,43 @@ function UworkerDetails() {
     }
   }
   useEffect(()=>{
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      const decodedToken = decodeJWTToken(token);
+      const workerId = decodedToken ? decodedToken.id : null;
+      console.log('user ID:', workerId);
+
+      if (workerId) {
+        socket.emit("userConnection", { sender: workerId });
+      }
+    }
     wDetails()
+    socket.on('updateRequest', () => {
+      wDetails();
+    });
+    return () => {
+      socket.off('updateRequest');
+    };
   },[])
+
+  const decodeJWTToken = (token) => {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
+  
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      return null;
+    }
+  };
 
 
 
@@ -85,7 +128,7 @@ function UworkerDetails() {
         
         <div className="bg-gray-400 p-3 max-w-xl space-y-5 rounded">
           <div className="bg-white p-5 space-y-5">
-            <h1 className="text-center font-bold text-3xl">Available Days</h1>
+            <h1 className="text-center font-bold tm:text-3xl text-xl">Available Days</h1>
             <div className="space-x-5">
               <button className="bg-purple-100 focus:bg-purple-300  p-1 px-2 rounded-md">
                 This Week
@@ -143,14 +186,14 @@ function UworkerDetails() {
           <div>
            
            <div>
-             <h1 className="font-bold mb-5 text-2xl">Select Day</h1>
+             <h1 className="font-bold mb-4 tm:text-2xl text-lg">Select Day</h1>
             <select
                id="selectDay"
                name="selectDay"
                value={selectedDay}
                defaultValue={selectedDay}
                onChange={handleDayChange}
-               className="w-[50%] p-2 border rounded-md focus:outline-none focus:border-blue-500"
+               className="w-[50%] tm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
             >
                <option value="">Select a day</option>
                <option value="Monday">Monday</option>
@@ -177,9 +220,9 @@ function UworkerDetails() {
                 src={details ? details[0].profileImage : user}
                 alt=""
               />
-              <p className="text-2xl">{details[0].firstName} {details[0].lastName}</p>
+              <p className="tm:text-2xl text-xl font-semibold">{details[0].firstName} {details[0].lastName}</p>
             </div>
-            <div className="bg-gray-300 p-3">
+            <div className="bg-gray-300 p-3 tm:text-base text-[90%]">
               <p className="font-semibold mb-5">Worker ID : {details[0]._id} </p>
               <p>experience : </p>
               <p>Place : {details[0].city} </p>
@@ -189,8 +232,8 @@ function UworkerDetails() {
         </div>
         )}
       </div>
-      <div className="flex justify-center items-center mt-10 ">
-        <button onClick={ ()=>sendRequest(details[0]._id)} className="bg-green-700 hover:bg-green-500 p-3 rounded text-white">
+      <div className="flex justify-center items-center tm:mt-10 mt-5 ">
+        <button onClick={ ()=>sendRequest(details[0]._id)} className="bg-green-700 hover:bg-green-500 tm:p-3 p-2 rounded text-white">
           Send Request
         </button>
       </div>

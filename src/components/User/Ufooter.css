@@ -3,8 +3,7 @@
   border: 1px SOLID #00abf0;
   border-radius: 50%;
   transition: all 0.1s linear;
-  width: 44px;
-  height: 44px;
+
   display: flex;
   align-items: center;
   justify-content: center;

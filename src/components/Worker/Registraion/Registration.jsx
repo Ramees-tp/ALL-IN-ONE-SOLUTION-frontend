@@ -4,32 +4,35 @@ import JobForm from "./JobForm";
 import PaymentForm from "./PaymentForm";
 import axiosInstance from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+ 
 
 
 const Registration = () => {
   const navigate = useNavigate(); 
+  const dispatch = useDispatch();
  
 
 
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
-    firstName: "Muhammad",
-    lastName: "Arshad",
-    email: "mohammedarshd62820@gmail.com",
-    phoneNumber: "6282092329",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
     gender: "",
     dateOfBirth: "",
-    district: "malappuram",
-    city: "kondotty",
-    pinCode: "673638",
+    district: "",
+    city: "",
+    pinCode: "",
     profileImage: "",
     jobType: "",
     workArea: "",
     coordinates: [ null, null ],
     adharNumber: "56567656756",
-    IFC: "766575757",
-    accountNumber: "643654637825",
-    panCardNumber: "HWOPP155Q",
+    IFC: "SBON0005943",
+    accountNumber: "12345678901",
+    panCardNumber: "HWOPP1556Q",
     password: "StrongP@ssword1",
     confirmPass: "StrongP@ssword1",
   });
@@ -78,7 +81,7 @@ const Registration = () => {
         const Token = response.data.Token;
         console.log(Token);
         localStorage.setItem("wjwt", Token);
-  
+        dispatch(setWorkerToken(Token));
         navigate("/worker/whome");
       }
     } catch (error) {
@@ -88,14 +91,14 @@ const Registration = () => {
   };
 
   return (
-    <div className="sm:px-64 p-3 sm:py-10 bg-[#fbffc3]">
+    <div className="xl:px-64 lg:px-52 md:px-32 sm:px-16 tm:px-8 p-2 sm:py-10 bg-[#fbffc3]">
       <div className="form">
         <div className="w-full">
           <div
             style={{
               width: page === 0 ? "33.3%" : page === 1 ? "66.6%" : "100%",
             }}
-            className="progressBar bg-red-500 h-3 mb-5 rounded"
+            className="progressBar bg-[#4f662a] h-3 mb-5 rounded"
           ></div>
         </div>
         <div className="formContainer  flex flex-col self-end space-y-3  bg-gradient-to-b from-[#252e53] to-[#4d1438] p-5 rounded">

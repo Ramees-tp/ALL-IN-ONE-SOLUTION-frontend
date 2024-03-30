@@ -2,12 +2,13 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../redux/TokenSlice";
+import { setAdminToken } from "../../redux/adminTokenSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const Login = () => {
+
+const AdminLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
@@ -36,15 +37,15 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:917/user/login", {
+      const response = await axios.post("http://localhost:917/master/login", {
         username,
         password,
       });
       if (response.status === 200) {
         const Token = response.data.Token;
-        localStorage.setItem("jwt", Token);
-        dispatch(setToken(Token));
-        navigate("/user/uhome");
+        localStorage.setItem("ajwt", Token);
+        dispatch(setAdminToken(Token));
+        navigate("/master/dashboard");
       }
     } catch (err) {
       if (err.response && err.response.data.message) {
@@ -59,10 +60,10 @@ const Login = () => {
   return (
     <div className="min-h-screen w-full flex sm:flex-row flex-col items-center justify-center gap-5 bg-gray-100 px-3">
       <div className="md:text-4xl sm:text-3xl text-2xl text-black font-bold text-center tm:p-5">
-        <p>ALL IN ONE </p>
-        <p className="">SOLUTION</p>
+        <p>WELCOME TO</p>
+        <p className="">ADMIN'S WORLD</p>
       </div>
-      <div className=" bg-gradient-to-b from-[#252e53] to-[#4d1438] sm:p-8 p-4 sm:py-20 rounded shadow-md w-full max-w-md">
+      <div className=" bg-gradient-to-b from-[#916da3] to-gray-800 sm:p-8 p-4 sm:py-20 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold sm:mb-6 text-center text-white">
           Login
         </h2>
@@ -113,14 +114,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <p className="mb-4 text-white">
-            <Link to={"/user/otp"}>
-              <span className="text-blue-400 mr-3 hover:text-blue-700 cursor-pointer">
-                Forgot
-              </span>
-            </Link>
-            password ?
-          </p>
+          
           <div>
             {error && (
               <div className="text-red-500 mb-4 text-center">{error}</div>
@@ -129,20 +123,21 @@ const Login = () => {
 
           <div className="flex justify-center items-center">
             <button
-              className="p-2 tm:px-10 px-4 bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-800"
+              className="p-2 tm:px-10 px-4 bg-cyan-700 text-white rounded-md font-semibold hover:bg-cyan-800"
               type="submit"
             >
               Login
             </button>
           </div>
           <div className="text-center py-3 text-white">
-            <p>
-              Don't have an account ? please
-              <Link to={"/user/signUp"}>
-                <span className="text-blue-400 ml-3 hover:text-blue-700 cursor-pointer">
-                  SignIn
+            <p className="mb-4 text-white">
+              {/* <Link to={"/user/otp"}> */}
+                Did 
+                <span className="text-blue-300 ml-3 mr-3 hover:text-blue-700 cursor-pointer">
+                  Forgot
                 </span>
-              </Link>
+              {/* </Link> */}
+              Your password ?
             </p>
           </div>
         </form>
@@ -151,4 +146,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;

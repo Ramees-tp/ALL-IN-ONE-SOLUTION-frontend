@@ -10,7 +10,7 @@ import {
 
 function Ufooter() {
   return (
-    <div className=" grid sm:grid-cols-3 sm:grid-rows-1 grid-cols-1 justify-center md:gap-y-5 bg-[#17253a] text-white sm:px-28 px-6 sm:py-12 py-4">
+    <div className=" grid sm:grid-cols-3 sm:grid-rows-1 grid-cols-1 justify-center md:gap-y-5 bg-[#17253a] text-white sm:px-28 px-6 sm:py-12 py-4 sm:text-base tm:text-[90%] text-[80%]">
       <div className="flex flex-col gap-y-3 sm:mb-5 mb-3">
         <p className="font-bold sm:text-2xl text-xl sm:py-3">About us</p>
         <div className="space-y-1">
@@ -31,13 +31,13 @@ function Ufooter() {
       <div className="flex flex-col gap-y-3">
         <p className="font-bold sm:text-2xl text-xl sm:py-3">Connect with us</p>
         <div className="logo flex sm:gap-x-10 gap-x-5">
-          <a href="">
+          <a className="tm:p-2 p-1">
             <FontAwesomeIcon className="h-7" icon={faFacebook} />
           </a>
-          <a href="">
+          <a className="tm:p-2 p-1">
             <FontAwesomeIcon className="h-7" icon={faXTwitter} />
           </a>
-          <a href="">
+          <a className="tm:p-2 p-1">
             <FontAwesomeIcon className="h-7" icon={faInstagram} />
           </a>
         </div>

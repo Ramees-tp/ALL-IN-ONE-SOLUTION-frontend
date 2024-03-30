@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import user from "../../assets/icons/account.png";
 // import favWorker from "../../assets/icons/heart.png";
 import axiosInstance from "../../api/worker/workerInstance";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:918");
 
 function Whome() {
   const [request, setRequest] = useState([])
@@ -19,18 +22,63 @@ function Whome() {
       console.log(error);
     }
   }
-  useEffect(()=>{
-    workRequest();
-    const intervel = setInterval(()=>{
-      workRequest()
-    }, 15000);
-    return () => clearInterval(intervel)
-  },[])
+  // useEffect(()=>{
+  //   workRequest();
+  //   const intervel = setInterval(()=>{
+  //     workRequest()
+  //   }, 15000);
+  //   return () => clearInterval(intervel)
+  // },[])
 
-  const Task =async (id, action) =>{
+  useEffect(() => {
+    const token = localStorage.getItem("wjwt");
+    if (token) {
+      const decodedToken = decodeJWTToken(token);
+      const workerId = decodedToken ? decodedToken.id : null;
+      console.log('Worker ID:', workerId);
+
+      if (workerId) {
+        socket.emit("workerConnection", { sender: workerId });
+      }
+    }
+
+    workRequest()
+
+    socket.on('updateRequest', () => {
+      workRequest();
+    });
+
+    return () => {
+      socket.off('updateRequest');
+    };
+}, []);
+
+
+const decodeJWTToken = (token) => {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    return null;
+  }
+};
+
+  const Task =async (id, action, userId) =>{
+    console.log('uuuuu', userId);
    try{
      const res = await axiosInstance.get(`/worker/acceptOrDecline/${id}?action=${action}`)
      if(res.status===200) {
+      socket.emit('userUpdateRequest', { userId });
       workRequest()
      }
    }catch(err){
@@ -43,33 +91,33 @@ function Whome() {
       <div className="bg-[#DFE7B4] lg:px-28 md:px-16 sm:px-10 px-4 py-5">
         <div className="bg-[#FFFFFF] lg:p-10 p-2 rounded mb-4">
           <h1 className="sm:mb-5 sm:text-2xl text-xl font-bold">Job Requests :</h1>
-          <div  className="scroll-mx-60 overflow-y-scroll  h-72 py-5 px-2 flex flex-col gap-4">
+          <div  className="scroll-mx-60 overflow-y-scroll  min-h-72 py-5 tm:px-2 flex flex-col gap-4">
 
             {request && request.filter(request=>request.status==='pending').map((req)=>(
-          <div key={req._id} className="bg-[#678FB4] p-3 rounded-md ">
+          <div key={req._id} className="bg-[#678FB4] tm:p-3 p-1 rounded-md ">
             <div className="flex items-center w-full">
               <div className="rounded-full bg-[#C3B6B6] p-2 mb-4 md:mb-0 mr-4 sm:block hidden">
                <img src={req.userData.profileImage || user} className="w-10 h-10" />
               </div>
-              <div className="bg-[#DFE7B4] sm:p-3 rounded-xl w-full flex rm:flex-row flex-col gap-x-3 sm:gap-y-4 items-center sm:justify-between justify-around p-1">
-                <h1 className="font-semibold  lg:text-2xl sm:text-xl text-lg p-2 max-w-[18rem] md:max-w-none md:mr-4 text-center">
+              <div className="bg-[#DFE7B4] sm:p-3 rounded-xl w-full flex flex-row tm:gap-x-3 sm:gap-y-4 items-center sm:justify-between justify-around p-1">
+                <h1 className="font-semibold  lg:text-2xl sm:text-xl rm:text-lg text-sm p-2 max-w-[18rem] md:max-w-none md:mr-4 text-center">
                  {req.userData.firstName} {req.userData.lastName}
                 </h1>
 
                   <div className="flex xl:flex-row flex-col gap-2 items-center justify-center ">
                     <div className="flex flex-row items-center md:gap-y-2 md:gap-x-3 gap-x-1">
-                      <p className="bg-blue-300 p-2 rounded font-bold text-sm md:text-xl md:w-36 sm:w-28 text-center">
+                      <p className="bg-blue-300 tm:p-2 p-1 rounded font-bold text-sm md:text-xl md:w-36 sm:w-28 text-center">
                       {new Date(req.date).toLocaleDateString()}
                       </p>
-                      <p className="bg-blue-300 p-2 rounded font-bold text-sm md:text-xl md:w-36 sm:w-28 text-center">
+                      <p className="bg-blue-300 tm:p-2 p-1 rounded font-bold text-sm md:text-xl md:w-36 sm:w-28 text-center">
                         {req.day}
                       </p>
                     </div>
                     <div className="flex flex-row items-center md:gap-y-2 gap-2 md:gap-x-3">
-                      <button onClick={()=>Task(req._id, 'accept')} className="bg-green-700 hover:bg-green-900 p-2 rounded font-bold text-sm md:text-xl text-white sm:w-24">
+                      <button onClick={()=>Task(req._id, 'accept', req.userData.userId)} className="bg-green-700 hover:bg-green-900 tm:p-2 p-1 rounded font-bold text-sm md:text-xl text-white sm:w-24">
                         Accept
                       </button>
-                      <button onClick={()=>Task(req._id, 'decline')} className="bg-red-700 hover:bg-red-900 p-2 rounded font-bold text-sm md:text-xl text-white sm:w-24">
+                      <button onClick={()=>Task(req._id, 'decline', req.userData.userId )} className="bg-red-700 hover:bg-red-900 tm:p-2 p-1 rounded font-bold text-sm md:text-xl text-white sm:w-24">
                         Decline
                       </button>
                     </div>

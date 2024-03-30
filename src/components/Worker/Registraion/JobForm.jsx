@@ -1,23 +1,33 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 
 const JobForm = ({ formData, setFormData }) => {
   const [location, setLocation] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [timeoutId, setTimeoutId] = useState(null)
 
-  console.log("location:", location);
-
+  
   const parts = location.split(',');
-const exactLocation = parts.length >= 2 ? parts[0].trim() : '';
-console.log(exactLocation);
-
-
-
-const handleLocationChange = (event) => {
+  const exactLocation = parts.length >= 2 ? parts[0].trim() : '';
+  console.log(exactLocation);
+  
+  
+  
+  const handleLocationChange = (event) => {
   const value = event.target.value;
   setLocation(value);
 
-  // Fetch place suggestions from Nominatim API
+  clearTimeout(timeoutId);
+
+
+  let timeOutId = setTimeout(() => {
+    fetchSuggestions(value);
+    console.log(location,'here is the location')
+  }, 2000);
+
+  setTimeoutId(timeOutId)
+};
+
+const fetchSuggestions = (value) => {
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(value)}`)
     .then(response => response.json())
     .then(data => {
@@ -90,7 +100,7 @@ const handleLocationChange = (event) => {
       Work Area
       </label>
         <div className="relative">
-          <input className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+          <input className="w-full tm:p-2 p-5 border rounded-md focus:outline-none focus:border-blue-500"
                 type="text" value={location} onChange={handleLocationChange} />
            {suggestions.length > 0 && (
              <div className="bg-white border rounded-md absolute w-full" style={{ top: '100%' }}>
@@ -118,16 +128,12 @@ const handleLocationChange = (event) => {
           onChange={(event) =>
             setFormData({ ...formData, adharNumber: event.target.value })
           }
-          className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+          className="w-full tm:p-2 p-5 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
     </div>
   );
 };
 
-JobForm.propTypes = {
-  formData: PropTypes.object.isRequired,
-  setFormData: PropTypes.func.isRequired,
-};
 
 export default JobForm;

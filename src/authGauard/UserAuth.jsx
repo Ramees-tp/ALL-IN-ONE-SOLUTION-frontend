@@ -10,24 +10,36 @@ const UserAuth = () => {
 
   useEffect(() => {
     const storedToken  = localStorage.getItem('jwt');
-
     if (!token && storedToken) {
-        // Set the token from local storage to Redux store if it exists
         dispatch(setToken(storedToken));
       }
   
       if (!token && !storedToken) {
-        // If there is no token in Redux store and local storage, redirect to home
         navigate("/user/login");
         // toast.error("Please Login 🤗");
         // alert("please login");
+      } else if (token) {
+        const decodedToken = decodeToken(token);
+        const currentTime = Date.now() / 1000;
+        if (decodedToken.exp < currentTime) {
+          localStorage.removeItem('jwt');
+          localStorage.removeItem('userLocation');
+          localStorage.removeItem('radius');
+        navigate("/user/login");
+      }
       }
 
   }, [token, dispatch, navigate]);
 
+  const decodeToken = (token) => {
+    const payload = token.split('.')[1];
+    const decodedPayload = JSON.parse(atob(payload));
+    return decodedPayload;
+  };
+
   return (
    <>
-   <div>{token && <Outlet />}</div>;
+   <div>{token && <Outlet />}</div>
    </>
   );
 };

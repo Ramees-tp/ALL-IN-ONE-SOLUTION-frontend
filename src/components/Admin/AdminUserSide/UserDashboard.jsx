@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
   faGear,
+  faBars,
   faIndianRupeeSign,
   faAdd,
   faHelmetSafety
@@ -17,9 +19,15 @@ import UserList from '../AdminUserSide/UserList'
 
 
 function UserDashboard() {
+  const [showSidebar, setShowSidebar] = useState(false);
+
   const [show, setShow] = useState(true);
 //   const [show1, setShow1] = useState(false);
 //   const [show2, setShow2] = useState(false);
+
+  const navBar=() =>{
+    setShowSidebar(!showSidebar);
+  }
 
 
   const handleButtonClick = (buttonIndex) => {
@@ -48,7 +56,7 @@ function UserDashboard() {
   return (
     <div className="flex bg-gray-100 min-h-screen">
       {/* Sidebar */}
-      <aside className="hidden sm:flex sm:flex-col">
+      <aside className={`fixed inset-y-0 left-0 z-20 sm:flex sm:flex-col ${showSidebar ? 'flex' : 'hidden'}`}>
         <a
           href="#"
           className="inline-flex items-center justify-center h-20 w-full bg-purple-600 hover:bg-purple-500 focus:bg-purple-500"
@@ -103,11 +111,11 @@ function UserDashboard() {
         </div>
       </aside>
       {/* Main Content */}
-      <div className="flex-grow text-gray-800">
+      <div className="flex-grow text-gray-800 sm:ml-28">
         {/* Header */}
         <header className="flex items-center h-20 px-6 sm:px-10 bg-white">
-          <button className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <button onClick={() => navBar()} className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
+            <FontAwesomeIcon icon={faBars} />
           </button>
           <div className="relative w-full max-w-md sm:-ml-2">
             <svg
@@ -149,6 +157,7 @@ function UserDashboard() {
                   />
                 </svg>
               </button>
+              <Link to={'/master/dashboard'}>
               <button className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
                 <span className="sr-only">Log out</span>
                 <svg
@@ -166,6 +175,7 @@ function UserDashboard() {
                   />
                 </svg>
               </button>
+              </Link>
             </div>
           </div>
         </header>

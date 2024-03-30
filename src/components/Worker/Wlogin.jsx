@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch } from "react-redux";
+import { setWorkerToken } from "../../redux/WorkerTokenSlice";
 
 function Wlogin() {
   const navigate = useNavigate();
@@ -12,6 +14,8 @@ function Wlogin() {
   const [password, setPassword] = useState("");
   const [passhow, setPasshow] = useState(false);
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,6 +44,7 @@ function Wlogin() {
       if (response.status === 200) {
         const Token = response.data.Token;
         localStorage.setItem("wjwt", Token);
+        dispatch(setWorkerToken(Token))
         navigate("/worker/whome");
       }
     } catch (err) {
@@ -47,18 +52,21 @@ function Wlogin() {
         setError(err.response.data.message);
       } else {
         console.log("An error occured :", err);
-        setError("An error occured.please try again.");
+        setError("front An error occured.please try again.");
       }
     }
   };
   return (
     <div>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className=" bg-gradient-to-b from-[#252e53] to-[#4d1438] text-white p-10  rounded shadow-md w-full max-w-md">
-          <div className="text-4xl font-bold mb-6 text-center">
-            ALL IN ONE SOLUTION
-          </div>
-          <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
+      <div className="min-h-screen flex sm:flex-row flex-col items-center justify-center gap-5 bg-gray-100 px-3">
+      <div className="md:text-4xl sm:text-3xl text-2xl text-black font-bold text-center tm:p-5">
+        <p>ALL IN ONE </p>
+        <p className="">SOLUTION</p>
+      </div>
+        <div className=" bg-gradient-to-b from-[#252e53] to-[#4d1438] sm:p-8 p-4 sm:py-20 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold sm:mb-6 text-center text-white">
+          Login
+        </h2>
           <form onSubmit={handleLogin}>
             <div className="mb-4">
               <label
@@ -68,7 +76,7 @@ function Wlogin() {
                 Email
               </label>
               <input
-                className="w-full text-black p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                className="w-full text-black tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
                 type="text"
                 id="email"
                 value={email}
@@ -84,7 +92,7 @@ function Wlogin() {
               </label>
               <div className="relative">
               <input
-                className="w-full text-black p-2 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                className="w-full text-black tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
                 type={!passhow ? "password" : "text "}
                 id="password"
                 value={password}
@@ -111,7 +119,7 @@ function Wlogin() {
             </div>
             <div className="flex justify-center items-center">
               <button
-                className="p-2 px-10 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600"
+                className="p-2 tm:px-10 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600"
                 type="submit"
               >
                 Login

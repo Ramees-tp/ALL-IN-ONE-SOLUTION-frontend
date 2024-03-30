@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -71,7 +72,7 @@ function Dashboard() {
   return (
     <div className="flex bg-gray-100 min-h-screen">
       {/* Sidebar */}
-      <aside className={`sm:flex sm:flex-col ${showSidebar ? 'flex' : 'hidden'}`}>
+      <aside className={`fixed inset-y-0 left-0 z-20 sm:flex sm:flex-col ${showSidebar ? 'flex' : 'hidden'}`}>
         <a
           href="#"
           className="sm:inline-flex hidden items-center justify-center h-20 w-full bg-purple-600 hover:bg-purple-500 focus:bg-purple-500"
@@ -126,7 +127,7 @@ function Dashboard() {
         </div>
       </aside>
       {/* Main Content */}
-      <div className="flex-grow text-gray-800">
+      <div className="flex-grow text-gray-800 sm:ml-28">   
         {/* Header */}
         <header className="flex items-center h-20 px-6 sm:px-10 bg-white">
           <button onClick={() => navBar()} className="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
@@ -172,6 +173,7 @@ function Dashboard() {
                   />
                 </svg>
               </button>
+              <Link to={'/master/dashboard'}>
               <button className="relative p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus:bg-gray-100 focus:text-gray-600 rounded-full">
                 <span className="sr-only">Log out</span>
                 <svg
@@ -189,6 +191,7 @@ function Dashboard() {
                   />
                 </svg>
               </button>
+              </Link>
             </div>
           </div>
         </header>

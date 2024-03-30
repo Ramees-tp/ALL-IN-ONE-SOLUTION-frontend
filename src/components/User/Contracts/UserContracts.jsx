@@ -52,7 +52,7 @@ const UserContracts = () => {
 
   return (
     <div className=''>
-        <h2 className="text-2xl font-semibold sm:mb-6 mb-3">Contracts</h2>
+        <h2 className="tm:text-2xl text-xl font-semibold sm:mb-6 mb-3">Contracts</h2>
         { requests.length > 0 && requests.filter(request => request.payment).map((request) => (
         <div key={request._id} className='flex sm:flex-row flex-col gap-4 mb-5' >
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 md:pr-10 lg:px-8 lg:w-[70%]">
@@ -64,7 +64,7 @@ const UserContracts = () => {
               )}
             <div className='flex md:flex-row flex-col sm:items-start items-center w-full'>
              <div className='md:w-[30%]'>
-             <div  className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
+             <div  className="tm:w-32 w-24 tm:h-32 h-24 rounded-full overflow-hidden bg-gray-200">
                 <img 
                   src={request.workerId.profileImage} 
                   alt="profile"
@@ -73,11 +73,11 @@ const UserContracts = () => {
               </div>
              </div>
               <div className='grid sm:grid-cols-6 grid-cols-1 sm:grid-rows-2 grid-rows-5 lg:gap-5 lg:w-[70%] text-gray-800'>
-                <p className='sm:col-span-2 font-semibold'>OrderID</p>
+                <p className='sm:col-span-2 font-semibold tm:text-base text-[80%]'>OrderID</p>
                 <p className='sm:col-span-4'>{request._id}</p>
                 <p className='sm:col-span-4 flex items-center text-2xl font-bold'>{request.workerId.firstName} {request.workerId.lastName}</p>
                 <p className='flex items-center'>{request.workerId.jobType}</p>
-                <p className='sm:col-span-4 flex items-center text-xl text-green-900'>{new Date(request.date).toLocaleDateString()} - {request.day}</p>
+                <p className='sm:col-span-4 flex items-center tm:text-xl text-[90%] text-green-900'>{new Date(request.date).toLocaleDateString()} - {request.day}</p>
                 <p className='flex items-center'>{request.workerId.workArea}</p>
               </div>
             </div>
@@ -85,19 +85,19 @@ const UserContracts = () => {
           <section className="align-middle inline-block min-w-full shadow overflow-hidden bg-slate-100 shadow-dashboard lg:px-8 px-2 md:pt-3 rounded-bl-lg rounded-br-lg relative">
           {request.completed && (
                 <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75 text-white rounded-b-lg sm:px-12">
-                  <p className='text-center text-4xl font-bold text-green-500 p-36'>Work Completed</p>
+                  <p className='text-center tm:text-4xl text-2xl font-bold text-green-500 p-36'>Work Completed</p>
                 </div>
               )}
            <p className='text-lg text-gray-700 font-bold'>Contact</p>
             <div className=" flex flex-col justify-center mt-4 work-sans bg-white shadow-xl rounded lg:p-6 p-2 mb-5">
-             <div className='grid md:grid-cols-2 md:grid-rows-3 items-center text-gray-800  md:w-[30%] md:gap-x-20'>
-              <p className='md:text-base sm:text-[85%] text-base font-bold'>Call</p>
-              <p className='md:text-base sm:text-[85%] text-base '>{request.workerId.phoneNumber}</p>
-              <p className='md:text-base sm:text-[85%] text-base font-bold'>EMAIL</p>
-              <p className='md:text-base sm:text-[85%] text-base '>{request.workerId.email}</p>
-              <p className='md:text-base sm:text-[85%] text-base font-bold'>Worker ID</p>
-              <p className='md:text-base sm:text-[85%] text-base '>{request.workerId._id}</p>
-              <p className='md:text-base sm:text-[85%] text-base font-bold'>Secret Code</p>
+             <div className='grid md:grid-cols-2 md:grid-rows-3 items-center text-gray-800  md:w-[30%] md:gap-x-20 md:text-base sm:text-[85%] text-[75%]'>
+              <p className=' font-bold'>Call</p>
+              <p>{request.workerId.phoneNumber}</p>
+              <p className=' font-bold'>EMAIL</p>
+              <p>{request.workerId.email}</p>
+              <p className=' font-bold'>Worker ID</p>
+              <p>{request.workerId._id}</p>
+              <p className=' font-bold'>Secret Code</p>
               <p 
                 className='md:text-base sm:text-[85%] text-base font-bold text-blue-700 border-2 border-blue-900 rounded px-2 w-24 text-center'
               >{request.secretcode}</p>

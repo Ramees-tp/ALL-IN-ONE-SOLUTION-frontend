@@ -53,9 +53,9 @@ const EntryRequest = () => {
     <div>
       <main className="p-6 sm:p-10 space-y-6">
         {/* Dashboard Heading Section */}
-        <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+        <div className="flex flex-col sm:space-y-6 md:space-y-0 md:flex-row justify-between">
           <div className="mr-6">
-            <h1 className="text-4xl font-semibold mb-2">Entry Requests</h1>
+            <h1 className="sm:text-4xl text-3xl font-semibold mb-2">Entry Requests</h1>
             <h2 className="text-gray-600 ml-0.5">Not Approved List</h2>
           </div>
           <div className="flex flex-wrap items-start justify-end -mb-3">
@@ -70,8 +70,8 @@ const EntryRequest = () => {
         {/* Statistics Section */}
         <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* Student Statistics */}
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
-            <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+          <div className="flex items-center tm:p-8 p-4 bg-white shadow rounded-lg">
+            <div className="inline-flex flex-shrink-0 items-center justify-center tm:h-16 h-12 tm:w-16 w-12 text-purple-600 bg-purple-100 rounded-full mr-6">
               <svg
                 aria-hidden="true"
                 fill="none"
@@ -99,16 +99,16 @@ const EntryRequest = () => {
         </section>
         {/* Recent Activity Section */}
         <section className="bg-white p-8 shadow rounded-lg">
-          <h2 className="text-2xl font-semibold mb-6">Pending Requests</h2>
+          <h2 className="tm:text-2xl text-xl font-semibold mb-6">Pending Requests</h2>
           <div className="flex flex-col gap-y-5">
             {data.map((worker) => (
               <div
                 key={worker._id}
                 className="flex items-center p-8 bg-[#dae3ee] shadow rounded-lg"
               >
-                <div className="w-full flex sm:flex-row flex-col justify-center">
+                <div className="w-full flex sm:flex-row flex-col gap-2 justify-center sm:text-base text-[80%]">
                   <div className="">
-                    <span className="block text-2xl font-bold">
+                    <span className="block sm:text-2xl text-lg font-bold">
                       {worker.firstName} {worker.lastName}
                     </span>
 
@@ -119,16 +119,16 @@ const EntryRequest = () => {
                       Phone: {worker.phoneNumber}
                     </span>
                   </div>
-                  <div className="ml-auto flex justify-center items-center">
+                  <div className="tm:ml-auto flex justify-center items-center">
                     <button
                       onClick={() => giveAccess(worker._id)}
-                      className="inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md "
+                      className="inline-flex tm:px-5 px-3 tm:py-2 py-1 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md "
                     >
                       Approve
                     </button>
                     <button
                       onClick={() => reject(worker._id)}
-                      className="inline-flex px-5 py-2 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md ml-3"
+                      className="inline-flex tm:px-5 px-3 tm:py-2 py-1 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md ml-3"
                     >
                       Reject
                     </button>

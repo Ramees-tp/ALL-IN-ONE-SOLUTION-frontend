@@ -1,6 +1,6 @@
 // InputForm.js
 import UploadImage from "../../uploadImage/uploadImage";
-import PropTypes from 'prop-types';
+
 
 const DetailsForm = ({ formData, setFormData }) => {
   
@@ -41,7 +41,7 @@ const DetailsForm = ({ formData, setFormData }) => {
       <div className="md:w-[50%]">
         <div className="mb-2">
           <label
-            className="block text-white text-sm font-semibold mb-2"
+            className=" block text-white text-sm font-semibold mb-2"
             htmlFor="firstName"
           >
             First Name
@@ -52,7 +52,7 @@ const DetailsForm = ({ formData, setFormData }) => {
             name="firstName"
             value={formData.firstName}
             onChange={(event) => setFormData({ ...formData, firstName:event.target.value})}
-            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -67,7 +67,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="lastName"
             name="lastName"
             value={formData.lastName}
-            onChange={(event) => setFormData({ ...formData, lastName:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, lastName:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -82,7 +83,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="email"
             name="email"
             value={formData.email}
-            onChange={(event) => setFormData({ ...formData, email:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, email:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -97,7 +99,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="phoneNumber"
             name="phoneNumber"
             value={formData.phoneNumber}
-            onChange={(event) => setFormData({ ...formData, phoneNumber:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, phoneNumber:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -111,7 +114,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="gender"
             name="gender"
             value={formData.gender}
-            onChange={(event) => setFormData({ ...formData, gender:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, gender:event.target.value})}            
+            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
           >
             <option value="">Select Gender</option>
             <option value="male">Male</option>
@@ -133,7 +137,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="district"
             name="address.district"
             value={formData.district}
-            onChange={(event) => setFormData({ ...formData, district:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, district:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -148,7 +153,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="dateOfBirth"
             name="dateOfBirth"
             value={formData.dateOfBirth}
-            onChange={(event) => setFormData({ ...formData, dateOfBirth:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, dateOfBirth:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -163,7 +169,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="city"
             name="address.city"
             value={formData.city}
-            onChange={(event) => setFormData({ ...formData, city:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, city:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -178,7 +185,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="pinCode"
             name="address.pinCode"
             value={formData.pinCode}
-            onChange={(event) => setFormData({ ...formData, pinCode:event.target.value})}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => setFormData({ ...formData, pinCode:event.target.value})}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div>
@@ -193,18 +201,14 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="profileImage"
             name="profileImage"
             // value={formData.profileImage}
-            onChange={handleImageChange}            className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={handleImageChange}            
+            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
           />
           {/* <UploadImage handleChange={handleImageChange} /> */}
         </div>
       </div>
     </div>
   );
-};
-
-DetailsForm.propTypes = {
-  formData: PropTypes.object.isRequired,
-  setFormData:PropTypes.object.isRequired,
 };
 
 export default DetailsForm;

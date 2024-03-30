@@ -82,13 +82,13 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="min-h-screen flex sm:flex-row flex-col items-center justify-center gap-5 bg-gray-100 px-3">
-        <div className="sm:text-4xl text-3xl text-black font-bold text-center sm:p-5">
+      <div className="min-h-screen flex md:flex-row flex-col items-center justify-center gap-5 bg-gray-100 px-3">
+        <div className="md:text-4xl sm:text-3xl text-2xl text-black font-bold text-center sm:p-5">
           <p>ALL IN ONE </p>
           <p>SOLUTION</p>
         </div>
-        <div className=" bg-gradient-to-b from-[#252e53] to-[#4d1438]  sm:p-8 p-3 rounded shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-center text-white">
+        <div className=" bg-gradient-to-b from-[#252e53] to-[#4d1438]  sm:p-8 p-4 rounded shadow-md w-full max-w-md">
+          <h2 className="text-2xl font-bold sm:mb-6 text-center text-white">
             Sign Up
           </h2>
 
@@ -101,7 +101,7 @@ const SignUp = () => {
                 Username
               </label>
               <input
-                className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                className="w-full tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
                 type="text"
                 id="username"
                 value={username}
@@ -118,7 +118,7 @@ const SignUp = () => {
                 Email
               </label>
               <input
-                className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl "
+                className="w-full tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl "
                 type="email"
                 id="email"
                 value={email}
@@ -136,7 +136,7 @@ const SignUp = () => {
               </label>
               <div className="relative">
                 <input
-                  className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                  className="w-full tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
                   type={!passhow ? "password" : "text "}
                   id="password"
                   value={password}
@@ -146,7 +146,7 @@ const SignUp = () => {
                 />
                 <div
                   onClick={() => setPasshow(!passhow)}
-                  className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
+                  className="showPass absolute tm:top-2 top-[2%] right-3 cursor-pointer text-gray-800"
                 >
                   {!passhow ? (
                     <FontAwesomeIcon icon={faEye} />
@@ -166,7 +166,7 @@ const SignUp = () => {
               </label>
               <div className="relative">
                 <input
-                  className="w-full sm:p-2 p-1 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
+                  className="w-full tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500 shadow-xl"
                   type={!passhow2 ? "password" : "text "}
                   id="Cpassword"
                   value={confirmPassword}
@@ -175,7 +175,7 @@ const SignUp = () => {
                 />
                 <div
                   onClick={() => setPasshow2(!passhow2)}
-                  className="showPass absolute top-2 right-3 cursor-pointer text-gray-800"
+                  className="showPass absolute tm:top-2 top-[2%] right-3 cursor-pointer text-gray-800"
                 >
                   {!passhow2 ? (
                     <FontAwesomeIcon icon={faEye} />
@@ -193,14 +193,14 @@ const SignUp = () => {
 
             <div className="flex justify-center items-center">
               <button
-                className="p-2 px-10 bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-800 "
+                className="p-2 sm:px-10 bg-cyan-500 text-white rounded-md font-semibold hover:bg-cyan-800 "
                 type="submit"
                 // onClick={handleSignup}
               >
                 Sign Up
               </button>
             </div>
-            <div className="text-center py-3 text-white">
+            <div className="text-center sm:py-3 text-white">
               <p>
                 Alredy a user? please
                 <Link to={"/user/login"}>

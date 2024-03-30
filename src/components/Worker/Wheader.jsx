@@ -107,11 +107,11 @@ function Wheader({handleNavigation}) {
         <ul className={`sidebar ${sidebarVisible ? "show" : ""}`}>
           <li onClick={hideSidebar}>
             <a className="flex items-end">
-              <FontAwesomeIcon className="h-10" icon={faXmark} />
+              <FontAwesomeIcon  className="h-10" icon={faXmark} />
             </a>
           </li>
           <li>
-            <Link to="" onClick={() => handleNavigation("WHome")} >Home</Link>
+            <Link to="" onClick={() => {handleNavigation("WHome"); hideSidebar();}} >Home</Link>
           </li>
           <li>
             <a href="">About</a>
@@ -120,12 +120,12 @@ function Wheader({handleNavigation}) {
             <a href="">Contact</a>
           </li>
           <li>
-          <Link to="" onClick={() => handleNavigation("WContracts")} >
+          <Link to="" onClick={() => {handleNavigation("WContracts"); hideSidebar();}} >
                   My Contracts
                  </Link>
           </li>
           <li>
-          <Link to="" onClick={() => handleNavigation("WProfile")} >
+          <Link to="" onClick={() => {handleNavigation("WProfile"); hideSidebar();}} >
                   Profile
                  </Link>
           </li>

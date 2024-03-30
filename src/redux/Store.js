@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import TokenSlice from "./TokenSlice";
-import WorkerTokenSlice from "./WorkerTokenSlice";
+import WorkerSlice from './WorkerTokenSlice'
+import adminSlice from "./adminTokenSlice";
 
 const store = configureStore({
   reducer: {
     pass: TokenSlice,
-    worker: WorkerTokenSlice,
+    worker: WorkerSlice,
+    admin: adminSlice,
   },
 });
 console.log("store:", store);
