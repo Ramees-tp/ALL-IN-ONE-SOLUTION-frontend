@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client"
-const socket = io.connect('http://localhost:918')
+const socket = io.connect('http://184.73.25.154')
 import axiosInstence from '../../api/axios'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

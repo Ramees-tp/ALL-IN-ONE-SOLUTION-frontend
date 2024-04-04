@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleRight } from '@fortawesome/free-regular-svg-icons';
 import axiosInstance from "../../api/worker/workerInstance";
 
-const socket = io.connect('http://localhost:918')
+const socket = io.connect('http://184.73.25.154')
 
 function SocketChatWorker({workerId, userId, requestId}) {
     const [messages, setMessages] = useState([]);
