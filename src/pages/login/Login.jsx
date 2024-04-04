@@ -50,7 +50,6 @@ const Login = () => {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log("An error occured :", err);
         setError("An error occured.please try again.");
       }
     }

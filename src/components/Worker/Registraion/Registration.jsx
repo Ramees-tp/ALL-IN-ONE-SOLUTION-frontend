@@ -5,7 +5,8 @@ import PaymentForm from "./PaymentForm";
 import axiosInstance from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
- 
+import { setToken } from "../../../redux/TokenSlice";
+import { Link } from "react-router-dom";
 
 
 const Registration = () => {
@@ -13,7 +14,8 @@ const Registration = () => {
   const dispatch = useDispatch();
  
 
-
+  const [error, setError] = useState('')
+  
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -29,15 +31,13 @@ const Registration = () => {
     jobType: "",
     workArea: "",
     coordinates: [ null, null ],
-    adharNumber: "56567656756",
-    IFC: "SBON0005943",
-    accountNumber: "12345678901",
-    panCardNumber: "HWOPP1556Q",
-    password: "StrongP@ssword1",
-    confirmPass: "StrongP@ssword1",
+    adharNumber: "",
+    IFC: "",
+    accountNumber: "",
+    panCardNumber: "",
+    password: "",
+    confirmPass: "",
   });
-
-  console.log(formData)
 
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
@@ -68,7 +68,6 @@ const Registration = () => {
       formDataToSend.append(key, formData[key]);
     });
 
-    console.log(formDataToSend);
     try {
       const response = await axiosInstance.post("/worker/registration", formDataToSend, {
         withCredentials: true,
@@ -79,20 +78,31 @@ const Registration = () => {
   
       if (response.status === 200) {
         const Token = response.data.Token;
-        console.log(Token);
-        localStorage.setItem("wjwt", Token);
-        dispatch(setWorkerToken(Token));
+        localStorage.setItem("jwt", Token);
+        dispatch(setToken(Token));
         navigate("/worker/whome");
       }
     } catch (error) {
-      // Handle error
-      console.error("Error:", error);
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("An error occurred during registration.");
+      }
     }
   };
 
   return (
     <div className="xl:px-64 lg:px-52 md:px-32 sm:px-16 tm:px-8 p-2 sm:py-10 bg-[#fbffc3]">
       <div className="form">
+      <div>
+        {error && (
+          <div className="text-red-500 mb-4 text-center">{error}
+          <Link to={'/worker/WorkerLogin'}>
+            <button className="bg-blue-200 px-2 rounded text-green-800 ml-2">log in</button> 
+          </Link>
+          </div>
+        )}
+      </div>
         <div className="w-full">
           <div
             style={{
@@ -134,6 +144,7 @@ const Registration = () => {
           </div>
         </div>
       </div>
+     
     </div>
   );
 };

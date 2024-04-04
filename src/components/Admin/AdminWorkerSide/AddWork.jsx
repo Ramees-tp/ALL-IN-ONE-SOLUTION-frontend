@@ -42,7 +42,7 @@ function Payment() {
         </div>
         {/* Statistics Section */}
         <section className="grid md:grid-cols-2 xl:grid-cols-2 gap-6">
-          {/* Student Statistics */}
+          
           <div className="flex items-center p-8 bg-white shadow rounded-lg">
             <button
               onClick={() => handleButtonClick(1)}
@@ -54,7 +54,7 @@ function Payment() {
               <span className="block text-2xl font-bold">ADD JOB</span>
             </div>
           </div>
-          {/* Average Mark Statistics */}
+          
           <div className="flex items-center p-8 bg-white shadow rounded-lg">
             <button
               onClick={() => handleButtonClick(2)}
@@ -66,9 +66,9 @@ function Payment() {
               <span className="block text-2xl font-bold">ADDED JOBS</span>
             </div>
           </div>
-          {/* Course Progress Statistics */}
+          
         </section>
-        {/* Recent Activity Section */}
+        
         <section className="bg-white p-8 shadow rounded-lg">
           <h2 className="text-2xl font-semibold mb-6">Recent Activity</h2>
           {show && <JobForm />}

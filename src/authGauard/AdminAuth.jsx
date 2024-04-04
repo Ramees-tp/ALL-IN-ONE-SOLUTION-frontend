@@ -1,40 +1,56 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAdminToken, setAdminToken } from '../redux/adminTokenSlice'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { selectToken, setToken } from '../redux/TokenSlice'
 
 
 const AdminAuth = () => {
-    const token = useSelector(selectAdminToken)
+    const token = useSelector(selectToken)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    useEffect(()=>{
-        const storedToken = localStorage.getItem('ajwt');
-        if(!token && storedToken){
-            dispatch(setAdminToken(storedToken))
-        }
-        if(!token && !storedToken){
-            navigate('/master/masterEntry')
-        } else if (token) {
-            const decodedToken = decodeToken(token);
-            const currentTime = Date.now() / 1000;
-            if (decodedToken.exp < currentTime) {
-              localStorage.removeItem('ajwt');
-            navigate("/master/masterEntry");
-          }
-          }
-    },[token, dispatch, navigate]);
+    const [role, setRole] = useState('');
+    const [decodedToken, setDecodedToken] = useState('');
 
     const decodeToken = (token) => {
         const payload = token.split('.')[1];
         const decodedPayload = JSON.parse(atob(payload));
-        return decodedPayload;
+        setRole(decodedPayload.role)
+        if (decodedPayload.role !== 'admin') {
+          navigate("/master/masterEntry");
+        }
       };
+
+    useEffect(()=>{
+      const currentUrl = window.location.href;
+      const currentUrlAdmin = currentUrl.includes('/master')
+
+        const storedToken = localStorage.getItem('jwt');
+        if (storedToken === 'undefined') {
+          navigate("/master/masterEntry");
+        } else {
+        
+        if(!token && storedToken){
+            dispatch(setToken(storedToken))
+        }
+        if(!token && !storedToken){
+          if(currentUrlAdmin){
+            navigate("/master/masterEntry");
+          }
+        } else if (token) {
+            decodeToken(storedToken);
+            const currentTime = Date.now() / 1000;
+            if (decodedToken.exp < currentTime) {
+              localStorage.removeItem('jwt');
+              navigate("/master/masterEntry");
+          } 
+        }
+      }
+    },[token, dispatch, navigate]);
+
       
   return (
     <>
-   <div>{token && <Outlet />}</div>
+   <div>{ role === 'admin' && <Outlet />}</div>
    </>
   )
 }

@@ -30,7 +30,6 @@ function JobForm() {
     formData.append("wage", jobData.wage);
     formData.append("jobImage", jobData.jobImage);
 
-    console.log("Form submitted:", jobData);
 
     try {
       const res = await axios.post("http://localhost:917/master/addJobType", formData, {
@@ -40,7 +39,6 @@ function JobForm() {
         },
       });
       if(res.status===200){
-        console.log("Job type added successfully");
         SetError(res.data.message)
 
         setJobData({

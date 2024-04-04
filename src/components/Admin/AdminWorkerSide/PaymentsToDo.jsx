@@ -13,7 +13,6 @@ const PaymentsToDo = () => {
       const response = await axios.get(
         "http://localhost:917/master/paymentsToDo"
       );  
-      console.log(response);
       setData(response.data.data);
       setCount(response.data.totalCount)
     } catch (err) {

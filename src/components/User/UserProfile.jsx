@@ -41,14 +41,11 @@ function UserProfile() {
       try {
         const response = await axiosInstance.get("/user/userProfile");
         setUserdata(response.data.fullData);
-        console.log("UserData:", response.data.fullData);
         if (!response.data.fullData || response.data.fullData.length === 0 || response.data.fullData[0].moredetails.length === 0) {
-          console.log("Navigating to update profile page");
           navigate("/user/updateProfile");
         }
         
       } catch (error) {
-        console.error("Error fetching user data:", error);
         setError("Error fetching user data");
       }
     };
@@ -69,7 +66,6 @@ function UserProfile() {
       navigate('/user/login')
     }
    } catch (error) {
-    console.error("Error fetching user data:", error);
     setError("Error fetching user data");
   }
   }

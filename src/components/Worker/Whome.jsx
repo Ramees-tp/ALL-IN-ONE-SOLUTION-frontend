@@ -8,7 +8,6 @@ const socket = io("http://localhost:918");
 
 function Whome() {
   const [request, setRequest] = useState([])
-  console.log(request);
 
   const workRequest = async () =>{
     try{
@@ -35,7 +34,6 @@ function Whome() {
     if (token) {
       const decodedToken = decodeJWTToken(token);
       const workerId = decodedToken ? decodedToken.id : null;
-      console.log('Worker ID:', workerId);
 
       if (workerId) {
         socket.emit("workerConnection", { sender: workerId });
@@ -74,7 +72,6 @@ const decodeJWTToken = (token) => {
 };
 
   const Task =async (id, action, userId) =>{
-    console.log('uuuuu', userId);
    try{
      const res = await axiosInstance.get(`/worker/acceptOrDecline/${id}?action=${action}`)
      if(res.status===200) {

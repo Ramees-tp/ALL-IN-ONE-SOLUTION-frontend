@@ -7,16 +7,13 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const Token = localStorage.getItem("jwt");
-    console.log("Ax Token:",Token);
     if (Token) {
       config.headers["Authorization"] = `Bearer ${Token}`;
     }
     config.withCredentials = true
-    console.log("coonf:",config);
     return config;
   },
   (error) => {
-    console.error("Interceptor Error:", error);
     return Promise.reject(error);
   }
 );

@@ -63,18 +63,18 @@ const SignUp = () => {
 
       if (response.status === 200) {
         const Token = response.data.Token;
-        console.log(Token);
+    
         localStorage.setItem("jwt", Token);
         dispatch(setToken(Token));
         navigate("/user/uhome");
-        console.log(response.data.message);
+  
         setError(response.data.message);
       }
     } catch (err) {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log("An error occured :", err);
+  
         setError("An error occured.please try again.");
       }
     }

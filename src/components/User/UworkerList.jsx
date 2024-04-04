@@ -5,16 +5,6 @@ import favWorker from "../../assets/icons/heart.png";
 import axiosInstance from "../../api/axios";
 import "./ToggleButton.css";
 
-// import { useWorkerDetails } from "../../context/WorkerDetailsContext";
-
-// const radiusSelected =JSON.parse(localStorage.getItem('radius'))
-// const { radius } = radiusSelected
-// console.log('rrrrra', radius);
-// const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
-// const { center } = locationDetail || {};
-// const { lat, lng } = center || {};
-// console.log(lat, lng);
-
 
 function UworkerList() {
   const [error, setError] = useState("");
@@ -23,19 +13,15 @@ function UworkerList() {
   const [lati, setLat] = useState(null);
   const [lngi, setLng] = useState(null);
   const [radius, setRadius] = useState(null);
-  console.log(lati, lngi);
 
-  // const {setDetails} = useWorkerDetails()
 
   const {id} = useParams()
-  // useEffect(() => {
-  //   setDetails(id);
-  // }, [id, setDetails]);
+
 
   useEffect(() => {
     const fetchLocalStorageData = () => {
       const radiusSelected = JSON.parse(localStorage.getItem('radius'));
-      setRadius(radiusSelected?.radius || null);
+      setRadius(radiusSelected?.radius || 8);
 
       const locationDetail = JSON.parse(localStorage.getItem('userLocation'));
       if (locationDetail) {
@@ -56,10 +42,9 @@ function UworkerList() {
     const fetchWorker = async () => {
       try{
         if (!lati || !lngi || !radius) {
-          setError("Latitude, longitude, or radius is missing.");
+          setError("Please provide your location Details");
           return;
         }
-        console.log("innnnnnn", lati, lngi, radius);
         const response = await axiosInstance.get(`/user/fetchWorker/${id}`,{ params: {
           latitude: lati,
           longitude: lngi,
@@ -70,7 +55,6 @@ function UworkerList() {
           setError('')
         }
       }catch(err){
-        console.log("frontend server error", err);
         setError("Error fetching worker details.");
        }
     }
@@ -93,7 +77,7 @@ function UworkerList() {
           />
         </div>
       </div>
-      <div className="md:space-y-8 space-y-4 md:max-w-2xl">
+      <div className="flex flex-col tm:gap-4 gap-2 md:max-w-2xl">
 
         {data.filter(worker => (showHalfDayWorkers ? worker.isHalfDay : !worker.isHalfDay))
              .filter(worker => worker.isOnline)

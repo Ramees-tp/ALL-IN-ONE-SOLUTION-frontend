@@ -8,7 +8,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CommonLeafMap from '../CommonLeafMap.jsx';
 import axiosInstance from "../../api/worker/workerInstance.js";
-import PropTypes from "prop-types";
 import './Wheader.jsx';
 
 function Wheader({handleNavigation}) {
@@ -20,7 +19,6 @@ function Wheader({handleNavigation}) {
   const [center, setCenter] = useState({lat: 11.24802, 
     lng: 75.7804, });
   const [place, setPlaceName] = useState('')
-  console.log(center, place);
 
   const toggleComponent = () => {
     setShowMap(!showMap);
@@ -55,8 +53,6 @@ function Wheader({handleNavigation}) {
         const res = await axiosInstance.get('/worker/workerProfile');
         setCenter({lat: res.data.data.coordinates[1], lng: res.data.data.coordinates[0]})
         setPlaceName(res.data.data.workArea);
-        
-        // localStorage.setItem("workerLocation", JSON.stringify({ center, placeName }));
     } catch (error) {
         console.error('Error fetching worker data:', error);
     }
@@ -67,7 +63,6 @@ function Wheader({handleNavigation}) {
     const workerLocation = localStorage.getItem('workerLocation');
     if(workerLocation){
       const { center, placeName } = JSON.parse(workerLocation);
-      console.log( center, placeName);
       setCenter(center);
       setPlaceName(placeName);
     }else{
@@ -202,9 +197,5 @@ function Wheader({handleNavigation}) {
   </div>
   );
 }
-
-Wheader.propTypes = {
-  handleNavigation: PropTypes.object.isRequired
-};
 
 export default Wheader;

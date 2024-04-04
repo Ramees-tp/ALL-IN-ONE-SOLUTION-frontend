@@ -14,7 +14,6 @@ const Location = () => {
                     setLocation({ coordinates: { lat: latitude, lng: longitude }, loaded: true });
                 },
                 (error) => {
-                    console.error('Error getting geolocation:', error);
                     setLocation({ ...location, loaded: true });
                 }
             );

@@ -16,17 +16,12 @@ function UworkerDetails() {
 
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
-  console.log('day:', selectedDay);
-  console.log('date', selectedDate);
 
   const [details, setDetails] = useState();
   const [error, setError] = useState()
   const{id, id1} = useParams()
-  console.log(id, id1);
   const navigate = useNavigate();
-  // const { workerDetails } = useWorkerDetails();
-  // console.log(workerDetails);
-  console.log('det:', details);
+
 
   const handleDayChange = (event) => {
     setSelectedDay(event.target.value);
@@ -39,17 +34,13 @@ function UworkerDetails() {
     setSelectedDate(selectedDate.toISOString().split('T')[0]);
   }
 
-  // useEffect(()=>{
-  //   socket.emit("userConnection", { sender: id1 });
-  // },[]) 
 
   useEffect(() => {
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
       const parsedLocation = JSON.parse(storedLocation);
-      setLocation(parsedLocation.placeName);
+      setLocation(parsedLocation.location);
       setCoordinates(parsedLocation.center);
-      console.log("header:", parsedLocation.center);
     }
   }, []);
 
@@ -66,7 +57,6 @@ function UworkerDetails() {
   }
 
   const wDetails = async () =>{
-    console.log(id);
     try{
       const response= await axios.get(`http://localhost:917/user/workerDetails/${id}`)
       if(response.status===200){
@@ -86,7 +76,6 @@ function UworkerDetails() {
     if (token) {
       const decodedToken = decodeJWTToken(token);
       const workerId = decodedToken ? decodedToken.id : null;
-      console.log('user ID:', workerId);
 
       if (workerId) {
         socket.emit("userConnection", { sender: workerId });

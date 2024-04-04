@@ -5,26 +5,16 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:918");
 
-// import useRazorpay from "react-razorpay";
-
 
 
 const ContractRequests = () => {
   const [requests, setRequests] = useState([])
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [error, setError] = useState("");
-  // const [order, setOrder] = useState('')
-
-  // console.log("order", order);
-  console.log(requests);
-  // const [Razorpay] = useRazorpay();
-
-  
 
   const fetchData = async () =>{
     try{
       const response = await axiosInstance.get("/user/showRequests")
-      console.log(response.data);
       if(response.status===200){
         setRequests(response.data.requests);
       }
@@ -42,7 +32,6 @@ const ContractRequests = () => {
     if(token){
       const decodedToken = decodeJWTToken(token);
       const userId = decodedToken ? decodedToken.id : null;
-      console.log('user ID:', userId);
       if (userId) {
         socket.emit("userConnection", { sender: userId });
       }
@@ -58,18 +47,9 @@ const ContractRequests = () => {
   }, []);
 
 
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setRequests((prevRequests) => prevRequests.filter((request) => request.status !== 'pending'));
-  //   }, 30 * 60 * 1000);
-  //   return () => clearInterval(timer);
-  // }, []);
-
   const cancel = async (requestId)=>{
     try{
       const response = await axiosInstance.delete(`/user/cancelRequest/${requestId}`)
-      console.log(response.data);
       if(response.status===200){
         fetchData();
       }

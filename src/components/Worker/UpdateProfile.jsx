@@ -16,7 +16,6 @@ const Updateprofile = () => {
     district: ''
   });
 
-  console.log(formData);
   const handleChange = e => {
     const { name, value } = e.target;
   if (name === 'fullName') {
@@ -36,7 +35,6 @@ const Updateprofile = () => {
       }
     } catch (error) {
       console.error('Failed to update profile details:', error);
-      // Handle error
     }
   };
 

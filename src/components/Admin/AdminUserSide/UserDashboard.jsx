@@ -5,13 +5,8 @@ import {
   faMagnifyingGlass,
   faGear,
   faBars,
-  faIndianRupeeSign,
-  faAdd,
-  faHelmetSafety
 } from "@fortawesome/free-solid-svg-icons";
 import {
-  faChartBar,
-  faEnvelope,
   faUser,
 } from "@fortawesome/free-regular-svg-icons";
 
@@ -22,8 +17,6 @@ function UserDashboard() {
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [show, setShow] = useState(true);
-//   const [show1, setShow1] = useState(false);
-//   const [show2, setShow2] = useState(false);
 
   const navBar=() =>{
     setShowSidebar(!showSidebar);
@@ -32,22 +25,11 @@ function UserDashboard() {
 
   const handleButtonClick = (buttonIndex) => {
     setShow(false);
-    // setShow1(false);
-    // setShow2(false);
-
-
 
     switch (buttonIndex) {
       case 1:
         setShow(true);
         break;
-    //   case 2:
-    //     setShow1(true);
-    //     break;
-    //   case 3:
-    //     setShow2(true);
-    //     break;
-
       default:
         break;
     }
@@ -55,14 +37,14 @@ function UserDashboard() {
 
   return (
     <div className="flex bg-gray-100 min-h-screen">
-      {/* Sidebar */}
+      
       <aside className={`fixed inset-y-0 left-0 z-20 sm:flex sm:flex-col ${showSidebar ? 'flex' : 'hidden'}`}>
         <a
           href="#"
           className="inline-flex items-center justify-center h-20 w-full bg-purple-600 hover:bg-purple-500 focus:bg-purple-500"
         >
           <svg fill="none" viewBox="0 0 64 64" className="h-12 w-12">
-            {/* SVG path for company logo */}
+            
           </svg>
         </a>
         <div className="flex-grow flex flex-col justify-between text-gray-500 bg-gray-800">
@@ -74,34 +56,7 @@ function UserDashboard() {
             >
               <FontAwesomeIcon className="h-6" icon={faUser} />
             </a>
-            {/* <a
-              onClick={() => handleButtonClick(2)}
-              href="#"
-              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
-            >
-              <FontAwesomeIcon className="h-6" icon={faChartBar} />
-            </a>
-            <a
-              onClick={() => handleButtonClick(3)}
-              href="#"
-              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
-            >
-              <FontAwesomeIcon className="h-6" icon={faHelmetSafety} />
-            </a>
-            <a
-              onClick={() => handleButtonClick(4)}
-              href="#"
-              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
-            >
-              <FontAwesomeIcon className="h-6" icon={faIndianRupeeSign} />
-            </a>
-            <a
-              onClick={() => handleButtonClick(5)}
-              href="#"
-              className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-purple-600 focus:bg-white rounded-lg  h-16"
-            >
-              <FontAwesomeIcon className="h-6" icon={faAdd} />
-            </a> */}
+            
           </nav>
           <div className="inline-flex items-center justify-center h-20 w-full border-t border-gray-700">
             <button className="p-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg h-16 w-16">

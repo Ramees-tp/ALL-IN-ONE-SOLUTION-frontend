@@ -22,7 +22,6 @@ const UserUpdateProfile = () => {
         if (data.length > 0) {
           const { lat, lon } = data[0];
           const placeName = data[0].display_name;
-          console.log(placeName);
   
           const part = placeName.split(',');
           const exactLocation = part.length >= 2 ? part[0].trim() : '';
@@ -45,7 +44,6 @@ const handleLocationChange = (event) => {
   clearTimeout(timeoutId);
   let timeOutId = setTimeout(() => {
     fetchSuggestions(value);
-    console.log(value,'here is the location')
   }, 2000);
 
   setTimeoutId(timeOutId)
@@ -86,7 +84,6 @@ const handleLocationChange = (event) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     setFormData((prevData) => ({
       ...prevData,
       userImage: file,
@@ -103,7 +100,6 @@ const handleLocationChange = (event) => {
         coordinates: coordinates,
         city: location
       };
-      console.log(updatedFormData);
 
     const formDataToSend = new FormData();
       Object.keys(updatedFormData).forEach((key) => {
@@ -118,7 +114,6 @@ const handleLocationChange = (event) => {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log("An error occured :", err);
         setError("An error occured.please try again.");
       }
     }

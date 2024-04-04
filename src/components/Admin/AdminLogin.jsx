@@ -2,10 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAdminToken } from "../../redux/adminTokenSlice";
+import { setToken } from "../../redux/TokenSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 
 
 const AdminLogin = () => {
@@ -13,8 +14,8 @@ const AdminLogin = () => {
   const dispatch = useDispatch();
   
   const [passhow, setPasshow] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("ramees");
+  const [password, setPassword] = useState("AdminStrongP@ssword1");
   const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
@@ -43,15 +44,14 @@ const AdminLogin = () => {
       });
       if (response.status === 200) {
         const Token = response.data.Token;
-        localStorage.setItem("ajwt", Token);
-        dispatch(setAdminToken(Token));
+        localStorage.setItem("jwt", Token);
+        dispatch(setToken(Token));
         navigate("/master/dashboard");
       }
     } catch (err) {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log("An error occured :", err);
         setError("An error occured.please try again.");
       }
     }

@@ -9,7 +9,6 @@ import { faCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 function SocketChat({userId, workerId, requestId}) {
     const [messages, setMessages] = useState([]);
-    console.log(messages);
     const [inputMessage, setInputMessage] = useState('');
 
     const messageToBackend = (message) =>{
@@ -46,7 +45,6 @@ function SocketChat({userId, workerId, requestId}) {
           const res = await axiosInstence.get('/user/showMessage', {
               params: { workerId, userId, requestId}
           });
-          console.log(res.data);
           if(res.data && res.data.success) {
             const receivedMessages = res.data.messages;
           setMessages(receivedMessages);
@@ -60,7 +58,6 @@ function SocketChat({userId, workerId, requestId}) {
 
  useEffect(()=>{
   const handleReceivedMessage = ({ message, sender, requestId: receivedRequestId}) => {
-    console.log(message, sender, requestId);
     if (receivedRequestId === requestId) {
     setMessages(prevMessages => [
       ...prevMessages, 

@@ -10,7 +10,6 @@ const Wprofile = () => {
   const [workerData, setWorkerdata] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState("");
-  console.log(workerData);
 
   const firstname = workerData.firstName;
   const lastname = workerData.lastName;
@@ -42,9 +41,7 @@ const Wprofile = () => {
       const response = await axiosInstance.get("/worker/workerProfile");
       setWorkerdata(response.data.data);
     } catch (error) {
-      console.error("Error fetching user data:", error);
       setError("Error fetching user data");
-      // setLoading(false);
     }
   };
 
@@ -57,7 +54,6 @@ const Wprofile = () => {
        navigate('/worker/WorkerLogin')
      }
     } catch (error) {
-     console.error("Error fetching user data:", error);
      setError("Error fetching user data");
    }
    }

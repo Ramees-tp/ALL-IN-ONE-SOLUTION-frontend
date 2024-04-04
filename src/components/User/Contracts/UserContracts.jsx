@@ -11,7 +11,6 @@ const UserContracts = () => {
   const fetchData = async () =>{
     try{
       const response = await axiosInstance.get("/user/showRequests")
-      console.log(response.data);
       if(response.status===200){
         setRequests(response.data.requests);
         
@@ -37,7 +36,6 @@ const UserContracts = () => {
   const cancel = async (requestId)=>{
     try{
       const response = await axiosInstance.delete(`/user/cancelRequest/${requestId}`)
-      console.log(response.data);
       if(response.status===200){
         fetchData();
       }

@@ -10,7 +10,6 @@ const CompletedWork = () => {
       const response = await axios.get(
         "http://localhost:917/master/requestDetails"
       );  
-      console.log(response);
       setData(response.data.data);
     } catch (err) {
         if (err.response && err.response.data.message) {

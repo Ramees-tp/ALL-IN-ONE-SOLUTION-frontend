@@ -9,7 +9,6 @@ const OTPVerification = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [otpValues, setOtpValues] = useState(["", "", "", "", "", ""]);
-  const [verificationId, setVerificationId] = useState("");
   const [error, setError] = useState("");
   const [isSended, setIsSended] = useState(false);
 
@@ -31,20 +30,15 @@ const OTPVerification = () => {
       const response = await axiosInstance.post("/user/userOTP", {
         email: email,
       });
-      console.log(response);
       if (response.status === 200) {
         
         setIsSended(true);
-        console.log("otp sended");
       }
-      setVerificationId(response.data.verificationId);
-      console.log(response);
       setError("");
     } catch (err) {
       if(err.response && err.response.data.error){
         setError(err.response.data.error);
       }
-      console.error("Error sending OTP:", err);
       setError(error.response.data.err);
     }
   };
@@ -53,10 +47,8 @@ const OTPVerification = () => {
     try {
       
       const response = await axios.post("http://localhost:917/user/verifyOTP", {
-        // verificationId: verificationId,
         otpValues: otpValues,
       });
-      console.log(otpValues);
       if (response.status === 200) {
         navigate("/user/resetPassword");
       }
@@ -64,7 +56,6 @@ const OTPVerification = () => {
       if (err.response && err.response.data.error) {
         setError(err.response.data.error);
       } else {
-        console.log("An error occured :", err);
         setError("Failed to verify OTP. Please try again.");
       }
     }

@@ -28,7 +28,6 @@ const OtpEnter = ({requestId}) => {
             otpValues: otpValues,
             orderId: requestId
           });
-          console.log(otpValues);
           if (response.status === 200) {
             // navigate("/user/resetPassword");
           }
@@ -36,7 +35,6 @@ const OtpEnter = ({requestId}) => {
           if (err.response && err.response.data.error) {
             setError(err.response.data.error);
           } else {
-            console.log("An error occured :", err);
             setError("Failed to verify OTP. Please try again.");
           }
         }

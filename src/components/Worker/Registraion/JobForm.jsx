@@ -8,10 +8,8 @@ const JobForm = ({ formData, setFormData }) => {
   
   const parts = location.split(',');
   const exactLocation = parts.length >= 2 ? parts[0].trim() : '';
-  console.log(exactLocation);
-  
-  
-  
+
+    
   const handleLocationChange = (event) => {
   const value = event.target.value;
   setLocation(value);
@@ -21,7 +19,6 @@ const JobForm = ({ formData, setFormData }) => {
 
   let timeOutId = setTimeout(() => {
     fetchSuggestions(value);
-    console.log(location,'here is the location')
   }, 2000);
 
   setTimeoutId(timeOutId)
@@ -48,12 +45,10 @@ const fetchSuggestions = (value) => {
         if (data.length > 0) {
           const { lat, lon } = data[0];
           const placeName = data[0].display_name;
-          console.log(placeName);
   
           const part = placeName.split(',');
           const exactLocation = part.length >= 2 ? part[0].trim() : '';
           setLocation(placeName);
-          console.log("Nominatim:", lat, lon);
   
           setFormData({
             ...formData,
@@ -89,6 +84,11 @@ const fetchSuggestions = (value) => {
           <option value="Plumber">Plumber</option>
           <option value="Electrician">Electrician</option>
           <option value="Carpenter">Carpenter</option>
+          <option value="Woodcutter">Woodcutter</option>
+          <option value="Gardene">Gardene</option>
+          <option value="Plasterer">Plasterer</option>
+          <option value="Masons">Masons</option>
+          
         </select>
       </div>
 

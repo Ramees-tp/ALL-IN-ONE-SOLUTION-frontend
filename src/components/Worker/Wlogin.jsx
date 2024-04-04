@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { setWorkerToken } from "../../redux/WorkerTokenSlice";
+import { setToken } from "../../redux/TokenSlice";
 
 function Wlogin() {
   const navigate = useNavigate();
@@ -43,15 +43,14 @@ function Wlogin() {
       });
       if (response.status === 200) {
         const Token = response.data.Token;
-        localStorage.setItem("wjwt", Token);
-        dispatch(setWorkerToken(Token))
+        localStorage.setItem("jwt", Token);
+        dispatch(setToken(Token))
         navigate("/worker/whome");
       }
     } catch (err) {
       if (err.response && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        console.log("An error occured :", err);
         setError("front An error occured.please try again.");
       }
     }

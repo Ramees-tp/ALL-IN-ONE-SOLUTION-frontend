@@ -12,19 +12,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./Header.css";
 
-function Header({handleNavigation}) {
+function Header() {
 
   const [showMap, setShowMap] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([])
-  const [radius, setRadius] = useState('')
-  console.log( "userlocation", location);
-  console.log( "userlat", coordinates);
+  const [radius, setRadius] = useState(null)
+
 
   useEffect(() => {
     const storedRadius = JSON.parse(localStorage.getItem("radius"));
-    console.log("Stored radius:", storedRadius);
     if (storedRadius && storedRadius.radius) {
       setRadius(storedRadius.radius);
     }
@@ -35,14 +33,7 @@ function Header({handleNavigation}) {
   },[radius])
 
 
-  // useEffect(()=>{
-  //   if(location !== null){
-  //      localStorage.setItem('location', location)
-  //   }
-  // },[location])
-
   // const toggleSidebar = (e) => {
-  //   console.log("Sidebar visibility toggled");
   //   e.preventDefault();
   //   setSidebarVisible(!sidebarVisible);
   // };
@@ -67,8 +58,7 @@ function Header({handleNavigation}) {
       const res= await axiosInstance.get("/user/userlocation")
       setLocation(res.data.data)
       setCoordinates({lat:res.data.latlong[1], lng: res.data.latlong[0]})
-      localStorage.setItem("userLocation", JSON.stringify({ center:{lat: res.data.latlong[1], lng: res.data.latlong[0]}, location: res.data.data }));
-      console.log(res.data);
+      localStorage.setItem("userLocation", JSON.stringify({ center:{lat: res.data.latlong[1], lng: res.data.latlong[0]},  placeName: res.data.data }));
     }catch(err){
      console.log("frontend server error", err);
     }
@@ -81,7 +71,6 @@ function Header({handleNavigation}) {
       const parsedLocation = JSON.parse(storedLocation);
       setLocation(parsedLocation.placeName);
       setCoordinates(parsedLocation.center);
-      console.log("header:", parsedLocation.center);
     } else {
       fetchUserLocation();
     }

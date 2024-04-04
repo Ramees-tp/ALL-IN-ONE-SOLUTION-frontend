@@ -33,7 +33,7 @@ function WorkerList() {
 
         <div className="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
           <div className="mr-6">
-            <h1 className="text-4xl font-semibold mb-2">User Details</h1>
+            <h1 className="sm:text-4xl text-3xl font-semibold mb-2">User Details</h1>
             <h2 className="text-gray-600 ml-0.5">All User Details</h2>
           </div>
           <div className="flex flex-wrap items-start justify-end -mb-3">
@@ -48,8 +48,8 @@ function WorkerList() {
 
         <section className="flex md:flex-row flex-col gap-6">
           {/* Student Statistics */}
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
-            <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+          <div className="flex items-center sm:p-8 p-4 bg-white shadow rounded-lg">
+            <div className="inline-flex flex-shrink-0 items-center justify-center sm:h-16 h-12 sm:w-16 w-12 text-purple-600 bg-purple-100 rounded-full mr-6">
               <svg
                 aria-hidden="true"
                 fill="none"
@@ -71,8 +71,8 @@ function WorkerList() {
             </div>
           </div>
 
-          <div className="flex items-center p-8 bg-white shadow rounded-lg">
-          <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+          <div className="flex items-center sm:p-8 p-4 bg-white shadow rounded-lg">
+          <div className="inline-flex flex-shrink-0 items-center justify-center sm:h-16 h-12 sm:w-16 w-12 text-purple-600 bg-purple-100 rounded-full mr-6">
               <svg
                 aria-hidden="true"
                 fill="none"
@@ -97,73 +97,65 @@ function WorkerList() {
          
         </section>
 
-        <section className="bg-white p-8 shadow rounded-lg">
-          <h2 className="text-2xl font-semibold mb-2">All Workers</h2>
-
-          <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:pr-10 lg:px-8 px-2">
-            
-            <div className="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
-              <table className="min-w-full">
-                <thead>
+        <section className="bg-white p-8 shadow rounded-lg ">
+          <h2 className="text-2xl font-semibold mb-6">All Workers</h2>
+           
+            <div className="align-middle inline-block xl:w-full lg:w-[700px] md:w-[500px] sm:w-[380px] tm:w-96  w-72 shadow overflow-x-scroll bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg border-r-2 border-red-200">
+              <table className="min-w-full ">
+                <thead className="sm:text-base text-[75%]">
                   <tr>
-                    <th className="lg:px-6 lg:py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                    <th className="p-2 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider text">
                       ID
                     </th>
-                    <th className="lg:px-6 lg:py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                    <th className="p-2 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                       FULL NAME
                     </th>
-                    <th className="lg:px-6 lg:py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                    <th className="p-2 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                       EMAIL
                     </th>
-                    <th className="lg:px-6 lg:py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                    <th className="p-2 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                       PHONE
                     </th>
-                    <th className="lg:px-6 lg:py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                    <th className="p-2 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                       STATUS
                     </th>
-                    <th className="lg:px-6 lg:py-3 border-b-2 border-gray-300"></th>
+                    <th className="p-2 border-b-2 border-gray-300"></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
                   {data.map((worker) => (
                     <tr key={worker.id}>
-                      <td className="lg:px-6 px-1 lg:py-4 py-1 whitespace-no-wrap border-b border-gray-500">
+                      <td className="p-2 whitespace-no-wrap border-b border-gray-500">
                         <div className="flex items-center">
-                          <div>
-                            <div className="text-sm leading-5 text-red-800">
+                          
+                            <div className="sm:text-sm text-[70%] leading-5 text-red-800">
                               {worker._id}
                             </div>
-                          </div>
+                          
                         </div>
                       </td>
-                      <td className="lg:px-6 px-1 lg:py-4 py-1 whitespace-no-wrap border-b border-gray-500">
+                      <td className="p-2 whitespace-no-wrap border-b border-gray-500">
                         <div className="flex items-center">
-                          <div>
-                            <div className="text-sm leading-5 text-gray-800">
+                            <div className="sm:text-sm text-[70%] leading-5 text-gray-800">
                               {worker.firstName} {worker.lastName}
                             </div>
-                          </div>
                         </div>
                       </td>
-                      <td className="lg:px-6 px-1 lg:py-4 py-1 whitespace-no-wrap border-b border-gray-500">
+                      <td className="p-2 whitespace-no-wrap border-b border-gray-500">
                         <div className="flex items-center">
-                          <div>
-                            <div className="text-sm leading-5 text-gray-800">
+                            <div className="sm:text-sm text-[70%] leading-5 text-gray-800">
                               {worker.email}
                             </div>
-                          </div>
                         </div>
                       </td>
-                      <td className="lg:px-6 px-1 lg:py-4 py-1 whitespace-no-wrap border-b border-gray-500">
+                      <td className="p-2 whitespace-no-wrap border-b border-gray-500">
                         <div className="flex items-center">
-                          <div>
-                            <div className="text-sm leading-5 text-gray-800">
+                            <div className="sm:text-sm text-[70%] leading-5 text-gray-800">
                               {worker.phoneNumber}
                             </div>
-                          </div>
                         </div>
                       </td>
-                      <td className="lg:px-6 px-1 lg:py-4 py-1 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                      <td className="p-2 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                         <span className={`relative inline-block px-3 py-1 font-semibold ${worker.isOnline?'text-green-900':'text-red-900'}  leading-tight`}>
                           <span
                             aria-hidden
@@ -172,8 +164,8 @@ function WorkerList() {
                           <span className="relative text-xs">{worker.isOnline?'active':'offline'}</span>
                         </span>
                       </td>
-                      <td className="lg:px-6 px-1 lg:py-4 py-1 whitespace-no-wrap border-b border-gray-500">
-                        <button className="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+                      <td className="p-2 whitespace-no-wrap border-b border-gray-500">
+                        <button className="sm:px-5 px-3 sm:py-2 py-1 sm:text-base text-[75%] border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
                           More Details
                         </button>
                       </td>
@@ -185,7 +177,7 @@ function WorkerList() {
                 {/* ... Pagination section (same as in your HTML) ... */}
               </div>
             </div>
-          </div>
+
         </section>
       </main>
     </div>

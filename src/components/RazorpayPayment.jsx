@@ -44,7 +44,6 @@ const RazorpayPayment = ({ orderId, wage, type, onPaymentCompleted }) => {
             }
           });
           const res = validateRes.data;
-          console.log('payment res', res);
 
           if (validateRes.status === 200 && type==='user') {
             navigate("/user/userContract");

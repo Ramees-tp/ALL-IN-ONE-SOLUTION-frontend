@@ -22,28 +22,9 @@ import MainContracts from "../components/User/Contracts/MainContract";
 
 
 function UserRoutes() {
-  // const [giveAccess, setGiveAccess] = useState(false);
-
-  // useEffect(() => {
-  //   const tokenCheck = async () => {
-  //     try {
-  //       const existToken = await localStorage.getItem("jwt");
-  //       if (!existToken) {
-  //         console.log("No token found ");
-  //       } else {
-  //         setGiveAccess(true);
-  //       }
-  //     } catch (err) {
-  //       console.log("Error while checking token :", err);
-  //     }
-  //   };
-  //   tokenCheck();
-  // }, []);
 
   return (
     <>
-      {/* <WorkerDetailsProvider> */}
-
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -59,13 +40,9 @@ function UserRoutes() {
         <Route path="/resetPassword" element={<ResetPass />} />
         <Route path="/updateProfile" element={<UpdateProfile/>}/>
 
-        {/* <Route path="/userProfile" element={<UserProfile/>}/> */}
-        {/* <Route path="/userContracts" element={<MainContracts/>}/> */}
       </Route>
 
       </Routes>
-      {/* </WorkerDetailsProvider> */}
-
     </>
   );
 }

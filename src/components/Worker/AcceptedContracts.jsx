@@ -13,8 +13,6 @@
       const [selectedContract, setSelectedContract] = useState(null);
       const [center, setCenter] = useState({lat: 11.24802, 
         lng: 75.7804, });
-        console.log('center', center);
-    
 
       const workRequest = async () =>{
           try{
@@ -55,7 +53,6 @@
         const workerLocation = localStorage.getItem('workerLocation');
         if(workerLocation){
           const { center, placeName } = JSON.parse(workerLocation);
-          console.log( center, placeName);
           setCenter(center);
           // setPlaceName(placeName);
         }
