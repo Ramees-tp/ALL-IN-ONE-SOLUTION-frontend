@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 
 import { io } from "socket.io-client";
-const socket = io("http://localhost:918");
+const socket = io("http://184.73.25.154");
 
 
 function UworkerDetails() {

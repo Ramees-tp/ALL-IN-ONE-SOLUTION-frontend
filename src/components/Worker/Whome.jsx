@@ -4,7 +4,7 @@ import user from "../../assets/icons/account.png";
 import axiosInstance from "../../api/worker/workerInstance";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:918");
+const socket = io("http://184.73.25.154");
 
 function Whome() {
   const [request, setRequest] = useState([])
