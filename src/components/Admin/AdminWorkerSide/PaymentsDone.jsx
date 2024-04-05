@@ -1,4 +1,4 @@
-import axios from "axios"
+import axiosInstance from "../../../api/axios"
 import { useEffect, useState } from "react"
 
 const PaymentsDone = () => {
@@ -6,7 +6,7 @@ const PaymentsDone = () => {
 
 
   const fetchData = async () =>{
-    const res = await axios.get("http://localhost:917/master/gotWageTrue") 
+    const res = await axiosInstance.get("/master/gotWageTrue") 
     if (res.status===200) {
       setData(res.data.data)
     }

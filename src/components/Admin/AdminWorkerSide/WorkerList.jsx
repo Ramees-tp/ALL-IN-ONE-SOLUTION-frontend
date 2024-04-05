@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 
 function WorkerList() {
   // eslint-disable-next-line no-unused-vars
@@ -9,8 +9,8 @@ function WorkerList() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:917/master/workerList"
+      const response = await axiosInstance.get(
+        "/master/workerList"
       );
       setData(response.data.data);
       setCount(response.data.totalCount);

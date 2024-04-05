@@ -24,7 +24,7 @@ const OtpEnter = ({requestId}) => {
       const handleVerifyOTP = async () => {
         try {
           
-          const response = await axiosInstance.post("http://localhost:917/worker/verifyOTP", {
+          const response = await axiosInstance.post("/worker/verifyOTP", {
             otpValues: otpValues,
             orderId: requestId
           });

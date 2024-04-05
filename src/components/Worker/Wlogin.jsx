@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../api/worker/workerInstance";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -37,7 +37,7 @@ function Wlogin() {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:917/worker/login", {
+      const response = await axiosInstance.post("/worker/login", {
         email,
         password,
       });

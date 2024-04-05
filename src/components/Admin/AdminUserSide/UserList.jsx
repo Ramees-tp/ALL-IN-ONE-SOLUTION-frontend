@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import axiosInstance from "../../../api/axios";
 
 const UserList = () => {
     // eslint-disable-next-line no-unused-vars
@@ -9,8 +10,8 @@ const UserList = () => {
 
     const fetchData = async () => {
         try {
-          const response = await axios.get(
-            "http://localhost:917/master/userList"
+          const response = await axiosInstance.get(
+            "/master/userList"
           );
           setData(response.data.data);
           setCount(response.data.totalCount);

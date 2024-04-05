@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 
 function Uhome(){
 
@@ -12,7 +12,7 @@ function Uhome(){
   
   const fetchData = async () =>{
     try{
-      const response =  await axios.get('http://localhost:917/user/userhome')
+      const response =  await axiosInstance.get('/user/userhome')
       setJobData(response.data.data)
     }catch(err){
       if (err.response && err.response.data.message) {

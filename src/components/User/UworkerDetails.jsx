@@ -1,13 +1,14 @@
 import green from "../../assets/icons/circle.png";
 import user from "../../assets/icons/account.png";
 // import { useWorkerDetails } from "../../context/WorkerDetailsContext";
-import axios from "axios";
+
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 
 import { io } from "socket.io-client";
-const socket = io("http://184.73.25.154");
+const socket = io.connect("http://184.73.25.154");
+// const socket = io.connect('http://localhost:9180')
 
 
 function UworkerDetails() {
@@ -39,7 +40,7 @@ function UworkerDetails() {
     const storedLocation = localStorage.getItem('userLocation');
     if (storedLocation) {
       const parsedLocation = JSON.parse(storedLocation);
-      setLocation(parsedLocation.location);
+      setLocation(parsedLocation.placeName);
       setCoordinates(parsedLocation.center);
     }
   }, []);
@@ -58,7 +59,7 @@ function UworkerDetails() {
 
   const wDetails = async () =>{
     try{
-      const response= await axios.get(`http://localhost:917/user/workerDetails/${id}`)
+      const response= await axiosInstance.get(`/user/workerDetails/${id}`)
       if(response.status===200){
         setDetails(response.data.data);
       }

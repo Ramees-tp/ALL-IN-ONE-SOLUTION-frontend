@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 import { useEffect, useState } from "react";
 import RazorPayPayment from '../../RazorpayPayment'
 
@@ -10,8 +10,8 @@ const PaymentsToDo = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:917/master/paymentsToDo"
+      const response = await axiosInstance.get(
+        "/master/paymentsToDo"
       );  
       setData(response.data.data);
       setCount(response.data.totalCount)

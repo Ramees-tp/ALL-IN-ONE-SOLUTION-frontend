@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import UploadImage from "../uploadImage/UploadImage";
-import axios from "axios";
+import axiosInstance from "../../../api/axios";
 
 function JobForm() {
 
@@ -32,7 +32,7 @@ function JobForm() {
 
 
     try {
-      const res = await axios.post("http://localhost:917/master/addJobType", formData, {
+      const res = await axiosInstance.post("/master/addJobType", formData, {
         withCredentials:true,
         headers: {
           "Content-Type": "multipart/form-data",

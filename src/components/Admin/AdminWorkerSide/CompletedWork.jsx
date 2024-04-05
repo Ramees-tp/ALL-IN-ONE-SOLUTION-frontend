@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import axiosInstance from '../../../api/axios';
 
 const CompletedWork = () => {
   const [data, setData] = useState([]);
@@ -7,8 +7,8 @@ const CompletedWork = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:917/master/requestDetails"
+      const response = await axiosInstance.get(
+        "/master/requestDetails"
       );  
       setData(response.data.data);
     } catch (err) {

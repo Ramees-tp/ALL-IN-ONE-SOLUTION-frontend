@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import axiosInstance from "../../../api/axios";
+
 
 const EntryRequest = () => {
   const [error, setError] = useState("");
@@ -8,8 +10,8 @@ const EntryRequest = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:917/master/workerRequest"
+      const response = await axiosInstance.get(
+        "/master/workerRequest"
       );  
       setData(response.data.data);
       setCount(response.data.totalCount)
@@ -24,7 +26,7 @@ const EntryRequest = () => {
 
   const giveAccess = async (id) => {
     try {
-      const response = await axios.patch(`http://localhost:917/master/approveAccess/${id}`);
+      const response = await axiosInstance.patch(`/master/approveAccess/${id}`);
       if(response.status===200){
         fetchData();
       }
@@ -35,7 +37,7 @@ const EntryRequest = () => {
 
   const reject = async (id) => {
     try {
-      const response = await axios.patch(`http://localhost:917/master/rejectAccess/${id}`);
+      const response = await axiosInstance.patch(`/master/rejectAccess/${id}`);
       if(response.status===200){
         fetchData();
       }

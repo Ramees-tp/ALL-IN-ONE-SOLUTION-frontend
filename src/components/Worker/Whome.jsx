@@ -4,7 +4,8 @@ import user from "../../assets/icons/account.png";
 import axiosInstance from "../../api/worker/workerInstance";
 import io from "socket.io-client";
 
-const socket = io("http://184.73.25.154");
+const socket = io.connect("http://184.73.25.154");
+// const socket = io.connect('http://localhost:9180')
 
 function Whome() {
   const [request, setRequest] = useState([])
@@ -30,10 +31,11 @@ function Whome() {
   // },[])
 
   useEffect(() => {
-    const token = localStorage.getItem("wjwt");
+    const token = localStorage.getItem("jwt");
     if (token) {
       const decodedToken = decodeJWTToken(token);
       const workerId = decodedToken ? decodedToken.id : null;
+      console.log(workerId, 'eee');
 
       if (workerId) {
         socket.emit("workerConnection", { sender: workerId });

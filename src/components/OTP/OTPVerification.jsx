@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../OTP/OTP.css";
 import axiosInstance from "../../api/axios";
@@ -46,7 +45,7 @@ const OTPVerification = () => {
   const handleVerifyOTP = async () => {
     try {
       
-      const response = await axios.post("http://localhost:917/user/verifyOTP", {
+      const response = await axiosInstance.post("/user/verifyOTP", {
         otpValues: otpValues,
       });
       if (response.status === 200) {

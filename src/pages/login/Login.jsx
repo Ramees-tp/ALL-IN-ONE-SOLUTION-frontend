@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../../api/axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -36,7 +36,7 @@ const Login = () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:917/user/login", {
+      const response = await axiosInstance.post("/user/login", {
         username,
         password,
       });
