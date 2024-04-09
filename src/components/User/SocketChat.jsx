@@ -3,7 +3,7 @@ import axiosInstence from '../../api/axios'
 
 
 import io from "socket.io-client"
-const socket = io.connect('http://184.73.25.154')
+const socket = io.connect('http://184.73.25.154/io/')
 // const socket = io.connect('http://localhost:9180')
 
 
