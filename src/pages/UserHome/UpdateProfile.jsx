@@ -4,7 +4,7 @@ import UserUpdateProfile from "../../components/User/UserUpdateProfile"
 
 const UpdateProfile = () => {
   return (
-    <div>
+    <div className="p-1">
         <Header/>
         <UserUpdateProfile/>
         <Ufooter/>      

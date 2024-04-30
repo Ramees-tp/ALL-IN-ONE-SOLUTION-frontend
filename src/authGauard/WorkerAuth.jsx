@@ -13,6 +13,7 @@ const WorkerAuth = () => {
   const decodeToken = (token) => {
     const payload = token.split('.')[1];
     const decodedPayload = JSON.parse(atob(payload));
+    setDecodedToken(decodedPayload)
     setRole(decodedPayload.role)
     if (decodedPayload.role !== 'worker') {
       navigate("/worker/WorkerLogin");
@@ -39,6 +40,7 @@ const WorkerAuth = () => {
         decodeToken(storedToken);
         const currentTime = Date.now() / 1000;
         if (decodedToken.exp < currentTime){
+
             localStorage.removeItem('jwt');
             localStorage.removeItem('workerLocation');
             navigate("/worker/WorkerLogin");          
@@ -46,7 +48,7 @@ const WorkerAuth = () => {
       } 
     }
 
-  }, [workerToken, dispatch, navigate, role, decodedToken]);
+  }, [workerToken, dispatch, navigate]);
 
   return (
    <>

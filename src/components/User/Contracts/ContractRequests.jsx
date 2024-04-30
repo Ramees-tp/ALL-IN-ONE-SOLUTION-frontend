@@ -90,11 +90,11 @@ const ContractRequests = () => {
 
   return (
     <div>
-      <div>
-      <h2 className="tm:text-2xl text-xl font-semibold md:mb-6 mb-1">Your Requests </h2>
+      <div className='sm:min-h-[500px] min-h-[350px]'>
+      <h2 className="tm:text-2xl text-xl font-bold md:mb-6 mb-1 text-gray-600 underline">Your Requests </h2>
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 md:pr-10 lg:px-8">
         { requests.length > 0 && requests.filter(request => !request.payment).map((request) => (
-          <div key={request._id} className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg md:px-12 px-4">
+          <div key={request._id} className="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-4 overflow-hidden bg-white shadow-lg md:px-12 px-4 ">
             <div>
           <div   
                 className="flex items-center md:p-8 p-2 bg-[#d5e6eb] shadow rounded-lg"

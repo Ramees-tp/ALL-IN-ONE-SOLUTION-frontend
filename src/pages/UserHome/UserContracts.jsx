@@ -4,7 +4,7 @@ import Ufooter from "../../components/User/Ufooter"
 
 const UserContracts = () => {
   return (
-    <div>
+    <div className="p-1">
       <Header/>
       <MainContracts/>
       <Ufooter/>

@@ -4,7 +4,7 @@ import UserProfile from "../../components/User/UserProfile"
 
 const UserProfilePage = () => {
   return (
-    <div>
+    <div className="p-1">
       <Header/>
       <UserProfile/>
       <Ufooter/>

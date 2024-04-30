@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 import CommonLeafMap from "../CommonLeafMap";
+import { useSearch } from "../../context/UserContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -13,12 +14,13 @@ import {
 import "./Header.css";
 
 function Header() {
+  const {searchInput , setSearchInput} = useSearch()
 
   const [showMap, setShowMap] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([])
-  const [radius, setRadius] = useState(null)
+  const [radius, setRadius] = useState("")
 
 
   useEffect(() => {
@@ -91,10 +93,10 @@ function Header() {
               <Link to={'/user/uhome'} onClick={hideSidebar} > Home</Link>
             </li>
             <li>
-              <a href="">About</a>
+            <Link to={'/user/about'} onClick={hideSidebar}>About</Link>
             </li>
             <li>
-              <a href="">Contact</a>
+              <Link to={'/user/ucontact'} onClick={hideSidebar}>Contact</Link>
             </li>
             <li>
               <Link to={'/user/userContract'} onClick={hideSidebar} > Contracts</Link>
@@ -102,23 +104,24 @@ function Header() {
             <li>
               <Link to={'/user/userProfiles'} onClick={hideSidebar} > Profile</Link>
             </li>
+            
           </ul>
 
           <ul>
             <div className="name md:text-3xl sm:text-2xl text-lg text-center">
               <p>ALL IN ONE SOLUTION </p>
             </div>
-            <div className="break space-y-3">
-              <div className="flex flex-row items-center">
+            <div className="break tm:mt-0 mt-1 sm:px-0 px-4 ">
+              <div className="flex flex-row items-center justify-end sm:w-auto sm:mb-1">
                 
                 <li className="hideFlex">
                 <Link to={'/user/uhome'} > Home</Link>
                 </li>
                 <li className="hideFlex">
-                  <a href="">About</a>
+                <Link to={'/user/about'} >About</Link>
                 </li>
                 <li className="hideFlex">
-                  <a href="">contact</a>
+                <Link to={'/user/ucontact'}>Contact</Link>
                 </li>
                 <li className="hideFlex">
                 
@@ -134,11 +137,14 @@ function Header() {
                   </a>
                 </li>
               </div>
-              <div className="gap-2 flex sm:flex-row flex-col justify-center items-center text-black ">
+              <div className="gap-2 flex sm:flex-row flex-col justify-center items-center text-black">
                 <div className="relative w-full">
                   <input
-                    className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded "
+                    className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] w-full p-1 pl-8 rounded tm:text-base text-[78%]"
                     type="text"
+                    placeholder="Search for work type..."
+                    onChange={(e)=>setSearchInput(e.target.value)}
+                    value={searchInput}
                   />
                   <button>
                     <FontAwesomeIcon
@@ -149,7 +155,7 @@ function Header() {
                 </div>
                 <div className="relative w-full flex gap-1">
                   <input
-                    className=" md:w-[100%] sm:w-[180px] md:h-[100%] h-[23px] p-1 pl-8 rounded"
+                    className=" md:w-[100%] sm:w-[180px] w-full md:h-[100%] h-[23px] p-1 pl-8 rounded sm:text-base text-[80%]"
                     type="text"
                     defaultValue={location}
                     // onChange={handleLocationChange}
@@ -163,7 +169,7 @@ function Header() {
                   </button>
                   <select 
                     className="md:w-14 w-9 rounded text-[80%]"
-                    onChange={(e)=>setRadius(parseInt(e.target.value ))}
+                    onChange={(e)=>setRadius(parseInt(e.target.value))}
                     value={radius}
                   >
                     <option value='8'>08 km</option>

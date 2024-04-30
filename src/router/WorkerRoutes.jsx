@@ -8,6 +8,8 @@ import WorkerHome from "../pages/WorkerHome/WorkerHome";
 import Wprofile from "../components/Worker/Wprofile";
 import WupdateProfile from "../pages/WorkerHome/WupdateProfile";
 import WorkerAuth from "../authGauard/WorkerAuth";
+import NotFoundWorker from '../pages/NotFoundWorker'
+import ContactPage from "../pages/UserHome/ContactPage";
 
 function WorkerRoutes() {
   return (
@@ -24,6 +26,8 @@ function WorkerRoutes() {
         <Route path="/profile" element={<Wprofile />} />
         <Route path="/updateProfile" element={<WupdateProfile/>}/>
         <Route path="/whome" element={<WorkerHome />} />
+        
+        <Route path='*' element={<NotFoundWorker/>} />
       </Route>  
       </Routes>
     </div>

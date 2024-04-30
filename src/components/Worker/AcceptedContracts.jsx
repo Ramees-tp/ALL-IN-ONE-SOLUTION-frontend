@@ -60,8 +60,8 @@
 
     return (
       <div>
-      <div className=''>
-        <h2 className="tm:text-2xl text-xl font-semibold sm:mb-6 mb-3">Contracts</h2>
+      <div className='sm:min-h-[500px] min-h-[350px]'>
+        <h2 className="tm:text-2xl text-xl font-bold sm:mb-6 mb-3 text-gray-600 underline">Contracts</h2>
         {requests.length > 0 && requests.filter(request => request.payment).map((request) => (
           <div key={request._id} className='flex sm:flex-row flex-col gap-4 mb-5'>
             <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 md:pr-10 lg:px-8 lg:w-[70%] ">
@@ -72,12 +72,14 @@
                   <p className='text-4xl font-bold text-green-500 p-36'></p>
                 </div>
               )}
-                <div className='flex md:flex-row sm:items-start items-center flex-col-reverse w-full gap-y-4'>
-                  <div className='grid md:grid-cols-6 grid-cols-1 sm:grid-rows-3 grid-rows-4 md:gap-5 md:w-[70%] text-gray-800'>
+                <div className='flex md:flex-row md:items-start items-center flex-col-reverse w-full gap-y-2'>
+                  <div className='grid md:grid-cols-6 grid-cols-1 sm:grid-rows-3 grid-rows-3 md:gap-5 md:w-[70%] text-gray-800'>
                     <p className='sm:col-span-6 flex items-center text-2xl font-bold'> {request.userData.firstName} {request.userData.lastName}</p>
-                    <p className='lg:col-span-1 col-span-3 font-semibold tm:text-base text-[80%]'>OrderID</p>
-                    <p className='sm:col-span-4 col-span-3'>{request._id}</p>
                     <p className='sm:col-span-6 flex items-center tm:text-xl text-[90%] text-green-900'>{new Date(request.date).toLocaleDateString()} - {request.day}</p>
+                    <div className='flex'>
+                      <p className='mr-4 font-semibold tm:text-base text-[80%] text-red-700'>OrderID</p>
+                      <p>{request._id}</p>
+                    </div>
                   </div>
                   <div className='md:w-[30%]'>
                     <div className="tm:w-32 w-24 tm:h-32 h-24  rounded-full overflow-hidden bg-gray-200">

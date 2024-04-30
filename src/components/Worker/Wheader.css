@@ -107,10 +107,6 @@
     .sidebar {
       width: 100%;
     }
-    /* input {
-      width: 100px;
-      height: 15px;
-    } */
   }
   
   @media (max-width: 445px) {

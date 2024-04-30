@@ -35,7 +35,6 @@ function Whome() {
     if (token) {
       const decodedToken = decodeJWTToken(token);
       const workerId = decodedToken ? decodedToken.id : null;
-      console.log(workerId, 'eee');
 
       if (workerId) {
         socket.emit("workerConnection", { sender: workerId });
@@ -131,7 +130,7 @@ const decodeJWTToken = (token) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="p-6 md:p-10 rounded bg-[#FFFFFF] shadow-md">
-            <h1 className="text-3xl font-bold mb-4">Contract History</h1>
+            <h1 className="sm:text-3xl text-2xl font-bold mb-4">Contract History</h1>
             <div className="flex flex-col md:flex-row gap-4">
               <p className="font-bold text-lg md:text-xl border-b-2 border-red-900 cursor-pointer">
                 Last week
@@ -139,11 +138,11 @@ const decodeJWTToken = (token) => {
               <p className="font-bold text-lg md:text-xl cursor-pointer">Last Month</p>
             </div>
             <div className="bg-[#C3B6B6] text-xl font-bold p-4 rounded-lg mt-4">
-              <h1>Total Contracts</h1>
+              <h1 className="tm:text-base text-md">Total Contracts</h1>
             </div>
           </div>
           <div className="p-6 md:p-10 rounded bg-[#FFFFFF] shadow-md">
-            <h1 className="text-3xl font-bold mb-4">Wallet</h1>
+            <h1 className="sm:text-3xl text-2xl font-bold mb-4">Wallet</h1>
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
                 <p className="text-lg md:text-xl font-bold">Todays earnings</p>

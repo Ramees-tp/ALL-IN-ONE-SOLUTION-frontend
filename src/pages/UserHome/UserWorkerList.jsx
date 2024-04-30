@@ -5,7 +5,7 @@ import UworkerList from "../../components/User/UworkerList";
 function UserWorkerList() {
   return (
     <div>
-      <div className="p-2 bg-black">
+      <div className="p-1">
         <Header />
         <UworkerList />
         <Ufooter />

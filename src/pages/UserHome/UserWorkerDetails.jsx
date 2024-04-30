@@ -5,7 +5,7 @@ import Ufooter from '../../components/User/Ufooter'
 function UserWorkerDetails() {
   return (
     <div>
-      <div className="p-2 bg-black">
+      <div className="p-1">
         <Header/>
         <UworkerDetails />
         <Ufooter/>

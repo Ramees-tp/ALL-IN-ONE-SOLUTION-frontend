@@ -5,6 +5,9 @@ import Wfooter from "../../components/Worker/Wfooter";
 import Wcontracts from "../../components/Worker/Wcontracts";
 import Wprofile from '../../components/Worker/Wprofile'
 import { useState } from "react";
+import Wcontact from "../../components/Worker/Wcontact";
+import About from "../../components/About";
+
 
 function WorkerHome() {
   const [currentPage, setCurrentPage] = useState("WHome");
@@ -19,6 +22,8 @@ function WorkerHome() {
       {currentPage === "WHome" && <Whome />}
       {currentPage === "WProfile" && <Wprofile/>}
       {currentPage === "WContracts" && <Wcontracts/>}
+      {currentPage ==="WContact" && <Wcontact/>}
+      {currentPage === "WAbout" && <About/>}
       <Wfooter/>
     </div>
   );

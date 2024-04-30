@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-// import { WorkerDetailsProvider } from "../context/WorkerDetailsContext";
+import { SearchProvider } from "../context/UserContext";
 
 
 import SignUp from "../pages/signUp/SignUp";
@@ -15,16 +14,15 @@ import UserAuth from "../authGauard/UserAuth";
 import UserContracts from "../pages/UserHome/UserContracts";
 import UserProfilePage from "../pages/UserHome/UserProfilePage";
 import UpdateProfile from "../pages/UserHome/UpdateProfile";
-
-// import UserProfile from "../components/User/UserProfile";
-import UworkerDetails from '../components/User/UworkerDetails'
-import MainContracts from "../components/User/Contracts/MainContract";
+import NotFound from "../pages/NotFound";
+import ContactPage from "../pages/UserHome/ContactPage";
+import AboutPage from "../pages/UserHome/AboutPage";
 
 
 function UserRoutes() {
 
   return (
-    <>
+    <SearchProvider>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -35,15 +33,18 @@ function UserRoutes() {
         <Route path="/workerDetails/:id/:id1" element={<UserWorkerDetails/>}/>
         <Route path='/userContract' element={<UserContracts/>} />
         <Route path='/userProfiles' element={<UserProfilePage/>} />
+        <Route path='/ucontact' element={<ContactPage/>} />
+        <Route path='/about' element={<AboutPage/>} />
 
         <Route path="/otp" element={<OTPVerification />} />
         <Route path="/resetPassword" element={<ResetPass />} />
         <Route path="/updateProfile" element={<UpdateProfile/>}/>
+        <Route path='*' element={<NotFound/>} />
 
       </Route>
 
       </Routes>
-    </>
+    </SearchProvider>
   );
 }
 

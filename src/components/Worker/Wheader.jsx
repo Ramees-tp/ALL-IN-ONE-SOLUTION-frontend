@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CommonLeafMap from '../CommonLeafMap.jsx';
 import axiosInstance from "../../api/worker/workerInstance.js";
-import './Wheader.jsx';
+import './Wheader.css';
 
 function Wheader({handleNavigation}) {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -109,10 +109,10 @@ function Wheader({handleNavigation}) {
             <Link to="" onClick={() => {handleNavigation("WHome"); hideSidebar();}} >Home</Link>
           </li>
           <li>
-            <a href="">About</a>
+          <Link to="" onClick={() => {handleNavigation("WAbout"); hideSidebar();}}>Contact</Link>
           </li>
           <li>
-            <a href="">Contact</a>
+          <Link to="" onClick={() => {handleNavigation("WContact"); hideSidebar();}}>Contact</Link>
           </li>
           <li>
           <Link to="" onClick={() => {handleNavigation("WContracts"); hideSidebar();}} >
@@ -127,21 +127,21 @@ function Wheader({handleNavigation}) {
         </ul>
 
         <ul>
-          <div className="md:text-3xl sm:text-2xl text-xl md:w-[30%] w-full">
-            <h1 className="lg:text-left text-center w-full">ALL IN ONE SOLUTION</h1> 
-            <p className="text-[35%] text-red-600 md:block hidden sm:mr-20 leading-4 text-center">welcome to the epitome of employment excellence!</p>
+          <div className="md:text-3xl sm:text-2xl text-xl flex flex-col justify-center items-center tm:w-auto w-full">
+            <h1 className="text-center w-full">ALL IN ONE SOLUTION</h1> 
+            <p className="text-[35%] text-red-600 tm:leading-4 leading-3 text-center w-full">welcome to the epitome of employment excellence!</p>
           </div>
-          <div className="break space-y-3">
-            <div className="flex flex-row items-center">
+          <div className="break tm:mt-0 mt-2 pl-4">
+            <div className="flex flex-row items-center justify-end rm:ml-0 ml-6 sm:mb-1">
               
               <li className="hideFlex">
               <Link to="" onClick={() => handleNavigation("WHome")} >Home</Link>
               </li>
               <li className="hideFlex">
-                <a href="">About</a>
+              <Link to="" onClick={() => {handleNavigation("WAbout"); hideSidebar();}}>Contact</Link>
               </li>
               <li className="hideFlex">
-                <a href="">contact</a>
+              <Link to="" onClick={() => {handleNavigation("WContact"); hideSidebar();}}>Contact</Link>
               </li>
               <li className="hideFlex">
               <Link to="" onClick={() => handleNavigation("WContracts")} >
@@ -159,11 +159,11 @@ function Wheader({handleNavigation}) {
                 </a>
               </li>
             </div>
-            <div className="sm:gap-x-10 gap-2 flex sm:flex-row flex-col justify-center items-center text-black sm:ml-0 ml-8">
-              
+
+            <div className="lg:gap-x-10 gap-2 flex sm:flex-row flex-col-reverse justify-center tm:items-center text-black sm:ml-0 tm:w-auto w-[65%]">
               <div className="relative w-full">
                 <input
-                  className=" md:w-[100%] sm:w-[180px]  w-[100%] md:h-[100%] h-[23px] p-1 pl-8 rounded"
+                  className=" md:w-[100%] sm:w-[180px]  w-[100%] md:h-[100%] h-[25px] p-1 pl-8 rounded"
                   type="text"
                   // value={place}
                   defaultValue={place}
@@ -178,11 +178,11 @@ function Wheader({handleNavigation}) {
                   
                 </button>
               </div>
-              <div className="flex space-x-2">
-                <button className={`sm:w-20 w-16 sm:text-base text-[80%] sm:h-8 h-6 font-semibold ${isHalfDay ? 'bg-gray-500 text-white' : 'bg-blue-300'} rounded `} onClick={handleHalfDayClick} disabled={loading}>
+              <div className="flex flex-row gap-x-2">
+                <button className={`sm:w-20 rm:w-16 w-full sm:text-base text-[80%] sm:h-8 h-6 font-semibold ${isHalfDay ? 'bg-gray-500 text-white' : 'bg-blue-300'} rounded `} onClick={handleHalfDayClick} disabled={loading}>
                   {isHalfDay ? 'Half Day' : 'Full Day'}
                 </button>
-                <button className={`sm:w-20 w-16 sm:text-base text-[80%] sm:h-8 h-6 font-semibold ${isOnline ? 'bg-green-500 text-white' : 'bg-red-500 text-white'} rounded `} onClick={handleOnlineOffline} disabled={loading}>
+                <button className={`sm:w-20 rm:w-16 w-full sm:text-base text-[80%] sm:h-8 h-6 font-semibold ${isOnline ? 'bg-green-500 text-white' : 'bg-red-500 text-white'} rounded `} onClick={handleOnlineOffline} disabled={loading}>
                   {isOnline ? 'Online' : 'Offline'}
                 </button>
               </div>
