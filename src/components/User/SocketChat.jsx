@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import axiosInstence from '../../api/axios'
-
-
-import io from "socket.io-client"
-const socket = io.connect('http://184.73.25.154/io/')
-// const socket = io.connect('http://localhost:9180')
-
+import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 
 function SocketChat({userId, workerId, requestId}) {
+    const socket = useSelector((state)=>state.socket.socket)
+    
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState('');
+
 
     const messageToBackend = (message) =>{
       axiosInstence.post('/user/saveMessages', message)

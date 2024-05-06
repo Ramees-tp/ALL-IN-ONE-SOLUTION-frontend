@@ -40,7 +40,6 @@ const WorkerAuth = () => {
         decodeToken(storedToken);
         const currentTime = Date.now() / 1000;
         if (decodedToken.exp < currentTime){
-
             localStorage.removeItem('jwt');
             localStorage.removeItem('workerLocation');
             navigate("/worker/WorkerLogin");          

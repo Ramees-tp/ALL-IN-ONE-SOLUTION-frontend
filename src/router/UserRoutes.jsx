@@ -1,28 +1,30 @@
 import { Routes, Route } from "react-router-dom";
 import { SearchProvider } from "../context/UserContext";
-
-
-import SignUp from "../pages/signUp/SignUp";
-import Login from "../pages/login/Login";
-import UserHome from "../pages/UserHome/UserHome";
-import OTPVerification from "../components/OTP/OTPVerification";
-import UserWorkerList from "../pages/UserHome/UserWorkerList";
-import ResetPass from "../pages/ChangePassword/ResetPass";
-import UserWorkerDetails from '../pages/UserHome/UserWorkerDetails'
-
+import React, { Suspense, lazy } from 'react';
 import UserAuth from "../authGauard/UserAuth";
-import UserContracts from "../pages/UserHome/UserContracts";
-import UserProfilePage from "../pages/UserHome/UserProfilePage";
-import UpdateProfile from "../pages/UserHome/UpdateProfile";
 import NotFound from "../pages/NotFound";
-import ContactPage from "../pages/UserHome/ContactPage";
-import AboutPage from "../pages/UserHome/AboutPage";
+import Suspence from "../components/suspence";
+
+
+const SignUp = lazy(() => import("../pages/signUp/SignUp"));
+const Login = lazy(() => import("../pages/login/Login"));
+const UserHome = lazy(() => import("../pages/UserHome/UserHome"));
+const OTPVerification = lazy(() => import("../components/OTP/OTPVerification"));
+const UserWorkerList = lazy(() => import("../pages/UserHome/UserWorkerList"));
+const ResetPass = lazy(() => import("../pages/ChangePassword/ResetPass"));
+const UserWorkerDetails = lazy(() => import("../pages/UserHome/UserWorkerDetails"));
+const UserContracts = lazy(() => import("../pages/UserHome/UserContracts"));
+const UserProfilePage = lazy(() => import("../pages/UserHome/UserProfilePage"));
+const UpdateProfile = lazy(() => import("../pages/UserHome/UpdateProfile"));
+const ContactPage = lazy(() => import("../pages/UserHome/ContactPage"));
+const AboutPage = lazy(() => import("../pages/UserHome/AboutPage"));
 
 
 function UserRoutes() {
 
   return (
     <SearchProvider>
+      <Suspense fallback={<Suspence/>}>
       <Routes>
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
@@ -42,8 +44,8 @@ function UserRoutes() {
         <Route path='*' element={<NotFound/>} />
 
       </Route>
-
       </Routes>
+      </Suspense>
     </SearchProvider>
   );
 }

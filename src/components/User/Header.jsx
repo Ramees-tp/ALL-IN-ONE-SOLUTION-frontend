@@ -62,7 +62,7 @@ function Header() {
       setCoordinates({lat:res.data.latlong[1], lng: res.data.latlong[0]})
       localStorage.setItem("userLocation", JSON.stringify({ center:{lat: res.data.latlong[1], lng: res.data.latlong[0]},  placeName: res.data.data }));
     }catch(err){
-     console.log("frontend server error", err);
+     console.error("frontend server error", err);
     }
   }
 

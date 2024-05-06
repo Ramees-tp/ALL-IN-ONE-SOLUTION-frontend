@@ -1,7 +1,16 @@
 /* eslint-disable react/prop-types */
 // import PropTypes from "prop-types";
 
+import { useState } from "react";
+
 const PaymentForm = ({ formData, setFormData }) => {
+  const [touchedFields, setTouchedFields] = useState({
+    IFC: false,
+    accountNumber: false,
+    panCardNumber: false,
+    password: false,
+    confirmPass: false,
+  });
   // const [formData, setFormData] = useState({
   //   IFC: "",
   //   accountNumber: "",
@@ -56,11 +65,12 @@ const PaymentForm = ({ formData, setFormData }) => {
           onChange={(event) =>
             setFormData({ ...formData, IFC: event.target.value })
           }
-          className={`w-full tm:p-2 p-4 border rounded-md focus:outline-none ${
-            validateIFC(formData.IFC) ? "border-blue-500" : "border-red-500"
+          onBlur={() => setTouchedFields({ ...touchedFields, IFC: true })}
+          className={`w-full tm:p-2 p-2 border rounded-md focus:outline-none ${
+            touchedFields.IFC && validateIFC(formData.IFC) ? "border-blue-500" : "border-red-500"
           }`}
         />
-         {!validateIFC(formData.IFC) && (
+         {touchedFields.IFC && !validateIFC(formData.IFC) && (
           <p className="text-red-500 text-sm">Invalid IFC code</p>
         )}
       </div>
@@ -80,13 +90,14 @@ const PaymentForm = ({ formData, setFormData }) => {
           onChange={(event) =>
             setFormData({ ...formData, accountNumber: event.target.value })
           }
-          className={`w-full tm:p-2 p-4 border rounded-md focus:outline-none ${
-            validateAccountNumber(formData.accountNumber)
+          onBlur={() => setTouchedFields({ ...touchedFields, accountNumber: true })}
+          className={`w-full tm:p-2 p-2 border rounded-md focus:outline-none ${
+            touchedFields.accountNumber && validateAccountNumber(formData.accountNumber)
               ? "border-blue-500"
               : "border-red-500"
           }`}
         />
-        {!validateAccountNumber(formData.accountNumber) && (
+        {touchedFields.accountNumber && !validateAccountNumber(formData.accountNumber) && (
           <p className="text-red-500 text-sm">Invalid account number</p>
         )}
       </div>
@@ -106,9 +117,14 @@ const PaymentForm = ({ formData, setFormData }) => {
           onChange={(event) =>
             setFormData({ ...formData, panCardNumber: event.target.value })
           }
-          className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+          onBlur={() => setTouchedFields({ ...touchedFields, panCardNumber: true })}
+          className={`w-full tm:p-2 p-2 border rounded-md focus:outline-none ${
+            touchedFields.panCardNumber && validatePanCardNumber(formData.panCardNumber)
+              ? "border-blue-500"
+              : "border-red-500"
+          }`}
         />
-        {!validatePanCardNumber(formData.panCardNumber) && (
+        {touchedFields.panCardNumber && !validatePanCardNumber(formData.panCardNumber) && (
           <p className="text-red-500 text-sm">Invalid PAN card number</p>
         )}
       </div>
@@ -130,8 +146,9 @@ const PaymentForm = ({ formData, setFormData }) => {
           onChange={(event) =>
             setFormData({ ...formData, password: event.target.value })
           }
-          className=" tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500 sm:w-[50%] tm:w-[50%] w-[80%]"/>
-          {!validatePassword(formData.password) && (
+          onBlur={() => setTouchedFields({ ...touchedFields, password: true })}
+          className=" tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500 sm:w-[50%] tm:w-[50%] w-[80%]"/>
+          {touchedFields.password && !validatePassword(formData.password) && (
           <p className="text-red-500 text-sm">
             Password must be at least 8 characters long
           </p>
@@ -153,7 +170,7 @@ const PaymentForm = ({ formData, setFormData }) => {
             onChange={(event) =>
               setFormData({ ...formData, confirmPass: event.target.value })
             }
-            className="sm:mb-0 mb-4 tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500 sm:w-[50%] tm:w-[50%] w-[80%]"
+            className="sm:mb-0 mb-4 tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500 sm:w-[50%] tm:w-[50%] w-[80%]"
           />
         </div>
       </div>

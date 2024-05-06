@@ -100,8 +100,8 @@ const fetchSuggestions = (value) => {
       Work Area
       </label>
         <div className="relative">
-          <input className="w-full tm:p-2 p-5 border rounded-md focus:outline-none focus:border-blue-500"
-                type="text" value={location} onChange={handleLocationChange} />
+          <input className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
+                type="text" value={location} onChange={handleLocationChange} placeholder="Enter Area For Work" />
            {suggestions.length > 0 && (
              <div className="bg-white border rounded-md absolute w-full" style={{ top: '100%' }}>
                {suggestions.map((suggestion, index) => (
@@ -122,13 +122,14 @@ const fetchSuggestions = (value) => {
         </label>
         <input
           type="number"
+          placeholder="Please Enter Adhar Number"
           id="adharNumber"
           name="adharNumber"
           value={formData.adharNumber}
           onChange={(event) =>
             setFormData({ ...formData, adharNumber: event.target.value })
           }
-          className="w-full tm:p-2 p-5 border rounded-md focus:outline-none focus:border-blue-500"
+          className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
     </div>

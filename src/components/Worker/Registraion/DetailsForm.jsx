@@ -1,39 +1,32 @@
 // InputForm.js
-import UploadImage from "../../uploadImage/uploadImage";
 
+import { useState } from "react";
 
-const DetailsForm = ({ formData, setFormData }) => {
-  
-  
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   if (name.includes(".")) {
-  //     const [parent, child] = name.split(".");
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [parent]: {
-  //         ...prevData[parent],
-  //         [child]: value,
-  //       },
-  //     }));
-  //   } else {
-  //     setFormData((prevData) => ({
-  //       ...prevData,
-  //       [name]: value,
-  //     }));
-  //   }
-  // };
+const DetailsForm = ({ formData, setFormData, setFieldCompleted, fieldCompleted }) => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     setFormData((prevData) => ({
       ...prevData,
       profileImage: file,
     }));
+    setFieldCompleted((prevFields) => ({
+      ...prevFields,
+      profileImage: true,
+    }));
   };
   
+  const handleInputChange = (event, fieldName) => {
+    const value = event.target.value;
+    setFormData((prevData) => ({
+      ...prevData,
+      [fieldName]: value,
+    }));
+    setFieldCompleted((prevFields) => ({
+      ...prevFields,
+      [fieldName]: value.trim() !== "", // Set to true if the field is not empty
+    }));
+  };
 
 
   return (
@@ -48,11 +41,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="text"
+            placeholder="Enter your first name"
             id="firstName"
             name="firstName"
             value={formData.firstName}
-            onChange={(event) => setFormData({ ...formData, firstName:event.target.value})}
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "firstName")}
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -64,11 +58,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="text"
+            placeholder="Enter your last name"
             id="lastName"
             name="lastName"
             value={formData.lastName}
-            onChange={(event) => setFormData({ ...formData, lastName:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "lastName")}           
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -80,11 +75,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="email"
+            placeholder="Enter your Email"
             id="email"
             name="email"
             value={formData.email}
-            onChange={(event) => setFormData({ ...formData, email:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "email")}          
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -96,11 +92,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="tel"
+            placeholder="Enter your Phone Number"
             id="phoneNumber"
             name="phoneNumber"
             value={formData.phoneNumber}
-            onChange={(event) => setFormData({ ...formData, phoneNumber:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "phoneNumber")}          
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -114,7 +111,7 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="gender"
             name="gender"
             value={formData.gender}
-            onChange={(event) => setFormData({ ...formData, gender:event.target.value})}            
+            onChange={(event) => handleInputChange(event, "gender")}          
             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
           >
             <option value="">Select Gender</option>
@@ -134,11 +131,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="text"
+            placeholder="Enter your District"
             id="district"
             name="address.district"
             value={formData.district}
-            onChange={(event) => setFormData({ ...formData, district:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "district")}          
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -153,8 +151,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             id="dateOfBirth"
             name="dateOfBirth"
             value={formData.dateOfBirth}
-            onChange={(event) => setFormData({ ...formData, dateOfBirth:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "dateOfBirth")}           
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -166,11 +164,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="text"
+            placeholder="Enter your City"
             id="city"
             name="address.city"
             value={formData.city}
-            onChange={(event) => setFormData({ ...formData, city:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "city")}          
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div className="mb-2">
@@ -182,11 +181,12 @@ const DetailsForm = ({ formData, setFormData }) => {
           </label>
           <input
             type="text"
+            placeholder="Enter your PIN code"
             id="pinCode"
             name="address.pinCode"
             value={formData.pinCode}
-            onChange={(event) => setFormData({ ...formData, pinCode:event.target.value})}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            onChange={(event) => handleInputChange(event, "pinCode")}        
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
         </div>
         <div>
@@ -202,9 +202,8 @@ const DetailsForm = ({ formData, setFormData }) => {
             name="profileImage"
             // value={formData.profileImage}
             onChange={handleImageChange}            
-            className="w-full tm:p-2 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full tm:p-2 p-2 border rounded-md focus:outline-none focus:border-blue-500"
           />
-          {/* <UploadImage handleChange={handleImageChange} /> */}
         </div>
       </div>
     </div>

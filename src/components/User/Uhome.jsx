@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link,} from "react-router-dom";
 import { useSearch } from "../../context/UserContext";  
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -66,6 +66,10 @@ function Uhome(){
       setFilteredData(jobData);
     }
   }, [searchInput, jobData]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [filteredData]);
 
   return (
     <div className="bg-[#fffdcb] xl:px-28 lg:px-24 md:px-20 sm:px-10 px-1 sm:py-8 py-4 w-full sm:min-h-[500px] min-h-[350px]">

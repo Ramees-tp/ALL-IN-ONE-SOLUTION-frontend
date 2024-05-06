@@ -15,6 +15,7 @@ const Registration = () => {
  
 
   const [error, setError] = useState('')
+  const [buttonClicked, setButtonClicked] = useState(false);
   
   const [page, setPage] = useState(0);
   const [formData, setFormData] = useState({
@@ -39,6 +40,28 @@ const Registration = () => {
     confirmPass: "",
   });
 
+  const [fieldCompleted, setFieldCompleted] = useState({
+    firstName: false,
+    lastName: false,
+    email: false,
+    phoneNumber: false,
+    gender: false,
+    district: false,
+    dateOfBirth: false,
+    city: false,
+    pinCode: false,
+    profileImage: false,
+  });
+
+  const checkFormCompletion = () => {
+    for (const key in fieldCompleted) {
+      if (!fieldCompleted[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   // const handleChange = (e) => {
   //   const { name, value } = e.target;
   //   setFormData((prevData) => ({
@@ -52,7 +75,7 @@ const Registration = () => {
   const pageDisplay = () => {
     switch (page) {
       case 0:
-        return <DetailsForm formData={formData} setFormData={setFormData} />;
+        return <DetailsForm formData={formData} setFormData={setFormData} setFieldCompleted={setFieldCompleted} fieldCompleted={fieldCompleted} />;
       case 1:
         return <JobForm formData={formData} setFormData={setFormData} />;
       case 2:
@@ -116,6 +139,11 @@ const Registration = () => {
             {formTitles[page]}
           </div>
           <div className="body">{pageDisplay()}</div>
+          {!checkFormCompletion() && buttonClicked && (
+            <div className="text-red-500 text-center mb-4">
+              Please fill in all fields before proceeding.
+            </div>
+          )}
           <div className="footer flex">
             <button
               className="  bg-gray-500 text-white p-2 px-10 rounded-md font-semibold hover:bg-gray-700"
@@ -128,8 +156,11 @@ const Registration = () => {
             </button>
             <button
               className="ml-auto  bg-green-700 text-white p-2 px-10 rounded-md font-semibold hover:bg-green-800 cursor-pointer"
-            //   disabled={page === formTitles.length - 1}
               onClick={() => {
+                if (!checkFormCompletion()) {
+                  setButtonClicked(true);
+                  return;
+                }
                 if (page === formTitles.length - 1) {
                   handleSignup();
                   
@@ -137,7 +168,7 @@ const Registration = () => {
                   setPage((currPage) => currPage + 1);
                 }
               }}
-              
+              disabled={!checkFormCompletion(fieldCompleted) && buttonClicked}
             >
               {page === formTitles.length - 1 ? "Submit" : "Next"}
             </button>

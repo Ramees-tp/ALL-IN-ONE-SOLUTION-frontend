@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import user from "../../assets/icons/account.png";
-// import favWorker from "../../assets/icons/heart.png";
 import axiosInstance from "../../api/worker/workerInstance";
-import io from "socket.io-client";
+import { useSelector } from "react-redux";
 
-const socket = io.connect("http://184.73.25.154/io/");
-// const socket = io.connect('http://localhost:9180')
 
 function Whome() {
+
+  const socket = useSelector((state)=>state.socket.socket)
+
   const [request, setRequest] = useState([])
 
   const workRequest = async () =>{

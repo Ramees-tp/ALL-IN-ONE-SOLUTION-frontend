@@ -107,7 +107,6 @@ function UworkerList() {
     try {
       if (likedWorkers.includes(workerId)) {
         const res = await axiosInstance.delete(`/user/unLikeWorker/${workerId}`);
-        console.log(res.data.existingLikedWorker.workerId);
         setLikedWorkers(prevLikedWorkers => prevLikedWorkers.filter(id => id !== workerId));
       } else {
         const res = await axiosInstance.post(`/user/likedWorker`, { workerId });
@@ -121,6 +120,10 @@ function UworkerList() {
   const navigateToDetails = (workerId) => {
     navigate(`/user/workerDetails/${workerId}/${id}`)
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [data]);
 
   return (
     <div className="md:px-28 sm:px-10 rm:px-6 px-2 bg-[#fffdcb] py-5 sm:min-h-[500px] min-h-[350px]">

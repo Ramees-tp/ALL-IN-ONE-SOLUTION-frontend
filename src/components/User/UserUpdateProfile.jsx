@@ -27,10 +27,7 @@ const UserUpdateProfile = () => {
           const exactLocation = part.length >= 2 ? part[0].trim() : '';
           
           setLocation(exactLocation || '');
-          setCoordinates ([parseFloat(lon), parseFloat(lat)]),
-          // setCoordinates ([parseFloat(lon), parseFloat(lat)].map(Number)),
-          console.log("Nominatim:", lat, lon);
-          
+          setCoordinates ([parseFloat(lon), parseFloat(lat)])
         }
       })
       .catch(error => console.error('Error:', error));
@@ -150,7 +147,7 @@ const handleLocationChange = (event) => {
           onChange={handleChange}
           placeholder="First Name"
 
-          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          className="block w-full px-4 tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
@@ -168,7 +165,7 @@ const handleLocationChange = (event) => {
           onChange={handleChange}
           placeholder="Last Name"
 
-          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          className="block w-full px-4 tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
@@ -186,7 +183,7 @@ const handleLocationChange = (event) => {
           onChange={handleChange}
           placeholder="Phone Number"
 
-          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          className="block w-full px-4 tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
@@ -204,7 +201,7 @@ const handleLocationChange = (event) => {
           onChange={handleChange}
           placeholder="Date of Birth"
 
-          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          className="block w-full px-4 tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
     </div>
@@ -219,7 +216,7 @@ const handleLocationChange = (event) => {
         </label>
 
         <div className="relative">
-          <input className="w-full tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          <input className="w-full tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
                 placeholder="Enter City"
                 type="text" value={location} onChange={handleLocationChange} />
            {suggestions.length > 0 && (
@@ -247,7 +244,7 @@ const handleLocationChange = (event) => {
           onChange={handleChange}
           placeholder="District"
 
-          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          className="block w-full px-4 tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div className="mb-4">
@@ -265,7 +262,7 @@ const handleLocationChange = (event) => {
           onChange={handleChange}
           placeholder="PIN Code"
 
-          className="block w-full px-4 tm:p-1 p-3 border rounded-md focus:outline-none focus:border-blue-500"
+          className="block w-full px-4 tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
         />
       </div>
       <div>
@@ -281,7 +278,11 @@ const handleLocationChange = (event) => {
             name="userImage"
             // value={formData.profileImage}
             onChange={handleImageChange}           
-            className="w-full tm:p-1 p-4 border rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full tm:h-auto h-9 bg-white rounded-2xl block text-sm text-slate-600 focus:outline-none focus:border-blue-500 shadow-md   file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold
+            file:bg-violet-200 file:text-violet-700
+            hover:file:bg-violet-100 hover:file:cursor-pointer"
           />
         </div>
       </div>

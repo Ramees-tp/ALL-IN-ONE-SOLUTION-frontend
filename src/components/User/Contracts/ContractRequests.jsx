@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react'
 import axiosInstance from '../../../api/axios';
 import RazorpayPayment from '../../RazorpayPayment'
-import io from "socket.io-client";
-
-const socket = io.connect("http://184.73.25.154/io/");
-// const socket = io.connect('http://localhost:9180')
-
-
+import { useSelector } from 'react-redux';
 
 
 const ContractRequests = () => {
+
+  const socket = useSelector((state)=>state.socket.socket)
+
   const [requests, setRequests] = useState([])
   const [paymentCompleted, setPaymentCompleted] = useState(false);
   const [error, setError] = useState("");

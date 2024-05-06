@@ -1,17 +1,15 @@
 import green from "../../assets/icons/circle.png";
 import user from "../../assets/icons/account.png";
 
-
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../api/axios";
 
-import { io } from "socket.io-client";
-const socket = io.connect("http://184.73.25.154/io/");
-// const socket = io.connect('http://localhost:9180')
-
-
 function UworkerDetails() {
+
+  const socket = useSelector((state)=>state.socket.socket)
+
   const [location, setLocation] = useState([]);
   const [coordinates, setCoordinates] = useState([]);
 
@@ -53,7 +51,7 @@ function UworkerDetails() {
         socket.emit('updateRequest', { workerId });
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -223,7 +221,11 @@ function UworkerDetails() {
         )}
       </div>
       <div className="flex justify-center items-center tm:mt-10 mt-5 ">
-        <button onClick={ ()=>sendRequest(details[0]._id)} className="bg-green-700 hover:bg-green-500 tm:p-3 p-2 rounded text-white">
+        <button onClick={ ()=>sendRequest(details[0]._id)} disabled={!selectedDay} className={`tm:p-3 p-2 rounded text-white ${
+        selectedDay 
+            ? 'bg-green-700 hover:bg-green-500' // Enabled color
+            : 'bg-red-800 cursor-not-allowed'  // Disabled color
+    }`}>
           Send Request
         </button>
       </div>

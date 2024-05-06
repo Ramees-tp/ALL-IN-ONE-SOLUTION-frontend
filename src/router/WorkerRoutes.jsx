@@ -1,19 +1,23 @@
+import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from "react-router-dom";
-import DetailsForm from "../components/Worker/Registraion/DetailsForm";
-import JobForm from "../components/Worker/Registraion/JobForm";
-import PaymentForm from "../components/Worker/Registraion/PaymentForm";
-import Wlogin from "../components/Worker/Wlogin";
-import Registration from "../components/Worker/Registraion/Registration";
-import WorkerHome from "../pages/WorkerHome/WorkerHome";
-import Wprofile from "../components/Worker/Wprofile";
-import WupdateProfile from "../pages/WorkerHome/WupdateProfile";
 import WorkerAuth from "../authGauard/WorkerAuth";
 import NotFoundWorker from '../pages/NotFoundWorker'
-import ContactPage from "../pages/UserHome/ContactPage";
+import Suspens from '../components/Suspence';
+
+const DetailsForm = lazy(() => import('../components/Worker/Registraion/DetailsForm'));
+const JobForm = lazy(() => import('../components/Worker/Registraion/JobForm'));
+const PaymentForm = lazy(() => import('../components/Worker/Registraion/PaymentForm'));
+const Wlogin = lazy(() => import('../components/Worker/Wlogin'));
+const Registration = lazy(() => import('../components/Worker/Registraion/Registration'));
+const WorkerHome = lazy(() => import('../pages/WorkerHome/WorkerHome'));
+const Wprofile = lazy(() => import('../components/Worker/Wprofile'));
+const WupdateProfile = lazy(() => import('../pages/WorkerHome/WupdateProfile'));
+
 
 function WorkerRoutes() {
   return (
     <div>
+      <Suspense fallback={<Suspens/>}>
       <Routes>
         <Route path="/WorkerLogin" element={<Wlogin />} />
         <Route path="/registration" element={<Registration />} />
@@ -30,6 +34,7 @@ function WorkerRoutes() {
         <Route path='*' element={<NotFoundWorker/>} />
       </Route>  
       </Routes>
+      </Suspense>
     </div>
   );
 }
