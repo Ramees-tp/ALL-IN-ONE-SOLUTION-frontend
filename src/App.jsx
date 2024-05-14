@@ -2,10 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import io from 'socket.io-client'
 import { useDispatch, useSelector } from "react-redux";
-import { setSocket } from "./redux/SocketSlice";
+import { selectSocket, setSocket } from "./redux/SocketSlice";
 import { useEffect } from "react";
 import { selectToken } from "./redux/TokenSlice";
-import Suspence from "./components/suspence";
+import SuspenceView from "./components/SuspenceView";
 
 const AdminRoutes = lazy(()=> import("./router/AdminRoutes"));
 const CommonRouter = lazy(()=> import("./router/CommonRouter"));
@@ -15,19 +15,20 @@ const WorkerRoutes = lazy(() => import("./router/WorkerRoutes"));
 function App() {
   const dispatch = useDispatch()
   const token = useSelector(selectToken)
+  const socket = useSelector(selectSocket)
   useEffect(()=>{
-    if(token){
-      const socket = io.connect('http://184.73.25.154/io/');
-    // const socket = io.connect('http://localhost:9180')
+    if(token && !socket){
+      // const socket = io.connect('http://184.73.25.154/io/');
+    const socket = io.connect('http://localhost:9180')
     dispatch(setSocket(socket));
     return () => {
       socket.disconnect()
     };
     }
-  },[dispatch, token])
+  },[token])
   return (
       <BrowserRouter>
-      <Suspense fallback={<Suspence/>}>
+      <Suspense fallback={<SuspenceView/>}>
         <Routes>
           <Route path="/*" element={<CommonRouter />} />
           <Route path="/user/*" element={<UserRoutes />} />

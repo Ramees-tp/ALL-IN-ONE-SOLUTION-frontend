@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Route, Routes } from "react-router-dom";
 import WorkerAuth from "../authGauard/WorkerAuth";
 import NotFoundWorker from '../pages/NotFoundWorker'
-import Suspens from '../components/Suspence';
+import Suspens from '../components/SuspenceView';
 
 const DetailsForm = lazy(() => import('../components/Worker/Registraion/DetailsForm'));
 const JobForm = lazy(() => import('../components/Worker/Registraion/JobForm'));

@@ -3,7 +3,7 @@ import { SearchProvider } from "../context/UserContext";
 import React, { Suspense, lazy } from 'react';
 import UserAuth from "../authGauard/UserAuth";
 import NotFound from "../pages/NotFound";
-import Suspence from "../components/suspence";
+import Suspence from "../components/SuspenceView";
 
 
 const SignUp = lazy(() => import("../pages/signUp/SignUp"));
